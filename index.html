@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>홍길동 | Personal Site</title>
+  <meta name="description" content="Your name — Researcher / Developer Portfolio" />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* =========================
+       0) QUICK THEME KNOBS
+       ---------------------
+       - 아래 변수들만 바꿔도 전체 톤이 바뀝니다.
+       - 다크/라이트는 자동 전환 + 토글 버튼 제공.
+    ========================== */
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a; /* slate-900 */
+      --muted: #475569; /* slate-600 */
+      --primary: #2563eb; /* blue-600 */
+      --primary-ghost: rgba(37, 99, 235, .08);
+      --card: #f8fafc; /* slate-50 */
+      --border: #e2e8f0; /* slate-200 */
+      --shadow: 0 8px 30px rgba(2, 6, 23, .06);
+      --radius: 16px;
+      --maxw: 1024px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220; /* navy-ish */
+        --text: #e2e8f0; /* slate-200 */
+        --muted: #94a3b8; /* slate-400 */
+        --primary: #60a5fa; /* blue-300 */
+        --primary-ghost: rgba(96, 165, 250, .12);
+        --card: #0f172a; /* slate-900 */
+        --border: #1e293b; /* slate-800 */
+        --shadow: 0 8px 30px rgba(2, 6, 23, .35);
+      }
+    }
+    /* light/dark 수동 토글 클래스 */
+    .theme-light {
+      --bg: #ffffff;
+      --text: #0f172a; --muted:#475569; --primary:#2563eb; --primary-ghost: rgba(37,99,235,.08);
+      --card:#f8fafc; --border:#e2e8f0; --shadow:0 8px 30px rgba(2,6,23,.06);
+    }
+    .theme-dark {
+      --bg:#0b1220; --text:#e2e8f0; --muted:#94a3b8; --primary:#60a5fa; --primary-ghost:rgba(96,165,250,.12);
+      --card:#0f172a; --border:#1e293b; --shadow:0 8px 30px rgba(2,6,23,.35);
+    }
+
+    /* =========================
+       1) BASE
+    ========================== */
+    html { scroll-behavior: smooth; }
+    body { margin:0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .pill { display:inline-block; padding: 6px 10px; border-radius: 999px; background: var(--primary-ghost); color: var(--primary); font-weight:600; font-size:13px; letter-spacing:.2px; }
+    .btn { display:inline-block; padding: 10px 14px; border-radius: 12px; background: var(--primary); color: white; font-weight:600; border:0; cursor:pointer; box-shadow: var(--shadow); }
+    .btn:hover { filter: brightness(0.95); }
+    .btn-ghost { background: var(--primary-ghost); color: var(--primary); }
+
+    /* =========================
+       2) HEADER / NAV
+    ========================== */
+    header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 80%, transparent); border-bottom: 1px solid var(--border); }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .brand { display:flex; gap:10px; align-items:center; }
+    .brand .logo { width: 32px; height: 32px; border-radius: 8px; background: var(--primary-ghost); display:grid; place-items:center; font-weight:800; color:var(--primary); }
+    .navlinks { display:flex; gap:16px; align-items:center; }
+    .navlinks a { color: var(--muted); font-weight:600; }
+    .navlinks a.active, .navlinks a:hover { color: var(--text); }
+    .menu-btn { display:none; }
+
+    @media (max-width: 800px) {
+      .navlinks { display:none; }
+      .menu-btn { display: inline-flex; align-items:center; gap:6px; }
+      #mobile-menu { display:none; }
+      #mobile-menu.open { display:block; }
+      #mobile-menu a { display:block; padding:12px 0; border-bottom:1px solid var(--border); color: var(--muted); }
+      #mobile-menu a:last-child { border-bottom:0; }
+    }
+
+    /* =========================
+       3) HERO
+    ========================== */
+    .hero { padding: 64px 0 36px; }
+    .hero-inner { display:grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items:center; }
+    .hero h1 { font-size: 40px; line-height:1.2; margin: 10px 0 12px; letter-spacing: -0.5px; }
+    .hero p { color: var(--muted); margin: 0 0 18px; }
+    .hero .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .hero .photo { border-radius: var(--radius); overflow:hidden; border:1px solid var(--border); }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+    }
+
+    /* =========================
+       4) SECTIONS
+    ========================== */
+    section { padding: 36px 0; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .section-head h2 { margin:0; font-size: 22px; }
+    .grid { display:grid; gap:16px; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) {
+      .grid.cols-3 { grid-template-columns: 1fr; }
+      .grid.cols-2 { grid-template-columns: 1fr; }
+    }
+
+    /* =========================
+       5) FOOTER
+    ========================== */
+    footer { padding: 32px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 36px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">H</div>
+        <strong>홍길동</strong>
+      </div>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#about" class="active">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+        <button id="themeBtn" class="btn-ghost" title="Toggle theme">🌓</button>
+      </nav>
+      <button id="menuBtn" class="menu-btn btn-ghost" aria-controls="mobile-menu" aria-expanded="false">☰ 메뉴</button>
+    </div>
+    <div id="mobile-menu" class="container">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+      <button id="themeBtnM" class="btn" style="margin:12px 0;">🌓 테마 전환</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section class="hero container">
+      <div class="hero-inner">
+        <div>
+          <span class="pill">WELCOME</span>
+          <h1>안녕하세요, 홍길동입니다.<br/> 연구 · 개발 포트폴리오</h1>
+          <p>로봇 계획/학습, 그래프 기반 최적화, ROS/Neo4j 파이프라인을 연구/개발합니다. 아래 프로젝트와 논문, 글을 통해 작업을 소개합니다.</p>
+          <div class="actions">
+            <a class="btn" href="#projects">프로젝트 보기</a>
+            <a class="btn btn-ghost" href="#contact">연락하기</a>
+          </div>
+        </div>
+        <div class="photo card">
+          <!-- TODO: /assets/profile.jpg 로 바꾸세요 -->
+          <img src="https://picsum.photos/800/600" alt="Profile preview" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="container">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+      <div class="card" style="padding:20px;">
+        <p style="margin:0;">현재 서강대학교 AI Robotics Lab에서 박사과정으로, 다중 로봇 계획/수행을 위한 <strong>LLM × Planner</strong> 통합, 수치 계획, 랜드마크 휴리스틱을 연구합니다. 
+        관심사: PDDL/FD/OPTIC, BehaviorTree.CPP, ROS2, Neo4j.</p>
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="container">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <a href="#" aria-label="All projects">모두 보기 →</a>
+      </div>
+      <div class="grid cols-3">
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Multi-Robot Tomato Harvest</h3>
+          <p class="muted">ROS1/2 · YOLOv11 · BT.CPP · Neo4j</p>
+          <p>3DSG 기반 지식 그래프와 BT 제어로 다중 로봇 수확 시나리오를 구현.</p>
+          <a href="#">깃허브 ↗</a>
+        </article>
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Numeric Fast Downward</h3>
+          <p class="muted">Heuristics · Merge-and-Shrink · Landmarks</p>
+          <p>수치 제약 플래닝을 위한 휴리스틱 및 추상화/정제 파이프라인 실험.</p>
+          <a href="#">문서 ↗</a>
+        </article>
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Aloha Sim Pipeline</h3>
+          <p class="muted">HDF5 · 영상생성 · 데이터 파이프</p>
+          <p>시뮬 레코딩으로부터 이미지/동영상 브리짓 파이프라인.</p>
+          <a href="#">블로그 ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== PUBLICATIONS ========== -->
+    <section id="publications" class="container">
+      <div class="section-head">
+        <h2>Publications</h2>
+        <a href="#">Google Scholar ↗</a>
+      </div>
+      <div class="grid cols-2">
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Probabilistically Correct Language-Based Multi‑Robot Planning Using Conformal Prediction</h3>
+          <p class="muted">2025 · Preprint</p>
+          <p>언어 기반 플래닝과 conformal prediction을 결합한 안정적 실행 프레임워크.</p>
+          <a href="#">PDF ↗</a>
+        </article>
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Landmark-Guided Abstraction for Numeric Planning</h3>
+          <p class="muted">2024 · Workshop</p>
+          <p>랜드마크 주도 추상화 정제(CEGAR)와 수치 휴리스틱의 접목.</p>
+          <a href="#">PDF ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== BLOG ========== -->
+    <section id="blog" class="container">
+      <div class="section-head">
+        <h2>Blog</h2>
+        <a href="#">RSS ↗</a>
+      </div>
+      <div class="grid cols-2">
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">Merge-and-Shrink 요점 정리</h3>
+          <p class="muted">Notes · Heuristics</p>
+          <p>FDR/DTG/CG와 M&S의 상호작용, 축약 정책과 우선순위.</p>
+          <a href="#">읽기 →</a>
+        </article>
+        <article class="card" style="padding:16px;">
+          <h3 style="margin-top:0">BT.CPP로 만드는 토마토 수확자</h3>
+          <p class="muted">ROS · BehaviorTree</p>
+          <p>액션/컨디션 노드 설계, 블랙보드, 포트·토픽 설계 사례.</p>
+          <a href="#">읽기 →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="container">
+      <div class="section-head">
+        <h2>Contact</h2>
+      </div>
+      <div class="card" style="padding:20px;">
+        <p style="margin:0 0 10px;">이메일: <a href="mailto:you@example.com">you@example.com</a> · 깃허브: <a href="https://github.com/yourname">@yourname</a> · X: <a href="#">@yourhandle</a></p>
+        <form onsubmit="alert('메일 전송 예시입니다. Formspree 등으로 연결하세요.'); return false;">
+          <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr;">
+            <input required placeholder="Your name" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
+            <input required type="email" placeholder="Your email" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
+          </div>
+          <textarea required placeholder="Message" rows="5" style="margin-top:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"></textarea>
+          <button class="btn" type="submit" style="margin-top:10px;">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>© <span id="year"></span> 홍길동. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    // ========== YEAR ==========
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ========== MOBILE MENU ==========
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    // ========== THEME TOGGLE ==========
+    const themeBtns = [document.getElementById('themeBtn'), document.getElementById('themeBtnM')];
+    const root = document.documentElement;
+    function setTheme(mode) {
+      root.classList.remove('theme-light', 'theme-dark');
+      if (mode === 'light') root.classList.add('theme-light');
+      if (mode === 'dark') root.classList.add('theme-dark');
+      localStorage.setItem('theme-mode', mode);
+    }
+    const saved = localStorage.getItem('theme-mode');
+    if (saved) setTheme(saved);
+    themeBtns.forEach(btn => btn && btn.addEventListener('click', () => {
+      const now = root.classList.contains('theme-dark') ? 'dark' : root.classList.contains('theme-light') ? 'light' : null;
+      setTheme(now === 'dark' ? 'light' : 'dark');
+    }));
+
+    // ========== ACTIVE LINK ON SCROLL (간단 버전) ==========
+    const links = document.querySelectorAll('.navlinks a');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const onScroll = () => {
+      const y = window.scrollY + 100;
+      let active = links[0];
+      sections.forEach((sec, i) => {
+        if (sec.offsetTop <= y) active = links[i];
+      });
+      links.forEach(a => a.classList.remove('active'));
+      if (active) active.classList.add('active');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+</html>
