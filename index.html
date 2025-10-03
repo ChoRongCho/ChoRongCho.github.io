@@ -7,326 +7,138 @@
   <meta name="description" content="Changmin Park — Research / Portfolio" />
   <meta name="color-scheme" content="light dark" />
   <style>
-    /* =========================
-       CALM, QUIET THEME
-    ========================== */
+    /* =============== CALM MINIMAL THEME (V2) =============== */
     :root {
-      --bg: #ffffff;
-      --text: #0f172a; /* slate-900 */
-      --muted: #475569; /* slate-600 */
-      --primary: #1f2937; /* slate-800 (차분한 포인트) */
-      --primary-ghost: rgba(2, 6, 23, .06);
-      --card: #f8fafc; /* slate-50 */
-      --border: #e2e8f0; /* slate-200 */
-      --shadow: 0 6px 24px rgba(2, 6, 23, .06);
-      --radius: 14px;
-      --maxw: 980px;
-      --space: clamp(16px, 2vw, 24px);
+      --bg: #fff;          --text: #0f172a;   --muted:#475569;
+      --card:#f8fafc;      --border:#e2e8f0;  --shadow:0 4px 18px rgba(2,6,23,.06);
+      --radius:14px;       --maxw: 1220px;    /* 화면 너비 확장 */
+      --space: 12px;       /* 좌우 여백 축소 → 글 영역 확대 */
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b1220;
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --primary: #cbd5e1; /* slate-300 */
-        --primary-ghost: rgba(203, 213, 225, .08);
-        --card: #0f172a;
-        --border: #1e293b;
-        --shadow: 0 6px 28px rgba(2, 6, 23, .35);
-      }
-    }
-    .theme-light { --bg:#fff; --text:#0f172a; --muted:#475569; --primary:#1f2937; --primary-ghost:rgba(2,6,23,.06); --card:#f8fafc; --border:#e2e8f0; --shadow:0 6px 24px rgba(2,6,23,.06); }
-    .theme-dark  { --bg:#0b1220; --text:#e2e8f0; --muted:#94a3b8; --primary:#cbd5e1; --primary-ghost:rgba(203,213,225,.08); --card:#0f172a; --border:#1e293b; --shadow:0 6px 28px rgba(2,6,23,.35); }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b1220; --text:#e2e8f0; --muted:#94a3b8; --card:#0f172a; --border:#1e293b; --shadow:0 6px 24px rgba(2,6,23,.35);} }
 
-    /* =========================
-       BASE
-    ========================== */
-    html { scroll-behavior: smooth; }
-    body { margin:0; font: 16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
-    a { color: inherit; text-underline-offset: 3px; }
-    img { max-width: 100%; height: auto; border-radius: var(--radius); }
-    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--space); }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .btn { display:inline-flex; gap:8px; align-items:center; padding: 10px 14px; border-radius: 12px; background: var(--primary-ghost); color: var(--primary); font-weight:600; border:1px solid var(--border); cursor:pointer; }
-    .btn:hover { filter: brightness(0.98); }
-    .muted { color: var(--muted); }
+    html{scroll-behavior:smooth}
+    body{margin:0; background:var(--bg); color:var(--text); font:16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, Arial, sans-serif}
+    a{color:inherit; text-underline-offset:3px}
+    img{max-width:100%; height:auto; border-radius:var(--radius)}
+    .container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--space)}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
 
-    /* =========================
-       HEADER
-    ========================== */
-    header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 84%, transparent); border-bottom: 1px solid var(--border); }
-    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px; }
-    .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--primary-ghost); display:grid; place-items:center; font-weight:800; color:var(--primary); font-size:12px; }
-    .navlinks { display:flex; gap:10px; align-items:center; }
-    .navlinks a { padding:8px 10px; border-radius:10px; color: var(--muted); text-decoration:none; }
-    .navlinks a.active, .navlinks a:hover { background: var(--primary-ghost); color: var(--primary); }
-    .menu-btn { display:none; }
+    /* ================= HEADER: brand-only ================= */
+    header{position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); background:color-mix(in oklab, var(--bg) 86%, transparent); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:700}
+    .brand .logo{width:28px; height:28px; border-radius:8px; background:#e2e8f055; display:grid; place-items:center; font-weight:800; font-size:12px}
 
-    @media (max-width: 820px) {
-      .navlinks { display:none; }
-      .menu-btn { display:inline-flex; }
-      #mobile-menu { display:none; border-top:1px solid var(--border); }
-      #mobile-menu.open { display:block; }
-      #mobile-menu a { display:block; padding:12px 0; color: var(--muted); text-decoration:none; border-bottom:1px dashed var(--border); }
-      #mobile-menu a:last-child { border-bottom:0; }
-    }
+    /* ================= SECTIONS ================= */
+    section{padding:28px 0}
+    .section-head{margin-bottom:12px}
+    .section-head h2{margin:0; font-size:22px}
 
-    /* =========================
-       HERO (HOME only)
-    ========================== */
-    .hero { padding: 48px 0 32px; }
-    .hero-inner { display:grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items:center; }
-    .hero h1 { font-size: clamp(28px, 2.6vw, 40px); line-height:1.25; letter-spacing:-0.3px; margin: 6px 0 14px; }
-    .hero p { color: var(--muted); margin: 0 0 18px; }
-    @media (max-width: 920px) { .hero-inner { grid-template-columns: 1fr; } }
+    /* ================= PROJECTS: Tabs + sidenav ================= */
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
+    .tab{padding:8px 12px; border:1px solid var(--border); border-radius:10px; background:transparent; color:var(--muted); cursor:pointer}
+    .tab[aria-selected="true"]{background:#e2e8f04d; color:inherit; font-weight:600}
 
-    /* =========================
-       SECTION + GRID
-    ========================== */
-    section { padding: 28px 0; }
-    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-    .section-head h2 { margin:0; font-size: 20px; }
-    .grid { display:grid; gap:14px; }
-    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 920px) { .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; } }
+    .subgrid{display:grid; grid-template-columns:220px 1fr; gap:16px}
+    @media (max-width: 920px){ .subgrid{grid-template-columns:1fr} }
 
-    /* =========================
-       PROJECTS (Tabbed views)
-    ========================== */
-    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
-    .tab { padding:8px 12px; border:1px solid var(--border); border-radius:10px; background:transparent; color:var(--muted); cursor:pointer; }
-    .tab[aria-selected="true"] { background: var(--primary-ghost); color: var(--primary); font-weight:600; }
+    .sidenav{position:sticky; top:86px; align-self:start}
+    .sidenav a{display:block; padding:8px 10px; margin-bottom:6px; border-radius:10px; text-decoration:none; color:var(--muted); border:1px solid transparent}
+    .sidenav a.active, .sidenav a:hover{background:#e2e8f04d; color:inherit; border-color:var(--border)}
 
-    .subgrid { display:grid; grid-template-columns: 240px 1fr; gap: 16px; }
-    @media (max-width: 920px) { .subgrid { grid-template-columns: 1fr; } }
+    .doc{padding:36px; /* 본문 패딩 확대 → 쓰기 공간 여유 */}
+    .doc h3{margin:0 0 12px; font-size:20px}
 
-    .sidenav { position:sticky; top:88px; align-self:start; }
-    .sidenav a { display:block; padding:8px 10px; margin-bottom:6px; border-radius:10px; text-decoration:none; color: var(--muted); border:1px solid transparent; }
-    .sidenav a.active, .sidenav a:hover { color: var(--primary); background: var(--primary-ghost); border-color: var(--border); }
-
-    .doc { padding:18px; }
-    .doc h3 { margin-top:0; font-size:18px; }
-    /* placeholder removed per request */
-
-    /* =========================
-       FOOTER
-    ========================== */
-    footer { padding: 30px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 34px; }
+    /* ================= FOOTER ================= */
+    footer{padding:30px 0 60px; color:var(--muted); border-top:1px solid var(--border); margin-top:34px}
   </style>
 </head>
 <body>
-  <!-- =========================== HEADER =========================== -->
+  <!-- ===== HEADER (브랜드만 남김) ===== -->
   <header>
     <div class="container nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">CP</div>
-        <strong>Changmin Park</strong>
-      </div>
-      <nav class="navlinks" aria-label="Primary">
-        <button id="themeBtn" class="btn" title="Toggle theme" aria-label="Toggle theme">🌓</button>
-      </nav>
-      <button id="menuBtn" class="menu-btn btn" aria-controls="mobile-menu" aria-expanded="false">☰</button>
-    </div>
-    <div id="mobile-menu" class="container">
-      <a data-link href="#/home">Home</a>
-      <a data-link href="#/projects">Projects</a>
-      <a data-link href="#/about">About</a>
-      <a data-link href="#/contact">Contact</a>
-      <button id="themeBtnM" class="btn" style="margin:12px 0;">🌓 테마</button>
+      <div class="brand"><div class="logo" aria-hidden="true">CP</div><strong>Changmin Park</strong></div>
+      <!-- 오른쪽은 비움: 링크/테마토글 제거 -->
     </div>
   </header>
 
-  <!-- =========================== APP ROOT =========================== -->
+  <!-- ===== APP ROOT ===== -->
   <main id="app" class="container" aria-live="polite"></main>
 
   <footer>
-    <div class="container">
-      <small>© <span id="year"></span> Changmin Park. All rights reserved.</small>
-    </div>
+    <div class="container"><small>© <span id="year"></span> Changmin Park. All rights reserved.</small></div>
   </footer>
 
   <script>
-    // ========== YEAR ==========
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ========== MOBILE MENU ==========
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn?.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    // ========== THEME TOGGLE ==========
-    const themeBtns = [document.getElementById('themeBtn'), document.getElementById('themeBtnM')];
-    const root = document.documentElement;
-    function setTheme(mode) {
-      root.classList.remove('theme-light', 'theme-dark');
-      if (mode === 'light') root.classList.add('theme-light');
-      if (mode === 'dark') root.classList.add('theme-dark');
-      localStorage.setItem('theme-mode', mode);
-    }
-    const saved = localStorage.getItem('theme-mode');
-    if (saved) setTheme(saved);
-    themeBtns.forEach(btn => btn && btn.addEventListener('click', () => {
-      const now = root.classList.contains('theme-dark') ? 'dark' : root.classList.contains('theme-light') ? 'light' : null;
-      setTheme(now === 'dark' ? 'light' : 'dark');
-    }));
-
-    // ========== SIMPLE SPA ROUTER ==========
     const app = document.getElementById('app');
 
-    // Content model for Projects
+    // ===== Projects content model
     const PROJECT_GROUPS = [
-      {
-        key: 'ai', title: '1. Introduction to Artificial Intelligence',
-        items: [
-          { key:'1-1', title:'1-1. Propositional Logic' },
-          { key:'1-2', title:'1-2. First-Order Logic' },
-          { key:'1-3', title:'1-3. (채워주세요)' },
-        ]
-      },
-      {
-        key: 'classical', title: '2. Classical AI Planning',
-        items: [
-          { key:'2-1', title:'2-1. Problem Formulation' },
-          { key:'2-2', title:'2-2. PDDL' },
-          { key:'2-3', title:'2-3. Causal Graph' },
-          { key:'2-4', title:'2-4. (채워주세요)' },
-        ]
-      },
-      {
-        key: 'dip', title: '3. Domain-Independent Planners',
-        items: [
-          { key:'3-1', title:'3-1. FF Planner' },
-          { key:'3-2', title:'3-2. Fast Downward' },
-          { key:'3-3', title:'3-3. (채워주세요)' },
-        ]
-      },
-      {
-        key: 'tamp', title: '4. Task and Motion Planning',
-        items: [
-          { key:'4-1', title:'4-1. paper1' },
-          { key:'4-2', title:'4-2. paper2' },
-          { key:'4-3', title:'4-3. (채워주세요)' },
-        ]
-      }
+      { key:'ai', title:'1. Introduction to Artificial Intelligence', items:[
+        {key:'1-1', title:'1-1. Propositional Logic'},
+        {key:'1-2', title:'1-2. First-Order Logic'},
+        {key:'1-3', title:'1-3. (채워주세요)'}
+      ]},
+      { key:'classical', title:'2. Classical AI Planning', items:[
+        {key:'2-1', title:'2-1. Problem Formulation'},
+        {key:'2-2', title:'2-2. PDDL'},
+        {key:'2-3', title:'2-3. Causal Graph'},
+        {key:'2-4', title:'2-4. (채워주세요)'}
+      ]},
+      { key:'dip', title:'3. Domain-Independent Planners', items:[
+        {key:'3-1', title:'3-1. FF Planner'},
+        {key:'3-2', title:'3-2. Fast Downward'},
+        {key:'3-3', title:'3-3. (채워주세요)'}
+      ]},
+      { key:'tamp', title:'4. Task and Motion Planning', items:[
+        {key:'4-1', title:'4-1. paper1'},
+        {key:'4-2', title:'4-2. paper2'},
+        {key:'4-3', title:'4-3. (채워주세요)'}
+      ]}
     ];
 
-    function setActiveHeader(path) {
-      document.querySelectorAll('.navlinks a[data-link]').forEach(a => {
-        if (a.getAttribute('href') === path) a.classList.add('active'); else a.classList.remove('active');
-      });
+    // ===== Views
+    function ProjectsView(groupKey='ai', itemKey=null){
+      const group = PROJECT_GROUPS.find(g=>g.key===groupKey) || PROJECT_GROUPS[0];
+      const tabBar = `<div class="tabs" role="tablist" aria-label="Project groups">${
+        PROJECT_GROUPS.map(g=>`<button class="tab" role="tab" aria-selected="${g.key===group.key}" onclick="location.hash='#/projects/${g.key}'">${g.title}</button>`).join('')
+      }</div>`;
+
+      const sidenav = `<nav class="sidenav" aria-label="Subtopics">${
+        group.items.map(it=>{
+          const href = `#/projects/${group.key}/${it.key}`; const active = itemKey===it.key? 'active':'';
+          return `<a data-link href="${href}" class="${active}">${it.title}</a>`; }).join('')
+      }</nav>`;
+
+      const content = `<div class="doc card" id="panel-${group.key}" role="tabpanel">${
+        itemKey ? `<h3>${group.items.find(i=>i.key===itemKey)?.title||''}</h3>` : `<h3>${group.title}</h3>`
+      }</div>`;
+
+      return `<section><div class="section-head"><h2>Projects</h2></div>${tabBar}<div class="subgrid">${sidenav}${content}</div></section>`;
     }
 
-    function HomeView() {
-      return `
-        <section class="hero">
-          <div class="hero-inner">
-            <div>
-              <p class="muted">WELCOME</p>
-              <h1>연구 · 개발 포트폴리오</h1>
-              <p>Task Planning · AI Planning · Robotics</p>
-              <div class="actions">
-                <a class="btn" href="#/projects">프로젝트 보기</a>
-                <a class="btn" href="#/contact">Contact</a>
-              </div>
-            </div>
-            <div class="card" style="padding:0; overflow:hidden;">
-              <img src="https://picsum.photos/800/600" alt="Profile" />
-            </div>
-          </div>
-        </section>
-      `;
+    function AboutView(){
+      return `<section><div class="section-head"><h2>About Me</h2></div><div class="card" style="padding:24px"><p style="margin:0">I am a Graduate Student in the Department of Electronic Engineering at Sogang University. I'm studying at AI Robotics Lab, advised by Prof. Changjoo Nam. I received my Bachelor and Master's degree from Sogang University in Electronic Engineering.</p></div></section>`;
     }
 
-    function AboutView() {
-      return `
-        <section>
-          <div class="section-head"><h2>About Me</h2></div>
-          <div class="card" style="padding:18px;">
-            <p style="margin:0;">I am a Graduate Student in the Department of Electronic Engineering at Sogang University. I'm studying at AI Robotics Lab, advised by Prof. Changjoo Nam. I received my Bachelor and Master's degree from Sogang University in Electronic Engineering.</p>
-          </div>
-        </section>
-      `;
+    function ContactView(){
+      return `<section><div class="section-head"><h2>Contact</h2></div><div class="card" style="padding:24px"><p class="muted" style="margin:0 0 10px">이메일: <a href="mailto:you@example.com">you@example.com</a> · 깃허브: <a href="https://github.com/yourname" target="_blank" rel="noreferrer noopener">@yourname</a> · X: <a href="#" rel="noreferrer noopener">@yourhandle</a></p><form onsubmit="alert('메일 전송 예시입니다.'); return false;"><div style="display:grid; gap:10px; grid-template-columns:1fr 1fr"><input required placeholder="Your name" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"/><input required type="email" placeholder="Your email" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"/></div><textarea required placeholder="Message" rows="5" style="margin-top:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"></textarea><button class="tab" type="submit" style="margin-top:10px">Send</button></form></div></section>`;
     }
 
-    function ContactView() {
-      return `
-        <section>
-          <div class="section-head"><h2>Contact</h2></div>
-          <div class="card" style="padding:18px;">
-            <p class="muted" style="margin:0 0 10px;">이메일: <a href="mailto:you@example.com">you@example.com</a> · 깃허브: <a href="https://github.com/yourname" target="_blank" rel="noreferrer noopener">@yourname</a> · X: <a href="#" rel="noreferrer noopener">@yourhandle</a></p>
-            <form onsubmit="alert('메일 전송 예시입니다. Formspree 등으로 연결하세요.'); return false;">
-              <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr;">
-                <input required placeholder="Your name" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
-                <input required type="email" placeholder="Your email" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
-              </div>
-              <textarea required placeholder="Message" rows="5" style="margin-top:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"></textarea>
-              <button class="btn" type="submit" style="margin-top:10px;">Send</button>
-            </form>
-          </div>
-        </section>
-      `;
-    }
-
-    function ProjectsView(groupKey = 'ai', itemKey = null) {
-      const groupIndex = Math.max(0, PROJECT_GROUPS.findIndex(g => g.key === groupKey));
-      const group = PROJECT_GROUPS[groupIndex] || PROJECT_GROUPS[0];
-      const tabBar = `
-        <div class="tabs" role="tablist" aria-label="Project groups">
-          ${PROJECT_GROUPS.map(g => `
-            <button class="tab" role="tab" aria-selected="${g.key===group.key}" aria-controls="panel-${g.key}" onclick="location.hash = '#/projects/${g.key}'">${g.title}</button>
-          `).join('')}
-        </div>
-      `;
-
-      const sidenav = `
-        <nav class="sidenav" aria-label="Subtopics">
-          ${group.items.map(it => {
-            const href = `#/projects/${group.key}/${it.key}`;
-            const active = itemKey === it.key ? 'active' : '';
-            return `<a data-link href="${href}" class="${active}">${it.title}</a>`;
-          }).join('')}
-        </nav>
-      `;
-
-      const content = `
-        <div class="doc card" id="panel-${group.key}" role="tabpanel">
-          ${itemKey ? `<h3>${group.items.find(i=>i.key===itemKey)?.title || ''}</h3>` : `<h3>${group.title}</h3>`}
-        </div>
-      `;
-
-      return `
-        <section>
-          <div class="section-head"><h2>Projects</h2></div>
-          ${tabBar}
-          <div class="subgrid">
-            ${sidenav}
-            ${content}
-          </div>
-        </section>
-      `;
-    }
-
-    // Router
-    function router() {
-      const hash = location.hash || '#/home';
-      const [_, root, g, sub] = hash.split('/'); // '#','home' | 'projects','<group>','<item>'
-      let view = '';
-      if (root === 'home') { view = HomeView(); setActiveHeader('#/home'); }
-      else if (root === 'about') { view = AboutView(); setActiveHeader('#/about'); }
-      else if (root === 'contact') { view = ContactView(); setActiveHeader('#/contact'); }
-      else if (root === 'projects') { view = ProjectsView(g, sub); setActiveHeader('#/projects'); }
-      else { view = HomeView(); setActiveHeader('#/home'); }
+    // ===== Router (default: projects)
+    function router(){
+      const hash = location.hash || '#/projects';
+      const [_, root, g, sub] = hash.split('/');
+      let view='';
+      if(root==='projects') view = ProjectsView(g, sub);
+      else if(root==='about') view = AboutView();
+      else if(root==='contact') view = ContactView();
+      else view = ProjectsView();
       app.innerHTML = view;
-      // close mobile menu on navigation
-      mobileMenu?.classList.remove('open');
-      menuBtn?.setAttribute('aria-expanded','false');
     }
-
     window.addEventListener('hashchange', router);
     window.addEventListener('load', router);
   </script>
