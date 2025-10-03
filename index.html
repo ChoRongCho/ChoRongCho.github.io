@@ -108,7 +108,7 @@
 
     .doc { padding:18px; }
     .doc h3 { margin-top:0; font-size:18px; }
-    .placeholder { color: var(--muted); border:1px dashed var(--border); border-radius: 12px; padding: 14px; background: color-mix(in oklab, var(--card) 70%, transparent); }
+    /* placeholder removed per request */
 
     /* =========================
        FOOTER
@@ -125,10 +125,6 @@
         <strong>Changmin Park</strong>
       </div>
       <nav class="navlinks" aria-label="Primary">
-        <a data-link href="#/home" class="active">Home</a>
-        <a data-link href="#/projects">Projects</a>
-        <a data-link href="#/about">About</a>
-        <a data-link href="#/contact">Contact</a>
         <button id="themeBtn" class="btn" title="Toggle theme" aria-label="Toggle theme">🌓</button>
       </nav>
       <button id="menuBtn" class="menu-btn btn" aria-controls="mobile-menu" aria-expanded="false">☰</button>
@@ -300,10 +296,6 @@
       const content = `
         <div class="doc card" id="panel-${group.key}" role="tabpanel">
           ${itemKey ? `<h3>${group.items.find(i=>i.key===itemKey)?.title || ''}</h3>` : `<h3>${group.title}</h3>`}
-          <div class="placeholder">
-            이 영역에 내용을 채워주세요. (Markdown/HTML 가능)
-            <br/>경로: <code>#/projects/${group.key}${itemKey?('/'+itemKey):''}</code>
-          </div>
         </div>
       `;
 
