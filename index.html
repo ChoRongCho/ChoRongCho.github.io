@@ -4,269 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Changmin Park | Personal Site</title>
-  <!-- 파비콘 (favicon) -->
-  <!-- <link rel="icon" type="image/png" href="assets/img/favicon.png" /> -->
-  <meta name="description" content="Your name — Researcher / Developer Portfolio" />
+  <meta name="description" content="Changmin Park — Research / Portfolio" />
   <meta name="color-scheme" content="light dark" />
   <style>
     /* =========================
-       0) QUICK THEME KNOBS
-       ---------------------
-       - 아래 변수들만 바꿔도 전체 톤이 바뀝니다.
-       - 다크/라이트는 자동 전환 + 토글 버튼 제공.
+       CALM, QUIET THEME
     ========================== */
-
     :root {
       --bg: #ffffff;
       --text: #0f172a; /* slate-900 */
       --muted: #475569; /* slate-600 */
-      --primary: #2563eb; /* blue-600 */
-      --primary-ghost: rgba(37, 99, 235, .08);
+      --primary: #1f2937; /* slate-800 (차분한 포인트) */
+      --primary-ghost: rgba(2, 6, 23, .06);
       --card: #f8fafc; /* slate-50 */
       --border: #e2e8f0; /* slate-200 */
-      --shadow: 0 8px 30px rgba(2, 6, 23, .06);
-      --radius: 16px;
-      --maxw: 1024px;
+      --shadow: 0 6px 24px rgba(2, 6, 23, .06);
+      --radius: 14px;
+      --maxw: 980px;
+      --space: clamp(16px, 2vw, 24px);
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0b1220; /* navy-ish */
-        --text: #e2e8f0; /* slate-200 */
-        --muted: #94a3b8; /* slate-400 */
-        --primary: #60a5fa; /* blue-300 */
-        --primary-ghost: rgba(96, 165, 250, .12);
-        --card: #0f172a; /* slate-900 */
-        --border: #1e293b; /* slate-800 */
-        --shadow: 0 8px 30px rgba(2, 6, 23, .35);
+        --bg: #0b1220;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --primary: #cbd5e1; /* slate-300 */
+        --primary-ghost: rgba(203, 213, 225, .08);
+        --card: #0f172a;
+        --border: #1e293b;
+        --shadow: 0 6px 28px rgba(2, 6, 23, .35);
       }
     }
-    /* light/dark 수동 토글 클래스 */
-    .theme-light {
-      --bg: #ffffff;
-      --text: #0f172a; --muted:#475569; --primary:#2563eb; --primary-ghost: rgba(37,99,235,.08);
-      --card:#f8fafc; --border:#e2e8f0; --shadow:0 8px 30px rgba(2,6,23,.06);
-    }
-    .theme-dark {
-      --bg:#0b1220; --text:#e2e8f0; --muted:#94a3b8; --primary:#60a5fa; --primary-ghost:rgba(96,165,250,.12);
-      --card:#0f172a; --border:#1e293b; --shadow:0 8px 30px rgba(2,6,23,.35);
-    }
+    .theme-light { --bg:#fff; --text:#0f172a; --muted:#475569; --primary:#1f2937; --primary-ghost:rgba(2,6,23,.06); --card:#f8fafc; --border:#e2e8f0; --shadow:0 6px 24px rgba(2,6,23,.06); }
+    .theme-dark  { --bg:#0b1220; --text:#e2e8f0; --muted:#94a3b8; --primary:#cbd5e1; --primary-ghost:rgba(203,213,225,.08); --card:#0f172a; --border:#1e293b; --shadow:0 6px 28px rgba(2,6,23,.35); }
 
     /* =========================
-       1) BASE
+       BASE
     ========================== */
     html { scroll-behavior: smooth; }
-    body { margin:0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    img { max-width: 100%; height: auto; }
-    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    body { margin:0; font: 16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
+    a { color: inherit; text-underline-offset: 3px; }
+    img { max-width: 100%; height: auto; border-radius: var(--radius); }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--space); }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .pill { display:inline-block; padding: 6px 10px; border-radius: 999px; background: var(--primary-ghost); color: var(--primary); font-weight:600; font-size:13px; letter-spacing:.2px; }
-    .btn { display:inline-block; padding: 10px 14px; border-radius: 12px; background: var(--primary); color: white; font-weight:600; border:0; cursor:pointer; box-shadow: var(--shadow); }
-    .btn:hover { filter: brightness(0.95); }
-    .btn-ghost { background: var(--primary-ghost); color: var(--primary); }
+    .btn { display:inline-flex; gap:8px; align-items:center; padding: 10px 14px; border-radius: 12px; background: var(--primary-ghost); color: var(--primary); font-weight:600; border:1px solid var(--border); cursor:pointer; }
+    .btn:hover { filter: brightness(0.98); }
+    .muted { color: var(--muted); }
 
     /* =========================
-       2) HEADER / NAV
+       HEADER
     ========================== */
-    header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 80%, transparent); border-bottom: 1px solid var(--border); }
+    header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 84%, transparent); border-bottom: 1px solid var(--border); }
     .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand { display:flex; gap:10px; align-items:center; }
-    .brand .logo { width: 32px; height: 32px; border-radius: 8px; background: var(--primary-ghost); display:grid; place-items:center; font-weight:800; color:var(--primary); }
-    .navlinks { display:flex; gap:16px; align-items:center; }
-    .navlinks a { color: var(--muted); font-weight:600; }
-    .navlinks a.active, .navlinks a:hover { color: var(--text); }
+    .brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px; }
+    .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--primary-ghost); display:grid; place-items:center; font-weight:800; color:var(--primary); font-size:12px; }
+    .navlinks { display:flex; gap:10px; align-items:center; }
+    .navlinks a { padding:8px 10px; border-radius:10px; color: var(--muted); text-decoration:none; }
+    .navlinks a.active, .navlinks a:hover { background: var(--primary-ghost); color: var(--primary); }
     .menu-btn { display:none; }
 
-    @media (max-width: 800px) {
+    @media (max-width: 820px) {
       .navlinks { display:none; }
-      .menu-btn { display: inline-flex; align-items:center; gap:6px; }
-      #mobile-menu { display:none; }
+      .menu-btn { display:inline-flex; }
+      #mobile-menu { display:none; border-top:1px solid var(--border); }
       #mobile-menu.open { display:block; }
-      #mobile-menu a { display:block; padding:12px 0; border-bottom:1px solid var(--border); color: var(--muted); }
+      #mobile-menu a { display:block; padding:12px 0; color: var(--muted); text-decoration:none; border-bottom:1px dashed var(--border); }
       #mobile-menu a:last-child { border-bottom:0; }
     }
 
     /* =========================
-       3) HERO
+       HERO (HOME only)
     ========================== */
-    .hero { padding: 64px 0 36px; }
-    .hero-inner { display:grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items:center; }
-    .hero h1 { font-size: 40px; line-height:1.2; margin: 10px 0 12px; letter-spacing: -0.5px; }
+    .hero { padding: 48px 0 32px; }
+    .hero-inner { display:grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items:center; }
+    .hero h1 { font-size: clamp(28px, 2.6vw, 40px); line-height:1.25; letter-spacing:-0.3px; margin: 6px 0 14px; }
     .hero p { color: var(--muted); margin: 0 0 18px; }
-    .hero .actions { display:flex; gap:12px; flex-wrap:wrap; }
-    .hero .photo { border-radius: var(--radius); overflow:hidden; border:1px solid var(--border); }
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 920px) { .hero-inner { grid-template-columns: 1fr; } }
 
     /* =========================
-       4) SECTIONS
+       SECTION + GRID
     ========================== */
-    section { padding: 36px 0; }
-    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-    .section-head h2 { margin:0; font-size: 22px; }
-    .grid { display:grid; gap:16px; }
+    section { padding: 28px 0; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .section-head h2 { margin:0; font-size: 20px; }
+    .grid { display:grid; gap:14px; }
     .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
     .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 900px) {
-      .grid.cols-3 { grid-template-columns: 1fr; }
-      .grid.cols-2 { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 920px) { .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; } }
 
     /* =========================
-       5) FOOTER
+       PROJECTS (Tabbed views)
     ========================== */
-    footer { padding: 32px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 36px; }
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
+    .tab { padding:8px 12px; border:1px solid var(--border); border-radius:10px; background:transparent; color:var(--muted); cursor:pointer; }
+    .tab[aria-selected="true"] { background: var(--primary-ghost); color: var(--primary); font-weight:600; }
+
+    .subgrid { display:grid; grid-template-columns: 240px 1fr; gap: 16px; }
+    @media (max-width: 920px) { .subgrid { grid-template-columns: 1fr; } }
+
+    .sidenav { position:sticky; top:88px; align-self:start; }
+    .sidenav a { display:block; padding:8px 10px; margin-bottom:6px; border-radius:10px; text-decoration:none; color: var(--muted); border:1px solid transparent; }
+    .sidenav a.active, .sidenav a:hover { color: var(--primary); background: var(--primary-ghost); border-color: var(--border); }
+
+    .doc { padding:18px; }
+    .doc h3 { margin-top:0; font-size:18px; }
+    .placeholder { color: var(--muted); border:1px dashed var(--border); border-radius: 12px; padding: 14px; background: color-mix(in oklab, var(--card) 70%, transparent); }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer { padding: 30px 0 60px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 34px; }
   </style>
 </head>
 <body>
+  <!-- =========================== HEADER =========================== -->
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="logo">H</div>
+        <div class="logo" aria-hidden="true">CP</div>
         <strong>Changmin Park</strong>
       </div>
       <nav class="navlinks" aria-label="Primary">
-        <a href="#about" class="active">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
-        <button id="themeBtn" class="btn-ghost" title="Toggle theme">🌓</button>
+        <a data-link href="#/home" class="active">Home</a>
+        <a data-link href="#/projects">Projects</a>
+        <a data-link href="#/about">About</a>
+        <a data-link href="#/contact">Contact</a>
+        <button id="themeBtn" class="btn" title="Toggle theme" aria-label="Toggle theme">🌓</button>
       </nav>
-      <button id="menuBtn" class="menu-btn btn-ghost" aria-controls="mobile-menu" aria-expanded="false">☰ 메뉴</button>
+      <button id="menuBtn" class="menu-btn btn" aria-controls="mobile-menu" aria-expanded="false">☰</button>
     </div>
     <div id="mobile-menu" class="container">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#publications">Publications</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
-      <button id="themeBtnM" class="btn" style="margin:12px 0;">🌓 테마 전환</button>
+      <a data-link href="#/home">Home</a>
+      <a data-link href="#/projects">Projects</a>
+      <a data-link href="#/about">About</a>
+      <a data-link href="#/contact">Contact</a>
+      <button id="themeBtnM" class="btn" style="margin:12px 0;">🌓 테마</button>
     </div>
   </header>
 
-  <main>
-    <!-- ========== HERO ========== -->
-    <section class="hero container">
-      <div class="hero-inner">
-        <div>
-          <span class="pill">WELCOME</span>
-          <h1>Welcome!!<br/> 연구 · 개발 포트폴리오</h1>
-          <p>Task Planning, AI Planning, Robotics</p>
-          <div class="actions">
-            <a class="btn" href="#projects">Show Project</a>
-            <a class="btn btn-ghost" href="#contact">Contact</a>
-          </div>
-        </div>
-        <div class="photo card">
-          <!-- TODO: /assets/profile.jpg 로 바꾸세요 -->
-          <img src="https://picsum.photos/800/600" alt="Profile preview" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== ABOUT ========== -->
-    <section id="about" class="container">
-      <div class="section-head">
-        <h2>About Me</h2>
-      </div>
-      <div class="card" style="padding:20px;">
-        <p style="margin:0;">I am a Graduate Student in the Department of Electronic Engineering at Sogang University. I'm studying at AI Robotics Lab, advised by Prof. Changjoo Nam. I received my Bachelor and Master's degree from Sogang University in Electronic Engineering..</p>
-      </div>
-    </section>
-
-    <!-- ========== PROJECTS ========== -->
-    <section id="projects" class="container">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <a href="#" aria-label="All projects">See All →</a>
-      </div>
-      <div class="grid cols-3">
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Multi-Robot Tomato Harvest</h3>
-          <p class="muted">ROS1/2 · YOLOv11 · BT.CPP · Neo4j</p>
-          <p>3DSG 기반 지식 그래프와 BT 제어로 다중 로봇 수확 시나리오를 구현.</p>
-          <a href="#">깃허브 ↗</a>
-        </article>
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Numeric Fast Downward</h3>
-          <p class="muted">Heuristics · Merge-and-Shrink · Landmarks</p>
-          <p>수치 제약 플래닝을 위한 휴리스틱 및 추상화/정제 파이프라인 실험.</p>
-          <a href="#">문서 ↗</a>
-        </article>
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Aloha Sim Pipeline</h3>
-          <p class="muted">HDF5 · 영상생성 · 데이터 파이프</p>
-          <p>시뮬 레코딩으로부터 이미지/동영상 브리짓 파이프라인.</p>
-          <a href="#">블로그 ↗</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ========== PUBLICATIONS ========== -->
-    <section id="publications" class="container">
-      <div class="section-head">
-        <h2>Publications</h2>
-        <a href="#">Google Scholar ↗</a>
-      </div>
-      <div class="grid cols-2">
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Probabilistically Correct Language-Based Multi‑Robot Planning Using Conformal Prediction</h3>
-          <p class="muted">2025 · Preprint</p>
-          <p>언어 기반 플래닝과 conformal prediction을 결합한 안정적 실행 프레임워크.</p>
-          <a href="#">PDF ↗</a>
-        </article>
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Landmark-Guided Abstraction for Numeric Planning</h3>
-          <p class="muted">2024 · Workshop</p>
-          <p>랜드마크 주도 추상화 정제(CEGAR)와 수치 휴리스틱의 접목.</p>
-          <a href="#">PDF ↗</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ========== BLOG ========== -->
-    <section id="blog" class="container">
-      <div class="section-head">
-        <h2>Blog</h2>
-        <a href="#">RSS ↗</a>
-      </div>
-      <div class="grid cols-2">
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">Merge-and-Shrink 요점 정리</h3>
-          <p class="muted">Notes · Heuristics</p>
-          <p>FDR/DTG/CG와 M&S의 상호작용, 축약 정책과 우선순위.</p>
-          <a href="#">읽기 →</a>
-        </article>
-        <article class="card" style="padding:16px;">
-          <h3 style="margin-top:0">BT.CPP로 만드는 토마토 수확자</h3>
-          <p class="muted">ROS · BehaviorTree</p>
-          <p>액션/컨디션 노드 설계, 블랙보드, 포트·토픽 설계 사례.</p>
-          <a href="#">읽기 →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ========== CONTACT ========== -->
-    <section id="contact" class="container">
-      <div class="section-head">
-        <h2>Contact</h2>
-      </div>
-      <div class="card" style="padding:20px;">
-        <p style="margin:0 0 10px;">이메일: <a href="mailto:you@example.com">you@example.com</a> · 깃허브: <a href="https://github.com/yourname">@yourname</a> · X: <a href="#">@yourhandle</a></p>
-        <form onsubmit="alert('메일 전송 예시입니다. Formspree 등으로 연결하세요.'); return false;">
-          <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr;">
-            <input required placeholder="Your name" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
-            <input required type="email" placeholder="Your email" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
-          </div>
-          <textarea required placeholder="Message" rows="5" style="margin-top:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"></textarea>
-          <button class="btn" type="submit" style="margin-top:10px;">Send</button>
-        </form>
-      </div>
-    </section>
-  </main>
+  <!-- =========================== APP ROOT =========================== -->
+  <main id="app" class="container" aria-live="polite"></main>
 
   <footer>
     <div class="container">
@@ -281,12 +158,10 @@
     // ========== MOBILE MENU ==========
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn) {
-      menuBtn.addEventListener('click', () => {
-        const open = mobileMenu.classList.toggle('open');
-        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
+    menuBtn?.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
 
     // ========== THEME TOGGLE ==========
     const themeBtns = [document.getElementById('themeBtn'), document.getElementById('themeBtnM')];
@@ -304,19 +179,164 @@
       setTheme(now === 'dark' ? 'light' : 'dark');
     }));
 
-    // ========== ACTIVE LINK ON SCROLL (간단 버전) ==========
-    const links = document.querySelectorAll('.navlinks a');
-    const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    const onScroll = () => {
-      const y = window.scrollY + 100;
-      let active = links[0];
-      sections.forEach((sec, i) => {
-        if (sec.offsetTop <= y) active = links[i];
+    // ========== SIMPLE SPA ROUTER ==========
+    const app = document.getElementById('app');
+
+    // Content model for Projects
+    const PROJECT_GROUPS = [
+      {
+        key: 'ai', title: '1. Introduction to Artificial Intelligence',
+        items: [
+          { key:'1-1', title:'1-1. Propositional Logic' },
+          { key:'1-2', title:'1-2. First-Order Logic' },
+          { key:'1-3', title:'1-3. (채워주세요)' },
+        ]
+      },
+      {
+        key: 'classical', title: '2. Classical AI Planning',
+        items: [
+          { key:'2-1', title:'2-1. Problem Formulation' },
+          { key:'2-2', title:'2-2. PDDL' },
+          { key:'2-3', title:'2-3. Causal Graph' },
+          { key:'2-4', title:'2-4. (채워주세요)' },
+        ]
+      },
+      {
+        key: 'dip', title: '3. Domain-Independent Planners',
+        items: [
+          { key:'3-1', title:'3-1. FF Planner' },
+          { key:'3-2', title:'3-2. Fast Downward' },
+          { key:'3-3', title:'3-3. (채워주세요)' },
+        ]
+      },
+      {
+        key: 'tamp', title: '4. Task and Motion Planning',
+        items: [
+          { key:'4-1', title:'4-1. paper1' },
+          { key:'4-2', title:'4-2. paper2' },
+          { key:'4-3', title:'4-3. (채워주세요)' },
+        ]
+      }
+    ];
+
+    function setActiveHeader(path) {
+      document.querySelectorAll('.navlinks a[data-link]').forEach(a => {
+        if (a.getAttribute('href') === path) a.classList.add('active'); else a.classList.remove('active');
       });
-      links.forEach(a => a.classList.remove('active'));
-      if (active) active.classList.add('active');
-    };
-    document.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    function HomeView() {
+      return `
+        <section class="hero">
+          <div class="hero-inner">
+            <div>
+              <p class="muted">WELCOME</p>
+              <h1>연구 · 개발 포트폴리오</h1>
+              <p>Task Planning · AI Planning · Robotics</p>
+              <div class="actions">
+                <a class="btn" href="#/projects">프로젝트 보기</a>
+                <a class="btn" href="#/contact">Contact</a>
+              </div>
+            </div>
+            <div class="card" style="padding:0; overflow:hidden;">
+              <img src="https://picsum.photos/800/600" alt="Profile" />
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function AboutView() {
+      return `
+        <section>
+          <div class="section-head"><h2>About Me</h2></div>
+          <div class="card" style="padding:18px;">
+            <p style="margin:0;">I am a Graduate Student in the Department of Electronic Engineering at Sogang University. I'm studying at AI Robotics Lab, advised by Prof. Changjoo Nam. I received my Bachelor and Master's degree from Sogang University in Electronic Engineering.</p>
+          </div>
+        </section>
+      `;
+    }
+
+    function ContactView() {
+      return `
+        <section>
+          <div class="section-head"><h2>Contact</h2></div>
+          <div class="card" style="padding:18px;">
+            <p class="muted" style="margin:0 0 10px;">이메일: <a href="mailto:you@example.com">you@example.com</a> · 깃허브: <a href="https://github.com/yourname" target="_blank" rel="noreferrer noopener">@yourname</a> · X: <a href="#" rel="noreferrer noopener">@yourhandle</a></p>
+            <form onsubmit="alert('메일 전송 예시입니다. Formspree 등으로 연결하세요.'); return false;">
+              <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr;">
+                <input required placeholder="Your name" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
+                <input required type="email" placeholder="Your email" style="padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)" />
+              </div>
+              <textarea required placeholder="Message" rows="5" style="margin-top:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text)"></textarea>
+              <button class="btn" type="submit" style="margin-top:10px;">Send</button>
+            </form>
+          </div>
+        </section>
+      `;
+    }
+
+    function ProjectsView(groupKey = 'ai', itemKey = null) {
+      const groupIndex = Math.max(0, PROJECT_GROUPS.findIndex(g => g.key === groupKey));
+      const group = PROJECT_GROUPS[groupIndex] || PROJECT_GROUPS[0];
+      const tabBar = `
+        <div class="tabs" role="tablist" aria-label="Project groups">
+          ${PROJECT_GROUPS.map(g => `
+            <button class="tab" role="tab" aria-selected="${g.key===group.key}" aria-controls="panel-${g.key}" onclick="location.hash = '#/projects/${g.key}'">${g.title}</button>
+          `).join('')}
+        </div>
+      `;
+
+      const sidenav = `
+        <nav class="sidenav" aria-label="Subtopics">
+          ${group.items.map(it => {
+            const href = `#/projects/${group.key}/${it.key}`;
+            const active = itemKey === it.key ? 'active' : '';
+            return `<a data-link href="${href}" class="${active}">${it.title}</a>`;
+          }).join('')}
+        </nav>
+      `;
+
+      const content = `
+        <div class="doc card" id="panel-${group.key}" role="tabpanel">
+          ${itemKey ? `<h3>${group.items.find(i=>i.key===itemKey)?.title || ''}</h3>` : `<h3>${group.title}</h3>`}
+          <div class="placeholder">
+            이 영역에 내용을 채워주세요. (Markdown/HTML 가능)
+            <br/>경로: <code>#/projects/${group.key}${itemKey?('/'+itemKey):''}</code>
+          </div>
+        </div>
+      `;
+
+      return `
+        <section>
+          <div class="section-head"><h2>Projects</h2></div>
+          ${tabBar}
+          <div class="subgrid">
+            ${sidenav}
+            ${content}
+          </div>
+        </section>
+      `;
+    }
+
+    // Router
+    function router() {
+      const hash = location.hash || '#/home';
+      const [_, root, g, sub] = hash.split('/'); // '#','home' | 'projects','<group>','<item>'
+      let view = '';
+      if (root === 'home') { view = HomeView(); setActiveHeader('#/home'); }
+      else if (root === 'about') { view = AboutView(); setActiveHeader('#/about'); }
+      else if (root === 'contact') { view = ContactView(); setActiveHeader('#/contact'); }
+      else if (root === 'projects') { view = ProjectsView(g, sub); setActiveHeader('#/projects'); }
+      else { view = HomeView(); setActiveHeader('#/home'); }
+      app.innerHTML = view;
+      // close mobile menu on navigation
+      mobileMenu?.classList.remove('open');
+      menuBtn?.setAttribute('aria-expanded','false');
+    }
+
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', router);
   </script>
 </body>
 </html>
