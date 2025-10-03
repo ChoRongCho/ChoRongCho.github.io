@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2-1. Problem Formulation | Classical AI Planning</title>
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+  <!-- 상단 헤더 -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="/index.html">Changmin Park</a>
+      <nav class="nav">
+        <a href="/projects/index.html">Projects</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrapper">
+    <!-- 왼쪽 사이드바 -->
+    <aside class="sidebar">
+      <h3>Projects</h3>
+      <ul>
+        <li class="depth1"><a href="/projects/1-introduction-to-ai/index.html">1. Introduction to AI</a></li>
+        <li class="depth1 active"><a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a>
+          <ul>
+            <li class="active"><a href="/projects/2-classical-ai/2-1-problem-formulation.html">2-1. Problem Formulation</a></li>
+            <li><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></li>
+            <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">2-3. Causal Graph</a></li>
+          </ul>
+        </li>
+        <li class="depth1"><a href="/projects/3-planner/index.html">3. Domain Independent Planner</a></li>
+        <li class="depth1"><a href="/projects/4-tamp/index.html">4. Task and Motion Planning</a></li>
+      </ul>
+    </aside>
+
+    <!-- 본문 -->
+    <main class="content">
+      <div class="breadcrumb">
+        <a href="/projects/index.html">Projects</a> › 
+        <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a> › 
+        2-1. Problem Formulation
+      </div>
+
+      <h1>2-1. Problem Formulation</h1>
+      <p class="meta">마지막 업데이트: 2025-10-03</p>
+
+      <h2>개요</h2>
+      <p>
+        Classical AI Planning에서 문제 정의(Problem Formulation)는 
+        **초기 상태(initial state)**, **행동 집합(actions/operators)**, 
+        그리고 **목표 상태(goal state)**를 명확히 지정하는 과정을 의미합니다.
+      </p>
+
+      <h2>구성 요소</h2>
+      <ul>
+        <li><strong>Initial State</strong> – 현재 세계의 상태를 나타냄</li>
+        <li><strong>Actions</strong> – 적용 가능한 연산자(전제조건 + 효과)</li>
+        <li><strong>Goal State</strong> – 달성해야 할 조건 집합</li>
+      </ul>
+
+      <h2>예시</h2>
+      <p>
+        예를 들어, <em>Blocks World</em>에서 <br>
+        초기 상태는 블록 A, B, C가 테이블 위에 흩어져 있는 상황, <br>
+        목표 상태는 A를 B 위에 두고, B를 C 위에 두는 상태일 수 있습니다.
+      </p>
+
+      <div class="prevnext">
+        <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
+        <span><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a> →</span>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
