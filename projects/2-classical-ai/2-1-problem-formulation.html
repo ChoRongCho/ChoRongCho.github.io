@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>2-1. Problem Formulation | Classical AI Planning</title>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
   <!-- 상단 헤더 -->
@@ -49,10 +53,31 @@
 
       <h2>개요</h2>
       <p>
-        Classical AI Planning에서 문제 정의(Problem Formulation)는 
-        **초기 상태(initial state)**, **행동 집합(actions/operators)**, 
-        그리고 **목표 상태(goal state)**를 명확히 지정하는 과정을 의미합니다.
+        Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>search space</em>는 
+        다음과 같이 정의됩니다:
       </p>
+
+      <p>
+        \[
+        \Theta = (S, A, T, c, I, G)
+        \]
+      </p>
+
+      <ul>
+        <li><strong>S</strong>: 가능한 모든 상태들의 집합</li>
+        <li><strong>A</strong>: 적용 가능한 모든 액션들의 집합</li>
+        <li><strong>T</strong>: 전이 함수, \(T : S \times A \to S\)</li>
+        <li><strong>c</strong>: 비용 함수, \(c : A \to \mathbb{R}^+\)</li>
+        <li><strong>I</strong>: 초기 상태 (initial state)</li>
+        <li><strong>G</strong>: 목표 상태들의 집합 (goal states)</li>
+      </ul>
+
+      <p>
+        이 정의를 기반으로, <strong>PlanEx</strong> 문제는 초기 상태 \(I\)에서 시작하여 
+        목표 상태 \(G\)에 도달할 수 있는 액션 시퀀스가 존재하는지 여부를 확인하는 문제이며, 
+        <strong>PlanOpt</strong> 문제는 도달 가능한 플랜 중 최소 비용을 갖는 최적 플랜을 찾는 문제입니다.
+      </p>
+
 
       <h2>구성 요소</h2>
       <ul>
