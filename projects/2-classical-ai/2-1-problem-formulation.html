@@ -53,23 +53,23 @@
 
       <h2>개요</h2>
       <p>
-        Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>search space</em>는 
+        Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>state space</em>는 
         다음과 같이 정의됩니다:
       </p>
 
       <p>
         \[
-        \Theta = (S, A, T, c, I, G)
+        \Theta = (S, A, T, c, I, S^G)
         \]
       </p>
 
       <ul>
-        <li><strong>S</strong>: 가능한 모든 상태들의 집합</li>
-        <li><strong>A</strong>: 적용 가능한 모든 액션들의 집합</li>
-        <li><strong>T</strong>: 전이 함수, \(T : S \times A \to S\)</li>
-        <li><strong>c</strong>: 비용 함수, \(c : A \to \mathbb{R}^+\)</li>
-        <li><strong>I</strong>: 초기 상태 (initial state)</li>
-        <li><strong>G</strong>: 목표 상태들의 집합 (goal states)</li>
+        <li><strong>\(S\)</strong>: a finite set of states</li>
+        <li><strong>\(L\)</strong>: a finite set of trasnsition system</li>
+        <li><strong>\(T \sube S \times L \times S \) $</strong>: a transition relation</li>
+        <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
+        <li><strong>\(I \in S \)</strong>: the initial state</li>
+        <li><strong>\(S^G \sube S \)</strong>: the set of goal states</li>
       </ul>
 
       <p>
