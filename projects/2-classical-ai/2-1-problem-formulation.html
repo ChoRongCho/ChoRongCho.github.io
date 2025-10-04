@@ -51,7 +51,8 @@
       <h1>2-1. Problem Formulation</h1>
       <p class="meta">마지막 업데이트: 2025-10-03</p>
 
-      <h2>개요</h2>
+      <h2>Transition System</h2>
+      <h3>Definition</h3>
       <p>
         Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>state space</em>는 
         다음과 같이 정의됩니다:
@@ -65,24 +66,65 @@
 
       <ul>
         <li><strong>\(S\)</strong>: a finite set of states</li>
-        <li><strong>\(L\)</strong>: a finite set of trasnsition system</li>
+        <li><strong>\(L\)</strong>: a finite set of trasnsition label</li>
         <li><strong>\(T \subseteq S \times L \times S \) </strong>: a transition relation</li>
         <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
         <li><strong>\(I \in S \)</strong>: the initial state</li>
         <li><strong>\(S^G \subseteq S \)</strong>: the set of goal states</li>
       </ul>
+      <h3>Terminology</h3>
       <p>
-
-
+        State의 갯수를 \(\Theta\)의 크기(size)라 부릅니다. 그리고 모든 state \(s\)와 label \(l\)에 대해서 다음 상태
+        \(s^\prime\)이 최대 1개만 존재하면, \(\Theta\)는 결정론적(deterministic)이라고 말합니다. 그리고 모든 label에 대해서 
+        \(c(l)=1\)이면 unit cost라고 부릅니다.
       </p>
       <p>
-        이 정의를 기반으로, <strong>PlanEx</strong> 문제는 초기 상태 \(I\)에서 시작하여 
-        목표 상태 \(G\)에 도달할 수 있는 액션 시퀀스가 존재하는지 여부를 확인하는 문제이며, 
-        <strong>PlanOpt</strong> 문제는 도달 가능한 플랜 중 최소 비용을 갖는 최적 플랜을 찾는 문제입니다.
+        어떤 상태 \(s^\prime\)이 상태 \(s\)로부터 일련의 전이(sequence of transitions)를 통해 도달 가능하면,
+        \(s^\prime\)은 \(s\)로부터 <em>reachable</em>하다고 합니다. 이때 전이의 나열 \(l_1, \dots, l_n\)을 
+        \(s\)에서 \(s^\prime\)까지의 <em>path</em>라 부르고, 그 경로의 총 비용은 
+        \(\sum_{i=1}^n c(l_i)\)로 정의합니다. 초기 상태 \(I\)에서 목표 상태 집합 \(S_G\)의 어떤 상태에 도달하는 
+        path를 <strong>solution</strong>이라 하며, 그 중 비용이 최소인 것이 <strong>optimal solution</strong>입니다.
+        만약 어떤 상태 \(s\)에서 solution이 존재하지 않는다면, \(s\)는 <em>dead end</em>라 부릅니다. 
+        초기 상태 \(I\)에서 solution이 존재하면 \(\Theta\)는 <strong>solvable</strong>하다고 합니다.
       </p>
 
 
-      <h2>구성 요소</h2>
+      <h2>STRIPS</h2>
+      <p>
+        <strong>STRIPS (Stanford Research Institute Problem Solver)</strong>는 1971년 
+        Fikes와 Nilsson이 제안한, planning problem \(\Pi\)를 표현하기 위한 
+        가장 대표적인 계획 형식(planning formalism)입니다. <br>
+        <br>
+        STRIPS는 \(\Pi\)를 문제를 다음과 같이 표현합니다.
+      </p>
+      <ul>
+        <li><strong>\(P\)</strong>: a finite set of facts, also propositions</li>
+        <li><strong>\(A\)</strong>: a finite set of action</li>
+        <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
+        <li><strong>\(I \subseteq P \)</strong>: the initial state</li>
+        <li><strong>\(S^G \subseteq S \)</strong>: the goal</li>
+      </ul>
+
+      <p>
+        \[
+          \Pi = (P, A, c, I, G)
+        \]
+      </p>
+      <p>
+        STRIPS에서 하나의 <strong>액션</strong>은 다음과 같이 구성됩니다:
+      </p>
+
+      <ul>
+        <li><strong>Preconditions</strong>: 액션을 실행하기 위해 반드시 만족해야 하는 조건들의 집합</li>
+        <li><strong>Add list</strong>: 액션 실행 후 새롭게 참이 되는 사실들</li>
+        <li><strong>Delete list</strong>: 액션 실행 후 더 이상 참이 아니게 되는 사실들</li>
+      </ul>
+
+      <p>
+        STRIPS의 핵심 아이디어는 액션이 상태를 변환하는 규칙으로 정의된다는 점입니다. 
+        즉, 액션을 적용하면 현재 상태에서 <em>Preconditions</em>가 충족될 때만 실행 가능하며, 
+        실행 결과로 <em>Add list</em>는 상태에 추가되고, <em>Delete list</em>는 상태에서 제거됩니다.
+      </p>
       <ul>
         <li><strong>Initial State</strong> – 현재 세계의 상태를 나타냄</li>
         <li><strong>Actions</strong> – 적용 가능한 연산자(전제조건 + 효과)</li>
