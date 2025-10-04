@@ -129,17 +129,54 @@
       </p>
       <h3>STRIPS state space</h3>
       <p>
-        STRIPS planning task \(\Pi = (P, A, c, I, G)\)의 상태 공간은 
-        \(\Theta = (S, L, c, T, I, S^G)\)로 정의됩니다. 
-        여기서 \(S = 2^P\)는 proposition 집합 \(P\)의 부분집합들로 이루어진 상태들의 집합이고, 
-        \(L = A\)는 모든 액션들의 집합입니다. 전이 함수 \(T\)는 액션 적용 규칙에 의해 정의되며, 
-        각 액션 \(a \in A\)에 대해 <em>preconditions</em>가 현재 상태에서 만족될 경우에만 적용 가능하고, 
-        그 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 전이됩니다. 
-        목표 상태 집합 \(S^G\)는 \(G\)를 만족하는 모든 상태들의 집합입니다. 
-        따라서 STRIPS 상태 공간에서의 <strong>solution</strong>은 초기 상태 \(I\)에서 시작해 
-        \(S^G\)에 속하는 상태에 도달하는 액션 시퀀스로 정의됩니다.
+        STRIPS로 표현한 planning task와 state space는 어떤 연관성이 있을까요? 즉 STRIPS planning task \(\Pi = (P, A, c, I, G)\)의 상태 공간은 
+        \(\Theta = (S, L, c, T, I, S^G)\)로 어떻게 바꿀 수 있을까요? 각 구성 요소는 다음과 같습니다:
       </p>
 
+      <ol>
+        <li>
+          상태 집합 \(S\):  
+          \(S = 2^P\)이며, 이는 proposition 집합 \(P\)의 모든 부분집합을 의미합니다.  
+          예를 들어, 두 아기의 성별을 다음과 같은 proposition으로 정의해 보겠습니다.  
+          \[
+          p_1 = is\_Female(Baby1), \quad p_2 = is\_Female(Baby2)
+          \]
+          이때 가능한 상태 집합 \(S\)는 다음과 같습니다.  
+          \[
+          S = \{\emptyset, \{p_1\}, \{p_2\}, \{p_1, p_2\}\}
+          \]
+          이를 해석하면, \(\emptyset\)은 두 아기 모두 female이 아니라는 뜻이며  
+          즉 \(p_1 = false, p_2 = false\)를 의미합니다.  
+          STRIPS에서는 **참인 명제만** 상태로 표현하며, 명시되지 않은 proposition은 자동으로 거짓으로 간주됩니다.
+        </li>
+
+        <li>
+          액션 집합 \(L\):  
+          \(L = A\)이며, STRIPS에서 정의된 모든 액션들의 집합입니다.
+        </li>
+
+        <li>
+          비용 함수 \(c\):  
+          각 액션에 대해 비용을 정의하는 함수입니다. (보통 unit cost로 설정됩니다.)
+        </li>
+
+        <li>
+          전이 함수 \(T\):  
+          \(T : S \times A \to S\).  
+          액션 \(a \in A\)는 현재 상태에서 preconditions가 만족될 때 적용 가능하며,  
+          실행 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 정의됩니다.
+        </li>
+
+        <li>
+          초기 상태 \(I\):  
+          시작 시점의 상태로, \(P\)의 부분집합 중 하나입니다.
+        </li>
+
+        <li>
+          목표 상태 집합 \(S^G\):  
+          목표 \(G\)를 만족하는 모든 상태들의 집합입니다.
+        </li>
+      </ol>
 
       
 
