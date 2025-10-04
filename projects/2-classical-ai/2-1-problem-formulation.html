@@ -59,19 +59,22 @@
 
       <p>
         \[
-        \Theta = (S, A, T, c, I, S^G)
+        \Theta = (S, L, T, c, I, S^G)
         \]
       </p>
 
       <ul>
         <li><strong>\(S\)</strong>: a finite set of states</li>
         <li><strong>\(L\)</strong>: a finite set of trasnsition system</li>
-        <li><strong>\(T \subseteq S \times L \times S \) $</strong>: a transition relation</li>
+        <li><strong>\(T \subseteq S \times L \times S \) </strong>: a transition relation</li>
         <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
         <li><strong>\(I \in S \)</strong>: the initial state</li>
         <li><strong>\(S^G \subseteq S \)</strong>: the set of goal states</li>
       </ul>
+      <p>
 
+
+      </p>
       <p>
         이 정의를 기반으로, <strong>PlanEx</strong> 문제는 초기 상태 \(I\)에서 시작하여 
         목표 상태 \(G\)에 도달할 수 있는 액션 시퀀스가 존재하는지 여부를 확인하는 문제이며, 
