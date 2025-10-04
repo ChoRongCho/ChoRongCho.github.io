@@ -10,14 +10,33 @@ a:hover{text-decoration:underline}
 
 /* 레이아웃 */
 .header{border-bottom:1px solid var(--border)}
-.header-inner{max-width:var(--max);margin:0 auto;padding:14px 16px;display:flex;gap:16px;align-items:center}
+.header-inner{max-width:var(--max);margin:0 auto;padding:10px 12px;display:flex;gap:16px;align-items:center}
 .brand{font-weight:700;margin-right:auto}
 .nav a{margin-left:12px;color:var(--text)}
-.wrapper{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:24px;padding:24px 16px}
-@media (max-width:900px){ .wrapper{grid-template-columns:1fr} .sidebar{order:2} }
+
+/* wrapper 여백 축소, 본문 비율 확대 */
+.wrapper{
+  max-width:var(--max);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:220px 1fr;  /* 사이드바는 유지, 본문 넓힘 */
+  gap:16px;                         /* 사이 간격 축소 */
+  padding:16px 12px;                /* 전체 여백 축소 */
+}
+@media (max-width:900px){ 
+  .wrapper{grid-template-columns:1fr} 
+  .sidebar{order:2} 
+}
 
 /* 사이드바 */
-.sidebar{position:sticky;top:12px;height:fit-content;border:1px solid var(--border);border-radius:12px;padding:16px}
+.sidebar{
+  position:sticky;
+  top:12px;
+  height:fit-content;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+}
 .sidebar h3{margin:0 0 10px 0;font-size:15px}
 .sidebar ul{list-style:none;padding-left:10px;margin:6px 0}
 .sidebar li{margin:4px 0}
@@ -25,8 +44,18 @@ a:hover{text-decoration:underline}
 .sidebar .active>a{text-decoration:underline}
 
 /* 본문 */
-.content{border:1px solid var(--border);border-radius:12px;padding:24px}
+.content{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:28px;            /* 글 영역 확대 */
+}
 .content h1{margin-top:0}
 .meta{color:var(--muted);font-size:14px;margin-top:-8px;margin-bottom:16px}
 .breadcrumb{font-size:14px;color:var(--muted);margin-bottom:12px}
-.prevnext{display:flex;justify-content:space-between;margin-top:24px;border-top:1px solid var(--border);padding-top:16px}
+.prevnext{
+  display:flex;
+  justify-content:space-between;
+  margin-top:24px;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
