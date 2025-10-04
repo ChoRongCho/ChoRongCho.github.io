@@ -46,9 +46,28 @@
       <p class="meta">마지막 업데이트: 2025-10-03</p>
 
       <p>
-        Classical AI Planning은 문제를 <strong>상태 공간 탐색(state-space search)</strong> 문제로 보고,
-        초기 상태에서 목표 상태까지 도달하는 <em>plan</em>을 찾는 과정을 의미합니다.
+        Classical AI Planning은 <strong>First-Order Logic</strong>으로 표현된 
+        <em>deterministic transition system</em>에서, 
+        초기 상태에서 목표 상태까지 도달할 수 있는 <em>액션 시퀀스(plan)</em>를 찾는 문제를 의미합니다.
       </p>
+
+      <p>
+        일반적으로 Planning 문제는 두 가지로 구분됩니다. 
+        하나는 단순히 플랜의 존재 여부를 확인하는 <strong>PlanEx</strong> 문제이고, 
+        다른 하나는 최적화된 경로를 찾는 <strong>PlanOpt</strong> 문제입니다. 
+        PlanEx는 <em>NP-complete</em>임이 증명되어 있으며, 
+        PlanOpt는 <em>PSPACE-hard</em> 문제로 알려져 있습니다.
+      </p>
+
+      <p>
+        따라서 Classical Planning에서는 문제를 표현하는 방식뿐만 아니라, 
+        거대한 <strong>탐색 공간(search space)</strong>을 얼마나 효과적으로 탐색할 수 있는지가 핵심 과제가 됩니다. 
+        이를 위해 다양한 <strong>지식 표현 방법</strong>과 
+        <strong>휴리스틱 탐색 기법</strong>들이 제안되어 왔습니다. 
+        본 단원에서는 이러한 고전적 계획 문제의 수학적 정의와 함께, 
+        효과적인 탐색을 가능하게 하는 여러 휴리스틱 접근 방법들을 다루게 됩니다.
+      </p>
+
 
       <h2>소목차</h2>
       <ol>
