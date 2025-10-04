@@ -135,7 +135,7 @@
 
       <ol>
         <li>
-          상태 집합 \(S\):  
+          상태 집합 \(S\):  <br>
           \(S = 2^P\)이며, 이는 proposition 집합 \(P\)의 모든 부분집합을 의미합니다.  
           예를 들어, 두 아기의 성별을 다음과 같은 proposition으로 정의해 보겠습니다.  
           \[
@@ -147,38 +147,40 @@
           \]
           이를 해석하면, \(\emptyset\)은 두 아기 모두 female이 아니라는 뜻이며  
           즉 \(p_1 = false, p_2 = false\)를 의미합니다.  
-          STRIPS에서는 **참인 명제만** 상태로 표현하며, 명시되지 않은 proposition은 자동으로 거짓으로 간주됩니다.
+          STRIPS에서는 **참인 명제만** 상태로 표현하며, 명시되지 않은 proposition은 자동으로 거짓으로 간주됩니다.<br>
         </li>
 
         <li>
-          액션 집합 \(L\):  
-          \(L = A\)이며, STRIPS에서 정의된 모든 액션들의 집합입니다.
+          액션 집합 \(L\):  <br>
+          \(L = A\)이며, STRIPS에서 정의된 모든 액션들의 집합입니다.<br>
         </li>
 
         <li>
-          비용 함수 \(c\):  
-          각 액션에 대해 비용을 정의하는 함수입니다. (보통 unit cost로 설정됩니다.)
+          비용 함수 \(c\):  <br>
+          각 액션에 대해 비용을 정의하는 함수입니다. (보통 unit cost로 설정됩니다.)<br>
         </li>
 
         <li>
-          전이 함수 \(T\):  
+          전이 함수 \(T\):  <br>
           \(T : S \times A \to S\).  
           액션 \(a \in A\)는 현재 상태에서 preconditions가 만족될 때 적용 가능하며,  
-          실행 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 정의됩니다.
+          실행 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 정의됩니다.<br>
         </li>
 
         <li>
-          초기 상태 \(I\):  
-          시작 시점의 상태로, \(P\)의 부분집합 중 하나입니다.
+          초기 상태 \(I\):  <br>
+          시작 시점의 상태로, \(P\)의 부분집합 중 하나입니다.<br>
         </li>
 
         <li>
-          목표 상태 집합 \(S^G\):  
-          목표 \(G\)를 만족하는 모든 상태들의 집합입니다.
+          목표 상태 집합 \(S^G\):  <br>
+          목표 \(G\)를 만족하는 모든 상태들의 집합입니다.<br>
         </li>
       </ol>
 
-      
+      <h2>FDR</h2>
+      <h3>Definition</h3>
+      <h3>FDR state space</h3>
 
       <div class="prevnext">
         <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
