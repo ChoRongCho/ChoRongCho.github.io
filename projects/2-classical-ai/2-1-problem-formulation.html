@@ -117,9 +117,9 @@
       </p>
 
       <ul>
-        <li>=Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 조건들의 집합</li>
-        <li>=Add list \(a_{add}\): 액션 실행 후 새롭게 참이 되는 사실들</li>
-        <li>=Delete list \(a_{del}\): 액션 실행 후 더 이상 참이 아니게 되는 사실들</li>
+        <li>Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 조건들의 집합</li>
+        <li>Add list \(a_{add}\): 액션 실행 후 새롭게 참이 되는 사실들</li>
+        <li>Delete list \(a_{del}\): 액션 실행 후 더 이상 참이 아니게 되는 사실들</li>
       </ul>
       <p>이때, \(a_{add} \cap a_{del} = \emptyset\) 이어야 합니다.</p>
       <p>
@@ -127,14 +127,21 @@
         즉, 액션을 적용하면 현재 상태에서 <em>Preconditions</em>가 충족될 때만 실행 가능하며, 
         실행 결과로 <em>Add list</em>는 상태에 추가되고, <em>Delete list</em>는 상태에서 제거됩니다.
       </p>
-
-
-      <h2>예시</h2>
+      <h3>STRIPS state space</h3>
       <p>
-        예를 들어, <em>Blocks World</em>에서 <br>
-        초기 상태는 블록 A, B, C가 테이블 위에 흩어져 있는 상황, <br>
-        목표 상태는 A를 B 위에 두고, B를 C 위에 두는 상태일 수 있습니다.
+        STRIPS planning task \(\Pi = (P, A, c, I, G)\)의 상태 공간은 
+        \(\Theta = (S, L, c, T, I, S^G)\)로 정의됩니다. 
+        여기서 \(S = 2^P\)는 proposition 집합 \(P\)의 부분집합들로 이루어진 상태들의 집합이고, 
+        \(L = A\)는 모든 액션들의 집합입니다. 전이 함수 \(T\)는 액션 적용 규칙에 의해 정의되며, 
+        각 액션 \(a \in A\)에 대해 <em>preconditions</em>가 현재 상태에서 만족될 경우에만 적용 가능하고, 
+        그 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 전이됩니다. 
+        목표 상태 집합 \(S^G\)는 \(G\)를 만족하는 모든 상태들의 집합입니다. 
+        따라서 STRIPS 상태 공간에서의 <strong>solution</strong>은 초기 상태 \(I\)에서 시작해 
+        \(S^G\)에 속하는 상태에 도달하는 액션 시퀀스로 정의됩니다.
       </p>
+
+
+      
 
       <div class="prevnext">
         <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
