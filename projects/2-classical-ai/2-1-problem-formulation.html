@@ -179,6 +179,11 @@
       </ol>
 
       <h2>FDR</h2>
+      STRIPS는 모든 문제를 참과 거짓으로 표현합니다. 예를 들어, 화물차의 위치를 표현하고 싶다면, 이렇게 표현해야 합니다.
+      \[
+      at(truck, Seoul)=True, at(truck, Busan)=False, ..., at(truck, Sogang)=False
+      \]
+      만약 화물차의 개수와 관심있는 목적지의 개수가 늘어난다면 state space는 지수적으로 폭발하게 됩니다.
       <h3>Definition</h3>
       <h3>FDR state space</h3>
 
