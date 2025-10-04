@@ -1,6 +1,6 @@
 :root{
   --bg:#ffffff; --text:#111; --muted:#666; --border:#e5e7eb; --accent:#1f6feb;
-  --max: 980px;
+  --max: 1080px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
