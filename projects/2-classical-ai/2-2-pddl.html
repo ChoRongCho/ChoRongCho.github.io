@@ -38,34 +38,100 @@
 
     <!-- 본문 -->
     <main class="content">
-      <div class="breadcrumb">
+            <div class="breadcrumb">
         <a href="/projects/index.html">Projects</a> › 
         <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a> › 
         2-2. PDDL
       </div>
 
-      <h1>2-2. PDDL</h1>
+      <h1>2-2. PDDL (Planning Domain Definition Language)</h1>
       <p class="meta">마지막 업데이트: 2025-10-03</p>
 
       <h2>개요</h2>
       <p>
-        Classical AI Planning에서 문제 정의(Problem Formalisms)는 
-        **초기 상태(initial state)**, **행동 집합(actions/operators)**, 
-        그리고 **목표 상태(goal state)**를 명확히 지정하는 과정을 의미합니다.
+        <strong>PDDL(Planning Domain Definition Language)</strong>은 고전적 인공지능 계획(Classical AI Planning) 문제를 표현하기 위해 제안된 표준 언어입니다.
+        STRIPS 포맷에서 발전한 형태로, 계획 문제를 <em>domain</em>과 <em>problem</em> 파일로 분리하여 기술합니다.
+      </p>
+      <p>
+        <strong>PDDL 1.0</strong>은 STRIPS 기반의 불리언 명제 계획을 표현하는 가장 단순한 형태로, 
+        <code>:predicates</code>, <code>:action</code> 구조를 중심으로 합니다.<br>
+        <strong>PDDL 2.0</strong>에서는 시간적 제약(temporal constraints)과 수치 변수(numeric fluents)가 도입되어,
+        <code>:durative-actions</code>와 <code>:numeric-fluents</code>를 다룰 수 있습니다.<br>
+        <strong>PDDL 3.0</strong>은 <code>:constraints</code>와 <code>:preferences</code>를 추가하여 soft constraints 기반의 계획이 가능해졌습니다.
+      </p>
+      <p>
+        이러한 표준화 덕분에 <em>Domain-Independent Planner</em>(예: FF, Fast Downward, LAMA)는 특정 문제에 종속되지 않고, 
+        다양한 도메인의 계획 문제를 자동으로 처리할 수 있습니다.
       </p>
 
       <h2>구성 요소</h2>
+      <p>
+        PDDL의 핵심 구성은 크게 두 파일로 나뉩니다:
+      </p>
       <ul>
-        <li><strong>Initial State</strong> – 현재 세계의 상태를 나타냄</li>
-        <li><strong>Actions</strong> – 적용 가능한 연산자(전제조건 + 효과)</li>
-        <li><strong>Goal State</strong> – 달성해야 할 조건 집합</li>
+        <li>
+          <strong>Domain 파일</strong>: 문제에 등장하는 <em>타입(types)</em>, <em>프레디킷(predicates)</em>, 
+          그리고 <em>액션(actions)</em>을 정의합니다. 각 액션은 <code>:precondition</code>과 
+          <code>:effect</code>로 구성되며, STRIPS 스타일의 <em>add-list</em>, <em>delete-list</em>를 통해 상태 변화를 명시합니다.
+        </li>
+        <li>
+          <strong>Problem 파일</strong>: 특정 인스턴스에서 사용할 <em>객체(objects)</em>, <em>초기 상태(init)</em>, 
+          <em>목표 상태(goal)</em>를 정의합니다.
+        </li>
       </ul>
+      <p>
+        전통적인 STRIPS에서는 음의 전제조건(<code>not</code>)을 사용할 수 없으나, 
+        이후 버전에서는 제한적으로 허용됩니다. 
+        또한 PDDL 2.0 이후에는 수치값을 다루는 <code>(increase (fuel) 10)</code> 같은 numeric expression도 지원되어, 
+        로봇 계획이나 자원 관리 문제에서도 사용됩니다.
+      </p>
 
       <h2>예시</h2>
       <p>
-        예를 들어, <em>Blocks World</em>에서 <br>
-        초기 상태는 블록 A, B, C가 테이블 위에 흩어져 있는 상황, <br>
-        목표 상태는 A를 B 위에 두고, B를 C 위에 두는 상태일 수 있습니다.
+        예를 들어, <em>Blocks World</em> 도메인에서는 다음과 같이 표현할 수 있습니다.
+      </p>
+
+      <pre><code>(define (domain blocks)
+  (:predicates (on ?x ?y) (ontable ?x) (clear ?x) (handempty) (holding ?x))
+
+  (:action pick-up
+    :parameters (?x)
+    :precondition (and (clear ?x) (ontable ?x) (handempty))
+    :effect (and (holding ?x)
+                 (not (ontable ?x))
+                 (not (clear ?x))
+                 (not (handempty))))
+
+  (:action put-down
+    :parameters (?x)
+    :precondition (holding ?x)
+    :effect (and (ontable ?x)
+                 (clear ?x)
+                 (handempty)
+                 (not (holding ?x)))))
+</code></pre>
+
+      <p>
+        문제 파일은 다음과 같이 작성됩니다.
+      </p>
+      <pre><code>(define (problem blocks-example)
+  (:domain blocks)
+  (:objects A B C)
+  (:init (ontable A) (ontable B) (ontable C)
+         (clear A) (clear B) (clear C) (handempty))
+  (:goal (and (on A B) (on B C))))
+</code></pre>
+
+      <p>
+        위 예시에서 초기 상태는 A, B, C가 각각 테이블 위에 흩어져 있으며, 
+        목표 상태는 A가 B 위에, B가 C 위에 쌓이는 상태입니다.
+      </p>
+
+      <h2>참고 자료</h2>
+      <p>
+        더 많은 예제와 확장 문법은 아래 링크에서 확인할 수 있습니다.<br>
+        👉 <a href="https://github.com/plan-99/pddl-examples" target="_blank">PDDL Examples Repository (GitHub)</a><br>
+        👉 <a href="https://github.com/plan-99/AI-Planning-Notes" target="_blank">My PDDL Notes (Changmin Park)</a>
       </p>
 
       <div class="prevnext">
