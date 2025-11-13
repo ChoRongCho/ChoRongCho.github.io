@@ -10,7 +10,7 @@
   <!-- 상단 헤더 -->
   <header class="header">
     <div class="header-inner">
-      <a class="brand" href="/index.html">Changmin Park</a>
+      <a class="brand" href="/index.html">Home</a>
       <nav class="nav">
         <a href="/projects/index.html">Projects</a>
         <a href="/about.html">About</a>
@@ -29,6 +29,7 @@
             <li><a href="/projects/2-classical-ai/2-1-problem-formulation.html">2-1. Problem Formalisms</a></li>
             <li class="depth2 active"><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></li>
             <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">2-3. Causal Graph</a></li>
+            <li><a href="/projects/2-classical-ai/2-4-domain-transition-graph.html">2-4. Domain Transition Graph</a></li>
           </ul>
         </li>
         <li class="depth1"><a href="/projects/3-planner/index.html">3. Domain Independent Planner</a></li>
@@ -92,23 +93,28 @@
       </p>
 
       <pre><code>(define (domain blocks)
-  (:predicates (on ?x ?y) (ontable ?x) (clear ?x) (handempty) (holding ?x))
+  (:predicates 
+    (on ?top ?bottom) 
+    (ontable ?block) 
+    (clear ?block) 
+    (handempty) 
+    (holding ?block))
 
   (:action pick-up
-    :parameters (?x)
-    :precondition (and (clear ?x) (ontable ?x) (handempty))
-    :effect (and (holding ?x)
-                 (not (ontable ?x))
-                 (not (clear ?x))
+    :parameters (?block)
+    :precondition (and (clear ?block) (ontable ?block) (handempty))
+    :effect (and (holding ?block)
+                 (not (ontable ?block))
+                 (not (clear ?block))
                  (not (handempty))))
 
   (:action put-down
-    :parameters (?x)
-    :precondition (holding ?x)
-    :effect (and (ontable ?x)
-                 (clear ?x)
+    :parameters (?block)
+    :precondition (holding ?block)
+    :effect (and (ontable ?block)
+                 (clear ?block)
                  (handempty)
-                 (not (holding ?x)))))
+                 (not (holding ?block)))))
 </code></pre>
 
       <p>
@@ -129,7 +135,7 @@
 
       <h2>참고 자료</h2>
       <p>
-        더 많은 예제와 확장 문법은 아래 링크에서 확인할 수 있습니다.<br>
+        링크<br>
         👉 <a href="https://github.com/plan-99/pddl-examples" target="_blank">PDDL Examples Repository (GitHub)</a><br>
         👉 <a href="https://github.com/plan-99/AI-Planning-Notes" target="_blank">My PDDL Notes (Changmin Park)</a>
       </p>
