@@ -14,18 +14,32 @@ a:hover{text-decoration:underline}
 /* .brand{font-weight:700;margin-right:auto}
 .nav a{margin-left:12px;color:var(--text)} */
 
+
+
+
+/* Home(brand) 위치 이동 */
 .brand{
-  margin-right: 70px;
-  margin-left: 40px;   /* ← Home을 오른쪽으로 이동 */
+  font-weight:700;                 /* 네가 주석처리하면서 빠진 것 복구 */
+  margin-right:0 !important;       /* auto 같은 거 죽이기 */
+  margin-left:60px !important;     /* Home을 오른쪽으로 (원하면 숫자만 조절) */
 }
 
+/* nav 자체를 brand와 떨어뜨리기 */
 .nav{
-  display: flex;
-  gap: 24px;   /* ← 메뉴 간격 */
+  display:flex !important;
+  margin-left:60px !important;     /* Home과 메뉴 사이 간격 */
+  gap:32px !important;             /* About|Projects|Publications 사이 간격 */
 }
+
+/* 혹시 기존 a margin이 남아있으면 강제로 제거 */
 .nav a{
-  margin-left: 0;  /* 기존 margin 제거 */
+  margin:0 !important;
+  color:var(--text);
 }
+
+
+
+
 
 /* wrapper 여백 축소, 본문 비율 확대 */
 .wrapper{
