@@ -1,250 +1,205 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>2-1. Problem Formalisms | Classical AI Planning</title>
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-</head>
-<body>
-  <!-- 상단 헤더 -->
-  <header class="header">
-    <div class="header-inner">
-      <a class="brand" href="/index.html">Home</a>
-      <nav class="nav">
-        <a href="/about.html">About</a>
-        <a href="/projects/index.html">Projects</a>
-        <a href="/publication.html">Publication</a>
-
-      </nav>
-    </div>
-  </header>
-
-  <div class="wrapper">
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-      <h3>Projects</h3>
-      <ul>
-        <li class="depth1"><a href="/projects/1-introduction-to-ai/index.html">1. Introduction to AI</a></li>
-        <li class="depth1"><a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a>
-          <ul>
-            <li class="depth2 active"><a href="/projects/2-classical-ai/2-1-problem-formulation.html">2-1. Problem Formalisms</a></li>
-            <li><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></li>
-            <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">2-3. Causal Graph</a></li>
-            <li><a href="/projects/2-classical-ai/2-4-domain-transition-graph.html">2-4. Domain Transition Graph</a></li>
-          </ul>
-        </li>
-        <li class="depth1"><a href="/projects/3-planner/index.html">3. Domain Independent Planner</a></li>
-        <li class="depth1"><a href="/projects/4-tamp/index.html">4. Task and Motion Planning</a></li>
-      </ul>
-    </aside>
-
-    <!-- 본문 -->
-    <main class="content">
-      <div class="breadcrumb">
-        <a href="/projects/index.html">Projects</a> › 
-        <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a> › 
-        2-1. Problem Formalisms
-      </div>
-
-      <h1>2-1. Problem Formalisms</h1>
-      <p class="meta">마지막 업데이트: 2025-10-06</p>
-
-      <h2>Transition System</h2>
-      <h3>Definition</h3>
-      <p>
-        Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>state space</em>은 상태 공간을 표현한 directed graph로 
-        다음과 같이 정의됩니다:
-      </p>
-
-      <p>
-        \[
-        \Theta = (S, L, T, c, I, S^G)
-        \]
-      </p>
-
-      <ul>
-        <li><strong>\(S\)</strong>: a finite set of states</li>
-        <li><strong>\(L\)</strong>: a finite set of trasnsition label</li>
-        <li><strong>\(T \subseteq S \times L \times S \) </strong>: a transition relation</li>
-        <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
-        <li><strong>\(I \in S \)</strong>: the initial state</li>
-        <li><strong>\(S^G \subseteq S \)</strong>: the set of goal states</li>
-      </ul>
-      <h3>Terminology</h3>
-      <p>
-        State의 갯수를 \(\Theta\)의 크기(size)라 부릅니다. 그리고 모든 state \(s\)와 label \(l\)에 대해서 다음 상태
-        \(s^\prime\)이 최대 1개만 존재하면, \(\Theta\)는 결정론적(deterministic)이라고 말합니다. 그리고 모든 label에 대해서 
-        \(c(l)=1\)이면 unit cost라고 부릅니다.
-      </p>
-      <p>
-        어떤 상태 \(s^\prime\)이 상태 \(s\)로부터 일련의 전이(sequence of transitions)를 통해 도달 가능하면,
-        \(s^\prime\)은 \(s\)로부터 <em>reachable</em>하다고 합니다. 이때 전이의 나열 \(l_1, \dots, l_n\)을 
-        \(s\)에서 \(s^\prime\)까지의 <em>path</em>라 부르고, 그 경로의 총 비용은 
-        \(\sum_{i=1}^n c(l_i)\)로 정의합니다. 초기 상태 \(I\)에서 목표 상태 집합 \(S^G\)의 어떤 상태에 도달하는 
-        path를 <strong>solution</strong>이라 하며, 그 중 비용이 최소인 것이 <strong>optimal solution</strong>입니다.
-        만약 어떤 상태 \(s\)에서 solution이 존재하지 않는다면, \(s\)는 <em>dead end</em>라 부릅니다. 
-        초기 상태 \(I\)에서 solution이 존재하면 \(\Theta\)는 <strong>solvable</strong>하다고 합니다.
-      </p>
+---
+layout: default
+title: "2-1. Problem Formalisms"
+---
 
 
-      <h2>STRIPS</h2>
-      <p>
-        Transition system은 알고리즘이 풀어야 할 문제를 정의한 것이고 실제로 문제를 구성하기 위해서는 사람끼리 약속한 규칙으로 문제를 표현해야 합니다. 
-        그 중 하나가 STRIPS (Stanford Research Institute Problem Solver)입니다. STRIPS는 1971년 
-        Fikes와 Nilsson이 제안한, planning problem \(\Pi\)를 표현하기 위한 
-        가장 대표적인 계획 형식(planning formalism)입니다. <br>
-      </p>
-      <h3>Definition</h3>
-      <p>
-      STRIPS는 \(\Pi\)를 문제를 다음과 같이 표현합니다. <br>
-        \[
-          \Pi = (P, A, c, I, G)
-        \]
-      </p>
-      <ul>
-        <li><strong>\(P\)</strong>: a finite set of facts, also propositions</li>
-        <li><strong>\(A\)</strong>: a finite set of action</li>
-        <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
-        <li><strong>\(I \subseteq P \)</strong>: the initial state</li>
-        <li><strong>\(S^G \subseteq S \)</strong>: the goal</li>
-      </ul>
+<div class="breadcrumb">
+  <a href="/projects/index.html">Projects</a> › 
+  <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a> › 
+  2-1. Problem Formalisms
+</div>
 
-      <p>
-        이때, STRIPS에서 모든 액션 \(a \in A\)는 다음과 같이 구성됩니다:
-      </p>
+<h1>2-1. Problem Formalisms</h1>
+<p class="meta">마지막 업데이트: 2025-10-06</p>
 
-      <ul>
-        <li>Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 fact들의 집합</li>
-        <li>Add list \(a_{add}\): 액션 실행 후 새롭게 참이 되는 사실들</li>
-        <li>Delete list \(a_{del}\): 액션 실행 후 더 이상 참이 아니게 되는 사실들</li>
-      </ul>
-      <p>이때, \(a_{add} \cap a_{del} = \emptyset\) 이어야 합니다.</p>
-      <p>
-        STRIPS의 핵심 아이디어는 액션이 상태를 변환하는 규칙으로 정의된다는 점입니다. 
-        즉, 액션을 적용하면 현재 상태에서 <em>Preconditions</em>가 충족될 때만 실행 가능하며, 
-        실행 결과로 <em>Add list</em>는 상태에 추가되고, <em>Delete list</em>는 상태에서 제거됩니다.
-      </p>
-      <h3>STRIPS state space</h3>
-      <p>
-        STRIPS로 표현한 planning task와 state space는 어떤 연관성이 있을까요? 즉 STRIPS planning task \(\Pi = (P, A, c, I, G)\)의 상태 공간은 
-        \(\Theta = (S, L, c, T, I, S^G)\)로 어떻게 바꿀 수 있을까요? 각 구성 요소는 다음과 같습니다:
-      </p>
+<h2>Transition System</h2>
+<h3>Definition</h3>
+<p>
+  Classical AI Planning 문제에서 <em>transition system</em> 혹은 <em>state space</em>은 상태 공간을 표현한 directed graph로 
+  다음과 같이 정의됩니다:
+</p>
 
-      <ol>
-        <li>
-          상태 집합 \(S\):  <br>
-          \(S = 2^P\)이며, 이는 proposition 집합 \(P\)의 모든 부분집합을 의미합니다.  
-          예를 들어, 두 아기의 성별을 다음과 같은 proposition으로 정의해 보겠습니다.  
-          \[
-          p_1 = is\_Female(Baby1), \quad p_2 = is\_Female(Baby2)
-          \]
-          이때 가능한 상태 집합 \(S\)는 다음과 같습니다.  
-          \[
-          S = \{\emptyset, \{p_1\}, \{p_2\}, \{p_1, p_2\}\}
-          \]
-          이를 해석하면, \(\emptyset\)은 두 아기 모두 female이 아니라는 뜻이며  
-          즉 \(p_1 = false, p_2 = false\)를 의미합니다.  
-          STRIPS에서는 **참인 명제만** 상태로 표현하며, 명시되지 않은 proposition은 자동으로 거짓으로 간주됩니다.<br>
-        </li>
+<p>
+  \[
+  \Theta = (S, L, T, c, I, S^G)
+  \]
+</p>
 
-        <li>
-          액션 집합 \(L\):  <br>
-          \(L = A\)이며, STRIPS에서 정의된 모든 액션들의 집합입니다.<br>
-        </li>
-
-        <li>
-          비용 함수 \(c\):  <br>
-          각 액션에 대해 비용을 정의하는 함수입니다. (보통 unit cost로 설정됩니다.)<br>
-        </li>
-
-        <li>
-          전이 함수 \(T\):  <br>
-          \(T : S \times A \to S\).  
-          액션 \(a \in A\)는 현재 상태에서 preconditions가 만족될 때 적용 가능하며,  
-          실행 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 정의됩니다.<br>
-        </li>
-
-        <li>
-          초기 상태 \(I\):  <br>
-          시작 시점의 상태로, \(P\)의 부분집합 중 하나입니다.<br>
-        </li>
-
-        <li>
-          목표 상태 집합 \(S^G\):  <br>
-          목표 \(G\)를 만족하는 모든 상태들의 집합입니다.<br>
-        </li>
-      </ol>
-
-      <h2>FDR</h2>
-      STRIPS는 모든 문제를 참과 거짓으로 표현합니다. 예를 들어, 화물차의 위치를 표현하고 싶다면, 이렇게 표현해야 합니다.
-      \[
-      at(truck, Seoul)=True, at(truck, Busan)=False, ..., at(truck, Sogang)=False
-      \]
-      만약 화물차의 개수와 관심있는 목적지의 개수가 늘어난다면 state space는 지수적으로 폭발하게 됩니다. 이를 보완하기 위해 1995년 처음, SAS+란 이름으로 
-      문제를 표현하게 됩니다. FDR(Finite domain representation)은 변수와 정의역이라는 개념을 이용해서 상태 공간을 표현합니다.
-      
-      <h3>Definition</h3>
-      <p>
-      FDR은 \(\Pi\)를 문제를 다음과 같이 표현합니다. <br>
-        \[
-          \Pi = (V, A, c, I, G)
-        \]
-      </p>
-      <ul>
-        <li><strong>\(V\)</strong>: a finite set of variables</li>
-        <li><strong>\(A\)</strong>: a finite set of action</li>
-        <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
-        <li><strong>\(I \subseteq P \)</strong>: the initial state</li>
-        <li><strong>\(G \subseteq S \)</strong>: the goal</li>
-      </ul>
-      <p>
-      먼저 각각의 변수 \(v \in V\)는 domain \(D_v\)가 할당(variable assignment)됩니다. 주의할 점은 이 domain은 PDDL에서 말하는 domain과는 다릅니다. PDDL에서 domain은 풀려는 
-      문제 등을 의미하는 것이라면, 여기서의 domain은 하나의 변수가 가질 수 있는 값(value) 혹은 정의역이라는 의미에 가깝습니다.<br>
-      <br>
-      변수 \(v\)는 domain에 속한 값 중 한 개를 가지게 됩니다.
-      \[
-      v = d \in D_v 
-      \]  
-      <br>
-      이때, variable-value pair \((v,d), v=d\) 를 fact라고 부르고, 이런 fact들의 집합이 fact set이 됩니다.
-      </p>
-      
-      <p>
-        FDR에서 모든 액션 \(a \in A\)는 다음과 같이 구성됩니다:
-      </p>
-
-      <ul>
-        <li>Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 fact들의 집합</li>
-        <li>Effect \(a_{add}\): 액션 실행 후 바뀌게 되는 fact들의 집합</li>
-      </ul>
-      <p>
-        위의 트럭 예시를 다시 가져오겠습니다.
-        \[
-        at(truck, Seoul)=True, at(truck, Busan)=False, ..., at(truck, Sogang)=False
-        \]
-        STRIPS planning task에서 boolean으로 상태 표현 한 것을 FDR로 바꾸면 어떻게 될까요?
-        \[
-        at\_truck=Seoul, at\_truck=Busan, at\_truck=Sogang
-        \]
-        
-        at_truck 이라는 변수에 \(D_v = \{Seoul, Busan, Sogang\}\) 이라는 domain이 할당 된 것을 보실 수 있습니다.
-        이러한 표현은 state space를 줄이고, causal graph를 간결하게 만드는 효과가 있습니다.
-        
-      </p>
+<ul>
+  <li><strong>\(S\)</strong>: a finite set of states</li>
+  <li><strong>\(L\)</strong>: a finite set of trasnsition label</li>
+  <li><strong>\(T \subseteq S \times L \times S \) </strong>: a transition relation</li>
+  <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
+  <li><strong>\(I \in S \)</strong>: the initial state</li>
+  <li><strong>\(S^G \subseteq S \)</strong>: the set of goal states</li>
+</ul>
+<h3>Terminology</h3>
+<p>
+  State의 갯수를 \(\Theta\)의 크기(size)라 부릅니다. 그리고 모든 state \(s\)와 label \(l\)에 대해서 다음 상태
+  \(s^\prime\)이 최대 1개만 존재하면, \(\Theta\)는 결정론적(deterministic)이라고 말합니다. 그리고 모든 label에 대해서 
+  \(c(l)=1\)이면 unit cost라고 부릅니다.
+</p>
+<p>
+  어떤 상태 \(s^\prime\)이 상태 \(s\)로부터 일련의 전이(sequence of transitions)를 통해 도달 가능하면,
+  \(s^\prime\)은 \(s\)로부터 <em>reachable</em>하다고 합니다. 이때 전이의 나열 \(l_1, \dots, l_n\)을 
+  \(s\)에서 \(s^\prime\)까지의 <em>path</em>라 부르고, 그 경로의 총 비용은 
+  \(\sum_{i=1}^n c(l_i)\)로 정의합니다. 초기 상태 \(I\)에서 목표 상태 집합 \(S^G\)의 어떤 상태에 도달하는 
+  path를 <strong>solution</strong>이라 하며, 그 중 비용이 최소인 것이 <strong>optimal solution</strong>입니다.
+  만약 어떤 상태 \(s\)에서 solution이 존재하지 않는다면, \(s\)는 <em>dead end</em>라 부릅니다. 
+  초기 상태 \(I\)에서 solution이 존재하면 \(\Theta\)는 <strong>solvable</strong>하다고 합니다.
+</p>
 
 
-      <h3>FDR state space</h3>
+<h2>STRIPS</h2>
+<p>
+  Transition system은 알고리즘이 풀어야 할 문제를 정의한 것이고 실제로 문제를 구성하기 위해서는 사람끼리 약속한 규칙으로 문제를 표현해야 합니다. 
+  그 중 하나가 STRIPS (Stanford Research Institute Problem Solver)입니다. STRIPS는 1971년 
+  Fikes와 Nilsson이 제안한, planning problem \(\Pi\)를 표현하기 위한 
+  가장 대표적인 계획 형식(planning formalism)입니다. <br>
+</p>
+<h3>Definition</h3>
+<p>
+STRIPS는 \(\Pi\)를 문제를 다음과 같이 표현합니다. <br>
+  \[
+    \Pi = (P, A, c, I, G)
+  \]
+</p>
+<ul>
+  <li><strong>\(P\)</strong>: a finite set of facts, also propositions</li>
+  <li><strong>\(A\)</strong>: a finite set of action</li>
+  <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
+  <li><strong>\(I \subseteq P \)</strong>: the initial state</li>
+  <li><strong>\(S^G \subseteq S \)</strong>: the goal</li>
+</ul>
 
-      <div class="prevnext">
-        <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
-        <span><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a> →</span>
-      </div>
-    </main>
-  </div>
-</body>
-</html>
+<p>
+  이때, STRIPS에서 모든 액션 \(a \in A\)는 다음과 같이 구성됩니다:
+</p>
+
+<ul>
+  <li>Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 fact들의 집합</li>
+  <li>Add list \(a_{add}\): 액션 실행 후 새롭게 참이 되는 사실들</li>
+  <li>Delete list \(a_{del}\): 액션 실행 후 더 이상 참이 아니게 되는 사실들</li>
+</ul>
+<p>이때, \(a_{add} \cap a_{del} = \emptyset\) 이어야 합니다.</p>
+<p>
+  STRIPS의 핵심 아이디어는 액션이 상태를 변환하는 규칙으로 정의된다는 점입니다. 
+  즉, 액션을 적용하면 현재 상태에서 <em>Preconditions</em>가 충족될 때만 실행 가능하며, 
+  실행 결과로 <em>Add list</em>는 상태에 추가되고, <em>Delete list</em>는 상태에서 제거됩니다.
+</p>
+<h3>STRIPS state space</h3>
+<p>
+  STRIPS로 표현한 planning task와 state space는 어떤 연관성이 있을까요? 즉 STRIPS planning task \(\Pi = (P, A, c, I, G)\)의 상태 공간은 
+  \(\Theta = (S, L, c, T, I, S^G)\)로 어떻게 바꿀 수 있을까요? 각 구성 요소는 다음과 같습니다:
+</p>
+
+<ol>
+  <li>
+    상태 집합 \(S\):  <br>
+    \(S = 2^P\)이며, 이는 proposition 집합 \(P\)의 모든 부분집합을 의미합니다.  
+    예를 들어, 두 아기의 성별을 다음과 같은 proposition으로 정의해 보겠습니다.  
+    \[
+    p_1 = is\_Female(Baby1), \quad p_2 = is\_Female(Baby2)
+    \]
+    이때 가능한 상태 집합 \(S\)는 다음과 같습니다.  
+    \[
+    S = \{\emptyset, \{p_1\}, \{p_2\}, \{p_1, p_2\}\}
+    \]
+    이를 해석하면, \(\emptyset\)은 두 아기 모두 female이 아니라는 뜻이며  
+    즉 \(p_1 = false, p_2 = false\)를 의미합니다.  
+    STRIPS에서는 **참인 명제만** 상태로 표현하며, 명시되지 않은 proposition은 자동으로 거짓으로 간주됩니다.<br>
+  </li>
+
+  <li>
+    액션 집합 \(L\):  <br>
+    \(L = A\)이며, STRIPS에서 정의된 모든 액션들의 집합입니다.<br>
+  </li>
+
+  <li>
+    비용 함수 \(c\):  <br>
+    각 액션에 대해 비용을 정의하는 함수입니다. (보통 unit cost로 설정됩니다.)<br>
+  </li>
+
+  <li>
+    전이 함수 \(T\):  <br>
+    \(T : S \times A \to S\).  
+    액션 \(a \in A\)는 현재 상태에서 preconditions가 만족될 때 적용 가능하며,  
+    실행 결과는 \(a_{add}\)를 추가하고 \(a_{del}\)을 제거한 상태로 정의됩니다.<br>
+  </li>
+
+  <li>
+    초기 상태 \(I\):  <br>
+    시작 시점의 상태로, \(P\)의 부분집합 중 하나입니다.<br>
+  </li>
+
+  <li>
+    목표 상태 집합 \(S^G\):  <br>
+    목표 \(G\)를 만족하는 모든 상태들의 집합입니다.<br>
+  </li>
+</ol>
+
+<h2>FDR</h2>
+STRIPS는 모든 문제를 참과 거짓으로 표현합니다. 예를 들어, 화물차의 위치를 표현하고 싶다면, 이렇게 표현해야 합니다.
+\[
+at(truck, Seoul)=True, at(truck, Busan)=False, ..., at(truck, Sogang)=False
+\]
+만약 화물차의 개수와 관심있는 목적지의 개수가 늘어난다면 state space는 지수적으로 폭발하게 됩니다. 이를 보완하기 위해 1995년 처음, SAS+란 이름으로 
+문제를 표현하게 됩니다. FDR(Finite domain representation)은 변수와 정의역이라는 개념을 이용해서 상태 공간을 표현합니다.
+
+<h3>Definition</h3>
+<p>
+FDR은 \(\Pi\)를 문제를 다음과 같이 표현합니다. <br>
+  \[
+    \Pi = (V, A, c, I, G)
+  \]
+</p>
+<ul>
+  <li><strong>\(V\)</strong>: a finite set of variables</li>
+  <li><strong>\(A\)</strong>: a finite set of action</li>
+  <li><strong>\(c: L \to \mathbb{R}^+_0\)</strong>: the cost function</li>
+  <li><strong>\(I \subseteq P \)</strong>: the initial state</li>
+  <li><strong>\(G \subseteq S \)</strong>: the goal</li>
+</ul>
+<p>
+먼저 각각의 변수 \(v \in V\)는 domain \(D_v\)가 할당(variable assignment)됩니다. 주의할 점은 이 domain은 PDDL에서 말하는 domain과는 다릅니다. PDDL에서 domain은 풀려는 
+문제 등을 의미하는 것이라면, 여기서의 domain은 하나의 변수가 가질 수 있는 값(value) 혹은 정의역이라는 의미에 가깝습니다.<br>
+<br>
+변수 \(v\)는 domain에 속한 값 중 한 개를 가지게 됩니다.
+\[
+v = d \in D_v 
+\]  
+<br>
+이때, variable-value pair \((v,d), v=d\) 를 fact라고 부르고, 이런 fact들의 집합이 fact set이 됩니다.
+</p>
+
+<p>
+  FDR에서 모든 액션 \(a \in A\)는 다음과 같이 구성됩니다:
+</p>
+
+<ul>
+  <li>Preconditions \(a_{pre}\): 액션을 실행하기 위해 반드시 만족해야 하는 fact들의 집합</li>
+  <li>Effect \(a_{add}\): 액션 실행 후 바뀌게 되는 fact들의 집합</li>
+</ul>
+<p>
+  위의 트럭 예시를 다시 가져오겠습니다.
+  \[
+  at(truck, Seoul)=True, at(truck, Busan)=False, ..., at(truck, Sogang)=False
+  \]
+  STRIPS planning task에서 boolean으로 상태 표현 한 것을 FDR로 바꾸면 어떻게 될까요?
+  \[
+  at\_truck=Seoul, at\_truck=Busan, at\_truck=Sogang
+  \]
+  
+  at_truck 이라는 변수에 \(D_v = \{Seoul, Busan, Sogang\}\) 이라는 domain이 할당 된 것을 보실 수 있습니다.
+  이러한 표현은 state space를 줄이고, causal graph를 간결하게 만드는 효과가 있습니다.
+  
+</p>
+
+
+<h3>FDR state space</h3>
+
+<div class="prevnext">
+  <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
+  <span><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a> →</span>
+</div>
