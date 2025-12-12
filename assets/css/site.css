@@ -57,7 +57,7 @@ a:hover{text-decoration:underline}
   grid-template-columns:300px 1fr;  /* ✅ 220px -> 308px (약 40% 증가) */
   gap:32px;
 
-  padding:12px 220px 12px 70px;    /* ✅ 오른쪽 여백도 사이드바 폭에 맞춰 증가 */
+  padding:12px 220px 12px 90px;    /* ✅ 오른쪽 여백도 사이드바 폭에 맞춰 증가 */
 }
 
 
