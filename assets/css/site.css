@@ -14,11 +14,11 @@ a:hover{text-decoration:underline}
 /* .brand{font-weight:700;margin-right:auto}
 .nav a{margin-left:12px;color:var(--text)} */
 .brand{
-  margin-right: 0;
+  margin-right: 70px;
 }
 
 .nav{
-  margin-left: 24px;
+  margin-left: 10px;
 }
 
 /* wrapper 여백 축소, 본문 비율 확대 */
