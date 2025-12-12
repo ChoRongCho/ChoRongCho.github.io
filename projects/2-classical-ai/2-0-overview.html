@@ -77,103 +77,118 @@ title: "2-0. Planning Overview"
 이를 해결하기 위해 최근에는 강화학습(RL), 모방학습(IL), 디퓨전 정책(Diffusion Policy),  
 LLM 기반 계획 등 다양한 현대적 방법들이 복잡한 계획 문제를 다루기 위해 등장했습니다.
 </p>
-
-<table style="border-collapse: collapse; width: 100%;">
+<table style="border-collapse: collapse; width: 100%; text-align: center;">
   <thead>
     <tr>
-      <th style="text-align:center; border: 1px solid #ccc;">Category</th>
-      <th style="text-align:center; border: 1px solid #ccc;">Classical AI Planning<br>(Restricted Model)</th>
-      <th style="text-align:center; border: 1px solid #ccc;">Modern Planning Approaches<br>(Extended Model)</th>
+      <th style="border: 1px solid #ccc;">Category</th>
+      <th style="border: 1px solid #ccc;">Classical AI Planning<br>(Restricted Model)</th>
+      <th style="border: 1px solid #ccc;">Modern Planning Approaches<br>(Extended Model)</th>
     </tr>
   </thead>
+
   <tbody>
     <tr>
       <td style="border: 1px solid #ccc;"><b>World Model</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Finite:</b> Limited number of possible states<br>
-        <b>Static:</b> No spontaneous changes (no events)<br>
-        <b>Deterministic:</b> Action outcomes are always the same
+        <b>Finite:</b> Limited number of states<br>
+        <b>Static:</b> No spontaneous changes<br>
+        <b>Deterministic:</b> Same outcome for each action
       </td>
       <td style="border: 1px solid #ccc;">
-        Probabilistic & continuous states,<br>
-        dynamic changes, nondeterministic transitions
+        <b>Probabilistic:</b> <br>
+        <b>Dynamic:</b> <br>
+        <b>Nondeterministic: </b>
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Observability</b></td>
       <td style="border: 1px solid #ccc;">
         <b>Fully Observable:</b><br>
-        The agent always knows the exact current state
+        Agent knows exact state at all times
       </td>
       <td style="border: 1px solid #ccc;">
-        Partial Observability (POMDP), noisy sensors,<br>
-        uncertainty modeling required
+        <b>Partial observable:</b><br>
+        Noisy sensors and uncertainty
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Actions</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Implicit Time:</b> Actions occur instantly<br>
-        <b>Sequential:</b> Actions executed one-by-one
+        <b>Implicit Time:</b> Instantaneous actions<br>
+        <b>Sequential:</b> One action at a time
       </td>
       <td style="border: 1px solid #ccc;">
-        Durations, concurrency, continuous control,<br>
-        policy-based execution
+        Action durations matter<br>
+        Concurrency & continuous control<br>
+        Policy-based execution
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Goals</b></td>
       <td style="border: 1px solid #ccc;">
         <b>Goal State:</b><br>
-        Planning ends when the agent reaches a specific state
+        Planning ends when a target state is reached
       </td>
       <td style="border: 1px solid #ccc;">
-        Path constraints, avoidance conditions,<br>
-        risk minimization, long-term reward optimization
+        Path constraints & avoidance<br>
+        Safety, risk minimization<br>
+        Reward optimization
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Plan Representation</b></td>
       <td style="border: 1px solid #ccc;">
         <b>Action Sequence:</b><br>
-        A fixed sequence of actions from start to finish
+        Fixed sequence from start to goal
       </td>
       <td style="border: 1px solid #ccc;">
-        Policies, conditional plans, automata,<br>
-        neural network–based controllers
+        Policies & conditional plans<br>
+        Automata-based controllers<br>
+        Neural network policies
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Typical Methods</b></td>
       <td style="border: 1px solid #ccc;">
-        PDDL, STRIPS, heuristics,<br>
-        A*, Graphplan, SAT-based planning
+        PDDL, STRIPS, heuristics<br>
+        A*, Graphplan, SAT planners
       </td>
       <td style="border: 1px solid #ccc;">
-        Reinforcement Learning (RL), Imitation Learning (IL),<br>
-        Diffusion Policy, MPC, LLM-based Planning
+        Reinforcement Learning (RL)<br>
+        Imitation Learning (IL)<br>
+        Diffusion Policies, MPC, LLM-based planning
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Strengths</b></td>
       <td style="border: 1px solid #ccc;">
-        Clear symbolic model, high interpretability,<br>
-        strong theoretical foundations
+        Clear symbolic structure<br>
+        Highly interpretable<br>
+        Strong theoretical foundation
       </td>
       <td style="border: 1px solid #ccc;">
-        Handles real-world complexity,<br>
-        robust in dynamic & uncertain environments
+        Works in real-world complexity<br>
+        Handles uncertainty & dynamics<br>
+        Scales to continuous control
       </td>
     </tr>
+
     <tr>
       <td style="border: 1px solid #ccc;"><b>Limitations</b></td>
       <td style="border: 1px solid #ccc;">
-        Requires simplified world assumptions,<br>
-        suffers from state-space explosion
+        Requires simplified world assumptions<br>
+        Suffers from state-space explosion
       </td>
       <td style="border: 1px solid #ccc;">
-        Requires large data, expensive training,<br>
-        safety & reliability challenges
+        Requires large datasets & training<br>
+        Safety and reliability challenges<br>
+        Harder to interpret learned models
       </td>
     </tr>
   </tbody>
