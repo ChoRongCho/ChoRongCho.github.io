@@ -2,19 +2,24 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>{{ page.title }} | {{ site.title }}</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- 공통 CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} | Changmin Park</title>
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
 </head>
 <body>
-  <div class="wrapper">
-    <!-- 왼쪽 사이드바 -->
-    {% include sidebar.html %}
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="{{ '/index.html' | relative_url }}">Home</a>
+      <nav class="nav">
+        <a href="{{ '/about.html' | relative_url }}">About</a>
+        <a href="{{ '/projects/index.html' | relative_url }}">Projects</a>
+        <a href="{{ '/publication.html' | relative_url }}">Publications</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- 오른쪽 컨텐츠 -->
+  <div class="wrapper">
+    {% include sidebar.html %}
     <main class="content">
       {{ content }}
     </main>
