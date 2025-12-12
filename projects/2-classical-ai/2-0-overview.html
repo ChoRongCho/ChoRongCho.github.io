@@ -54,6 +54,124 @@ title: "2-0. Planning Overview"
   <li>물건 배달 문제 (Logistics)</li> 
 </ul> <p> <b>같은 다양한 문제에 대해 똑같은 플래너</b>가 사용될 수 있습니다. </p>
 
+
+
+
+<h2>Classical AI Planning vs. Modern Planning Approaches</h2>
+
+<p>
+고전적인 AI Planning은 <b>Restricted Model</b>을 기반으로 합니다.  
+즉, 세계는 유한(Finite)하고, 완전 관측 가능(Fully Observable)하며, 결정론적(Deterministic)이고,  
+정적(Static)이며, 목표는 단순하고(Restricted Goals), 행동은 순차적(Sequential Plans)이고,  
+시간은 고려되지 않으며(Implicit Time), 오프라인에서 계획한다고 가정합니다(Offline Planning).  
+이런 조건에서는 계획 문제는 사실상 <b>거대한 상태 그래프에서 경로를 찾는 문제</b>로 단순화됩니다.
+</p>
+
+<p>
+그러면 이런 고전적 AI Planning 문제가 이론적으로는 쉬워야 합니다.  
+<b>하지만 실제로는 상태 공간이 지나치게 커서(graph explosion) 이조차도 매우 어렵습니다.</b>
+</p>
+
+<p>
+더욱이 실제 세계는 훨씬 더 복잡합니다.  
+이를 해결하기 위해 최근에는 강화학습(RL), 모방학습(IL), 디퓨전 정책(Diffusion Policy),  
+LLM 기반 계획 등 다양한 현대적 방법들이 복잡한 계획 문제를 다루기 위해 등장했습니다.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:center;">구분</th>
+      <th style="text-align:center;">Classical AI Planning<br>(Restricted Model 기반)</th>
+      <th style="text-align:center;">Modern Planning Approaches<br>(확장된 모델 기반)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>세계 모델</b></td>
+      <td>
+        <b>유한(Finite):</b> 가능한 상태 수가 제한됨<br>
+        <b>정적(Static):</b> 스스로 변하지 않음(이벤트 없음)<br>
+        <b>결정론적(Deterministic):</b> 행동의 결과가 항상 동일
+      </td>
+      <td>
+        확률적·연속적 상태 공간,<br>
+        동적 변화 포함, 비결정론적 전이
+      </td>
+    </tr>
+    <tr>
+      <td><b>관측</b></td>
+      <td>
+        <b>완전 관측(Full Observability):</b><br>
+        현재 상태를 100% 정확히 알고 있음
+      </td>
+      <td>부분 관측(POMDP), 노이즈 포함, 불확실성 모델링 필요</td>
+    </tr>
+    <tr>
+      <td><b>행동</b></td>
+      <td>
+        <b>Implicit Time:</b> 행동은 즉시 발생<br>
+        <b>Sequential:</b> 행동은 하나씩 순차적으로 실행
+      </td>
+      <td>행동 지속 시간 고려, 동시 실행, 연속 제어, 정책 기반 행동</td>
+    </tr>
+    <tr>
+      <td><b>목표</b></td>
+      <td>
+        <b>Goal State 도달:</b><br>
+        특정 상태에 도착하면 종료
+      </td>
+      <td>경로 제약, 회피 조건, 리스크 최소화, 보상 최적화 등 포함</td>
+    </tr>
+    <tr>
+      <td><b>계획 표현</b></td>
+      <td>
+        <b>Action Sequence:</b><br>
+        앞에서부터 끝까지 고정된 행동 열
+      </td>
+      <td>정책(policy), 조건부 계획, 자동자, 신경망 기반 제어</td>
+    </tr>
+    <tr>
+      <td><b>대표 기법</b></td>
+      <td>
+        PDDL, STRIPS, Heuristics,<br>
+        A*, Graphplan, SAT-based Planning
+      </td>
+      <td>
+        강화학습(RL), 모방학습(IL), Diffusion Policy,<br>
+        Model Predictive Control(MPC), LLM-based Planning
+      </td>
+    </tr>
+    <tr>
+      <td><b>장점</b></td>
+      <td>
+        명확한 모델, 해석 용이,<br>이론적 기반이 탄탄함
+      </td>
+      <td>현실 시스템 적용 가능, 불확실성과 동적 환경 처리 가능</td>
+    </tr>
+    <tr>
+      <td><b>한계</b></td>
+      <td>
+        현실 세계를 단순화해야 사용 가능<br>
+        상태 공간 폭발로 인해 실용적 어려움 존재
+      </td>
+      <td>
+        많은 데이터 필요, 학습 비용 큼,<br>
+        안정성·재현성 문제
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+따라서 Classical Planning은 “문제를 추상적으로 구조화하는 틀”을 제공하고,  
+현대적 기법들은 “현실 세계에서 불확실성과 연속성을 다루는 방법”을 제공합니다.  
+두 관점은 경쟁 관계가 아니라 상호 보완적이며, 최근 연구는 <b>Symbolic Planning + Learning 기반 Planning</b>이 함께 사용되는 경우가 많습니다.
+</p>
+
+
+
+
 <div class="prevnext">
   <span>← <a href="/projects/2-classical-ai/index.html">2. Classical AI Planning 개요</a></span>
   <span><a href="/projects/2-classical-ai/2-0-overview.html">2-2. PDDL</a> →</span>
