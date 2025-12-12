@@ -78,90 +78,107 @@ title: "2-0. Planning Overview"
 LLM 기반 계획 등 다양한 현대적 방법들이 복잡한 계획 문제를 다루기 위해 등장했습니다.
 </p>
 
-<table>
+<table style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th style="text-align:center;">구분</th>
-      <th style="text-align:center;">Classical AI Planning<br>(Restricted Model)</th>
-      <th style="text-align:center;">Modern Planning Approaches<br>(Extended Model)</th>
+      <th style="text-align:center; border: 1px solid #ccc;">Category</th>
+      <th style="text-align:center; border: 1px solid #ccc;">Classical AI Planning<br>(Restricted Model)</th>
+      <th style="text-align:center; border: 1px solid #ccc;">Modern Planning Approaches<br>(Extended Model)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><b>세계 모델</b></td>
-      <td>
-        <b>유한(Finite):</b> 가능한 상태 수가 제한됨<br>
-        <b>정적(Static):</b> 스스로 변하지 않음(이벤트 없음)<br>
-        <b>결정론적(Deterministic):</b> 행동(action)의 결과가 항상 동일
+      <td style="border: 1px solid #ccc;"><b>World Model</b></td>
+      <td style="border: 1px solid #ccc;">
+        <b>Finite:</b> Limited number of possible states<br>
+        <b>Static:</b> No spontaneous changes (no events)<br>
+        <b>Deterministic:</b> Action outcomes are always the same
       </td>
-      <td>
-        확률적·연속적 상태 공간,<br>
-        동적 변화 포함, 비결정론적 전이
+      <td style="border: 1px solid #ccc;">
+        Probabilistic & continuous states,<br>
+        dynamic changes, nondeterministic transitions
       </td>
     </tr>
     <tr>
-      <td><b>관측</b></td>
-      <td>
-        <b>완전 관측(Full Observability):</b><br>
-        현재 상태를 100% 정확히 알고 있음
+      <td style="border: 1px solid #ccc;"><b>Observability</b></td>
+      <td style="border: 1px solid #ccc;">
+        <b>Fully Observable:</b><br>
+        The agent always knows the exact current state
       </td>
-      <td>부분 관측(POMDP), 노이즈 포함, 불확실성 모델링 필요</td>
+      <td style="border: 1px solid #ccc;">
+        Partial Observability (POMDP), noisy sensors,<br>
+        uncertainty modeling required
+      </td>
     </tr>
     <tr>
-      <td><b>행동</b></td>
-      <td>
-        <b>Implicit Time:</b> 행동은 즉시 발생<br>
-        <b>Sequential:</b> 행동은 하나씩 순차적으로 실행
+      <td style="border: 1px solid #ccc;"><b>Actions</b></td>
+      <td style="border: 1px solid #ccc;">
+        <b>Implicit Time:</b> Actions occur instantly<br>
+        <b>Sequential:</b> Actions executed one-by-one
       </td>
-      <td>행동 지속 시간 고려, 동시 실행, 연속 제어, 정책 기반 행동</td>
+      <td style="border: 1px solid #ccc;">
+        Durations, concurrency, continuous control,<br>
+        policy-based execution
+      </td>
     </tr>
     <tr>
-      <td><b>목표</b></td>
-      <td>
-        <b>Goal State 도달:</b><br>
-        특정 상태에 도착하면 종료
+      <td style="border: 1px solid #ccc;"><b>Goals</b></td>
+      <td style="border: 1px solid #ccc;">
+        <b>Goal State:</b><br>
+        Planning ends when the agent reaches a specific state
       </td>
-      <td>경로 제약, 회피 조건, 리스크 최소화, 보상 최적화 등 포함</td>
+      <td style="border: 1px solid #ccc;">
+        Path constraints, avoidance conditions,<br>
+        risk minimization, long-term reward optimization
+      </td>
     </tr>
     <tr>
-      <td><b>계획 표현</b></td>
-      <td>
+      <td style="border: 1px solid #ccc;"><b>Plan Representation</b></td>
+      <td style="border: 1px solid #ccc;">
         <b>Action Sequence:</b><br>
-        앞에서부터 끝까지 고정된 행동 열
+        A fixed sequence of actions from start to finish
       </td>
-      <td>정책(policy), 조건부 계획, 자동자, 신경망 기반 제어</td>
-    </tr>
-    <tr>
-      <td><b>대표 기법</b></td>
-      <td>
-        PDDL, STRIPS, Heuristics,<br>
-        A*, Graphplan, SAT-based Planning
-      </td>
-      <td>
-        강화학습(RL), 모방학습(IL), Diffusion Policy,<br>
-        Model Predictive Control(MPC), LLM-based Planning
+      <td style="border: 1px solid #ccc;">
+        Policies, conditional plans, automata,<br>
+        neural network–based controllers
       </td>
     </tr>
     <tr>
-      <td><b>장점</b></td>
-      <td>
-        명확한 모델, 해석 용이,<br>이론적 기반이 탄탄함
+      <td style="border: 1px solid #ccc;"><b>Typical Methods</b></td>
+      <td style="border: 1px solid #ccc;">
+        PDDL, STRIPS, heuristics,<br>
+        A*, Graphplan, SAT-based planning
       </td>
-      <td>현실 시스템 적용 가능, 불확실성과 동적 환경 처리 가능</td>
+      <td style="border: 1px solid #ccc;">
+        Reinforcement Learning (RL), Imitation Learning (IL),<br>
+        Diffusion Policy, MPC, LLM-based Planning
+      </td>
     </tr>
     <tr>
-      <td><b>한계</b></td>
-      <td>
-        현실 세계를 단순화해야 사용 가능<br>
-        상태 공간 폭발로 인해 실용적 어려움 존재
+      <td style="border: 1px solid #ccc;"><b>Strengths</b></td>
+      <td style="border: 1px solid #ccc;">
+        Clear symbolic model, high interpretability,<br>
+        strong theoretical foundations
       </td>
-      <td>
-        많은 데이터 필요, 학습 비용 큼,<br>
-        안정성·재현성 문제
+      <td style="border: 1px solid #ccc;">
+        Handles real-world complexity,<br>
+        robust in dynamic & uncertain environments
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc;"><b>Limitations</b></td>
+      <td style="border: 1px solid #ccc;">
+        Requires simplified world assumptions,<br>
+        suffers from state-space explosion
+      </td>
+      <td style="border: 1px solid #ccc;">
+        Requires large data, expensive training,<br>
+        safety & reliability challenges
       </td>
     </tr>
   </tbody>
 </table>
+
 
 <p>
 따라서 Classical Planning은 “문제를 추상적으로 구조화하는 틀”을 제공하고,  
