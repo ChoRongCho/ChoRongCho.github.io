@@ -13,12 +13,18 @@ a:hover{text-decoration:underline}
 .header-inner{max-width:var(--max);margin:0 auto;padding:10px 12px;display:flex;gap:16px;align-items:center}
 /* .brand{font-weight:700;margin-right:auto}
 .nav a{margin-left:12px;color:var(--text)} */
+
 .brand{
   margin-right: 70px;
+  margin-left: 40px;   /* ← Home을 오른쪽으로 이동 */
 }
 
 .nav{
-  margin-left: 10px;
+  display: flex;
+  gap: 24px;   /* ← 메뉴 간격 */
+}
+.nav a{
+  margin-left: 0;  /* 기존 margin 제거 */
 }
 
 /* wrapper 여백 축소, 본문 비율 확대 */
