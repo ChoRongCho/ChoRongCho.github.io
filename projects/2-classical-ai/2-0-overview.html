@@ -87,110 +87,115 @@ LLM 기반 계획 등 다양한 현대적 방법들이 복잡한 계획 문제�
   </thead>
 
   <tbody>
+
+    <!-- WORLD MODEL -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>World Model</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Finite:</b> Limited number of states<br>
-        <b>Static:</b> No spontaneous changes<br>
+        <b>Finite:</b> Limited number of discrete states<br>
+        <b>Static:</b> World does not change unless agent acts<br>
         <b>Deterministic:</b> Same outcome for each action
       </td>
       <td style="border: 1px solid #ccc;">
-        <b>Probabilistic:</b> <br>
-        <b>Dynamic:</b> <br>
-        <b>Nondeterministic: </b>
+        <b>Probabilistic:</b> Outcomes follow probability distributions<br>
+        <b>Dynamic:</b> World can change on its own<br>
+        <b>Nondeterministic:</b> Multiple possible outcomes per action
       </td>
     </tr>
 
+    <!-- OBSERVABILITY -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Observability</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Fully Observable:</b><br>
-        Agent knows exact state at all times
+        <b>Fully Observable:</b> Agent has exact state knowledge<br>
       </td>
       <td style="border: 1px solid #ccc;">
-        <b>Partial observable:</b><br>
-        Noisy sensors and uncertainty
+        <b>Partially Observable:</b> State must be inferred from noisy observations<br>
       </td>
     </tr>
 
+    <!-- ACTIONS -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Actions</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Implicit Time:</b> Instantaneous actions<br>
-        <b>Sequential:</b> One action at a time
+        <b>Instantaneous:</b> No action duration<br>
+        <b>Sequential:</b> Only one action at a time
       </td>
       <td style="border: 1px solid #ccc;">
-        Action durations matter<br>
-        Concurrency & continuous control<br>
-        Policy-based execution
+        <b>Durative Actions:</b> Time-dependent effects<br>
+        <b>Continuous Control:</b> Real-valued actions<br>
+        <b>Concurrency:</b> Multiple actions in parallel
       </td>
     </tr>
 
+    <!-- GOALS -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Goals</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Goal State:</b><br>
-        Planning ends when a target state is reached
+        <b>Goal State:</b> Achieve a set of logical conditions<br>
+        <b>Binary Success:</b> Goal achieved or not
       </td>
       <td style="border: 1px solid #ccc;">
-        Path constraints & avoidance<br>
-        Safety, risk minimization<br>
-        Reward optimization
+        <b>Constraints:</b> Safety, avoidance, deadlines<br>
+        <b>Optimization:</b> Minimize cost, maximize reward<br>
+        <b>Risk Sensitivity:</b> Trade-off between success & uncertainty
       </td>
     </tr>
 
+    <!-- PLAN REPRESENTATION -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Plan Representation</b></td>
       <td style="border: 1px solid #ccc;">
-        <b>Action Sequence:</b><br>
-        Fixed sequence from start to goal
+        <b>Action Sequence:</b> Fixed order of actions<br>
       </td>
       <td style="border: 1px solid #ccc;">
-        Policies & conditional plans<br>
-        Automata-based controllers<br>
-        Neural network policies
+        <b>Policies:</b> State → action mapping<br>
+        <b>Neural Controllers:</b> Learned reactive behaviors
       </td>
     </tr>
 
+    <!-- METHODS -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Typical Methods</b></td>
       <td style="border: 1px solid #ccc;">
-        PDDL, STRIPS, heuristics<br>
-        A*, Graphplan, SAT planners
+        <b>Symbolic Planning:</b> PDDL, STRIPS<br>
+        <b>Heuristic Search:</b> A*, FF heuristic<br>
+        <b>Logical Reasoning:</b> SAT, Graphplan
       </td>
       <td style="border: 1px solid #ccc;">
-        Reinforcement Learning (RL)<br>
-        Imitation Learning (IL)<br>
-        Diffusion Policies, MPC, LLM-based planning
+        <b>Learning-Based:</b> RL, IL, Behavior Cloning<br>
+        <b>Generative Policies:</b> Diffusion, LLM planners<br>
+        <b>MPC / Optimization:</b> Continuous control planning
       </td>
     </tr>
 
+    <!-- STRENGTHS -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Strengths</b></td>
       <td style="border: 1px solid #ccc;">
-        Clear symbolic structure<br>
-        Highly interpretable<br>
-        Strong theoretical foundation
+        <b>Explainable:</b> Interpretable symbolic structure<br>
+        <b>Optimality Guarantees:</b> Strong theory foundation
       </td>
       <td style="border: 1px solid #ccc;">
-        Works in real-world complexity<br>
-        Handles uncertainty & dynamics<br>
-        Scales to continuous control
+        <b>Real-World Ready:</b> Handles noise & dynamics<br>
+        <b>Scalable:</b> Works in continuous, high-dimensional spaces
       </td>
     </tr>
 
+    <!-- LIMITATIONS -->
     <tr>
       <td style="border: 1px solid #ccc;"><b>Limitations</b></td>
       <td style="border: 1px solid #ccc;">
-        Requires simplified world assumptions<br>
-        Suffers from state-space explosion
+        <b>World Simplification:</b> Must assume perfect knowledge<br>
+        <b>State Explosion:</b> Hard to scale to large domains
       </td>
       <td style="border: 1px solid #ccc;">
-        Requires large datasets & training<br>
-        Safety and reliability challenges<br>
-        Harder to interpret learned models
+        <b>Data Hungry:</b> Requires large datasets<br>
+        <b>Safety Issues:</b> Hard to verify learned policies<br>
+        <b>Less Interpretable:</b> Difficult to debug
       </td>
     </tr>
+
   </tbody>
 </table>
 
