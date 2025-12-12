@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ page.title }} | {{ site.title }}</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 왼쪽 사이드바 -->
+    {% include sidebar.html %}
+
+    <!-- 오른쪽 컨텐츠 -->
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
+</body>
+</html>
