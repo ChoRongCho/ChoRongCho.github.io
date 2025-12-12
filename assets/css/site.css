@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
   gap:16px;
   
   /* 오른쪽에 사이드바만큼 여백 확보 */
-  padding:12px 220px 12px 8px; 
+  padding:12px 240px 12px 20px; 
   /* 위 12px, 오른쪽 220px(사이드바 폭만큼), 아래 12px, 왼쪽 8px */
 }
 
