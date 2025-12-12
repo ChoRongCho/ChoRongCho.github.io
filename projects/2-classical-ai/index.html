@@ -1,95 +1,56 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>2. Classical AI Planning</title>
-  <link rel="stylesheet" href="/assets/css/site.css">
-</head>
-<body>
-  <!-- 상단 헤더 -->
-  <header class="header">
-    <div class="header-inner">
-      <a class="brand" href="/index.html">Home</a>
-      <nav class="nav">
-        <a href="/projects/index.html">Projects</a>
-        <a href="/about.html">About</a>
-      </nav>
-    </div>
-  </header>
+---
+layout: default
+title: "2. Classical AI"
+---
 
-  <div class="wrapper">
-    <!-- 왼쪽 사이드바 -->
-    <aside class="sidebar">
-      <h3>Projects</h3>
-      <ul>
-        <li class="depth1"><a href="/projects/1-introduction-to-ai/index.html">1. Introduction to AI</a></li>
-        <li class="depth1 active"><a href="/projects/2-classical-ai/index.html">2. Classical AI Planning</a>
-          <ul>
-            <li><a href="/projects/2-classical-ai/2-1-problem-formulation.html">2-1. Problem Formalisms</a></li>
-            <li><a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></li>
-            <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">2-3. Causal Graph</a></li>
-            <li><a href="/projects/2-classical-ai/2-4-domain-transition-graph.html">2-4. Domain Transition Graph</a></li>
-          </ul>
-        </li>
-        <li class="depth1"><a href="/projects/3-planner/index.html">3. Domain Independent Planner</a></li>
-        <li class="depth1"><a href="/projects/4-tamp/index.html">4. Task and Motion Planning</a></li>
-      </ul>
-    </aside>
+<div class="breadcrumb">
+  <a href="/projects/index.html">Projects</a> › 2. Classical AI Planning
+</div>
 
-    <!-- 본문 -->
-    <main class="content">
-      <div class="breadcrumb">
-        <a href="/projects/index.html">Projects</a> › 2. Classical AI Planning
-      </div>
+<h1>2. Classical AI Planning</h1>
+<p class="meta">마지막 업데이트: 2025-10-03</p>
 
-      <h1>2. Classical AI Planning</h1>
-      <p class="meta">마지막 업데이트: 2025-10-03</p>
+<p>
+  Classical AI Planning은 <strong>First-Order Logic</strong>으로 표현된 
+  <em>deterministic transition system</em>에서, 
+  초기 상태에서 목표 상태까지 도달할 수 있는 <em>액션 시퀀스(plan)</em>를 찾는 문제를 의미합니다. 
+  이때 우리가 다루는 계획 문제는 <strong>초기 상태가 유일하고 완전히 알려져 있으며</strong>, 
+  <strong>환경은 결정론적(deterministic), 정적(static), 이산적(discrete), 단일 에이전트(single-agent)</strong>라는 
+  가정을 전제로 합니다. 
+  또한 액션은 순차적으로 하나씩 실행되며, 플랜은 이러한 액션들의 <em>순차적 시퀀스</em>로 구성됩니다.
+</p>
+<small>
+  <ul>
+    <li><strong>Deterministic</strong>: 동일한 액션은 항상 같은 결과를 만든다.</li>
+    <li><strong>Static</strong>: 에이전트가 행동하지 않는 한 환경은 변하지 않는다.</li>
+    <li><strong>Discrete</strong>: 상태와 액션이 유한하고 명확하게 구분된다.</li>
+    <li><strong>Single-agent</strong>: 오직 하나의 에이전트만 계획을 수행한다.</li>
+    <li><strong>Sequential</strong>: 액션은 병렬이 아닌 순차적으로 실행된다.</li>
+  </ul>
+</small>
 
-      <p>
-        Classical AI Planning은 <strong>First-Order Logic</strong>으로 표현된 
-        <em>deterministic transition system</em>에서, 
-        초기 상태에서 목표 상태까지 도달할 수 있는 <em>액션 시퀀스(plan)</em>를 찾는 문제를 의미합니다. 
-        이때 우리가 다루는 계획 문제는 <strong>초기 상태가 유일하고 완전히 알려져 있으며</strong>, 
-        <strong>환경은 결정론적(deterministic), 정적(static), 이산적(discrete), 단일 에이전트(single-agent)</strong>라는 
-        가정을 전제로 합니다. 
-        또한 액션은 순차적으로 하나씩 실행되며, 플랜은 이러한 액션들의 <em>순차적 시퀀스</em>로 구성됩니다.
-      </p>
-      <small>
-        <ul>
-          <li><strong>Deterministic</strong>: 동일한 액션은 항상 같은 결과를 만든다.</li>
-          <li><strong>Static</strong>: 에이전트가 행동하지 않는 한 환경은 변하지 않는다.</li>
-          <li><strong>Discrete</strong>: 상태와 액션이 유한하고 명확하게 구분된다.</li>
-          <li><strong>Single-agent</strong>: 오직 하나의 에이전트만 계획을 수행한다.</li>
-          <li><strong>Sequential</strong>: 액션은 병렬이 아닌 순차적으로 실행된다.</li>
-        </ul>
-      </small>
+<p>
+  일반적으로 Planning 문제는 두 가지로 구분됩니다. 
+  하나는 단순히 플랜의 존재 여부를 확인하는 <strong>PlanEx</strong> 문제이고, 
+  다른 하나는 최적화된 경로를 찾는 <strong>PlanOpt</strong> 문제입니다. 
+  PlanEx와 PlanOpt는 모두 <em>PSPACE-complete</em> 문제로 알려져 있습니다.
+</p>
 
-      <p>
-        일반적으로 Planning 문제는 두 가지로 구분됩니다. 
-        하나는 단순히 플랜의 존재 여부를 확인하는 <strong>PlanEx</strong> 문제이고, 
-        다른 하나는 최적화된 경로를 찾는 <strong>PlanOpt</strong> 문제입니다. 
-        PlanEx와 PlanOpt는 모두 <em>PSPACE-complete</em> 문제로 알려져 있습니다.
-      </p>
-
-      <p>
-        따라서 Classical Planning에서는 문제를 표현하는 방식뿐만 아니라, 
-        거대한 <strong>탐색 공간(search space)</strong>을 얼마나 효과적으로 탐색할 수 있는지가 핵심 과제가 됩니다. 
-        이를 위해 다양한 <strong>지식 표현 방법</strong>과 
-        <strong>휴리스틱 탐색 기법</strong>들이 제안되어 왔습니다. 
-        본 단원에서는 이러한 고전적 계획 문제의 수학적 정의와 함께, 
-        효과적인 탐색을 가능하게 하는 여러 휴리스틱 접근 방법들을 다루게 됩니다.
-      </p>
+<p>
+  따라서 Classical Planning에서는 문제를 표현하는 방식뿐만 아니라, 
+  거대한 <strong>탐색 공간(search space)</strong>을 얼마나 효과적으로 탐색할 수 있는지가 핵심 과제가 됩니다. 
+  이를 위해 다양한 <strong>지식 표현 방법</strong>과 
+  <strong>휴리스틱 탐색 기법</strong>들이 제안되어 왔습니다. 
+  본 단원에서는 이러한 고전적 계획 문제의 수학적 정의와 함께, 
+  효과적인 탐색을 가능하게 하는 여러 휴리스틱 접근 방법들을 다루게 됩니다.
+</p>
 
 
-      <h2>소목차</h2>
-      <ol>
-        <li><a href="/projects/2-classical-ai/2-1-problem-formulation.html">Problem Formalisms</a></li>
-        <li><a href="/projects/2-classical-ai/2-2-pddl.html">PDDL</a></li>
-        <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">Causal Graph</a></li>
-        <li><a href="/projects/2-classical-ai/2-4-domain-transition-graph.html">Domain Transition Graph</a></li>
-      </ol>
-    </main>
-  </div>
-</body>
-</html>
+<h2>소목차</h2>
+<ol>
+  <li><a href="/projects/2-classical-ai/2-1-problem-formulation.html">Problem Formalisms</a></li>
+  <li><a href="/projects/2-classical-ai/2-2-pddl.html">PDDL</a></li>
+  <li><a href="/projects/2-classical-ai/2-3-causal-graph.html">Causal Graph</a></li>
+  <li><a href="/projects/2-classical-ai/2-4-domain-transition-graph.html">Domain Transition Graph</a></li>
+</ol>
+
