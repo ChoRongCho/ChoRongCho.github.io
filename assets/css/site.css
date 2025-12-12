@@ -22,7 +22,7 @@ a:hover{text-decoration:underline}
   
   display:grid;
   grid-template-columns:220px 1fr;  /* 왼쪽 sidebar, 오른쪽 content */
-  gap:16px;
+  gap:32px;
   
   /* 오른쪽에 사이드바만큼 여백 확보 */
   padding:12px 240px 12px 50px; 
