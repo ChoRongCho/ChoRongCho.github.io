@@ -11,8 +11,15 @@ a:hover{text-decoration:underline}
 /* 레이아웃 */
 .header{border-bottom:1px solid var(--border)}
 .header-inner{max-width:var(--max);margin:0 auto;padding:10px 12px;display:flex;gap:16px;align-items:center}
-.brand{font-weight:700;margin-right:auto}
-.nav a{margin-left:12px;color:var(--text)}
+/* .brand{font-weight:700;margin-right:auto}
+.nav a{margin-left:12px;color:var(--text)} */
+.brand{
+  margin-right: 0;
+}
+
+.nav{
+  margin-left: 24px;
+}
 
 /* wrapper 여백 축소, 본문 비율 확대 */
 .wrapper{
