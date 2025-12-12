@@ -1,6 +1,6 @@
 <aside class="sidebar">
   {%- comment -%}
-    1) 홈 / About / Publications: Quick Links 만
+    1) 홈 / About / Publications 에서는 Quick Links만 보여주기
   {%- endcomment -%}
   {% if page.url == '/' or page.url == '/index.html'
         or page.url == '/about.html'
@@ -14,28 +14,28 @@
     </ul>
 
   {%- comment -%}
-    2) /projects/index.html: 대제목 4개만
+    2) /projects/index.html 에서는 1~4 제목만 보여주기
   {%- endcomment -%}
   {% elsif page.url == '/projects/' or page.url == '/projects/index.html' %}
 
     <h3>Projects</h3>
     <ul>
-      <li>
+      <li class="depth1">
         <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}">
           1. Introduction to AI
         </a>
       </li>
-      <li>
+      <li class="depth1">
         <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}">
           2. Classical AI Planning
         </a>
       </li>
-      <li>
+      <li class="depth1">
         <a href="{{ '/projects/3-planner/index.html' | relative_url }}">
           3. Domain Independent Planner
         </a>
       </li>
-      <li>
+      <li class="depth1">
         <a href="{{ '/projects/4-tamp/index.html' | relative_url }}">
           4. Task and Motion Planning
         </a>
@@ -43,141 +43,165 @@
     </ul>
 
   {%- comment -%}
-    3) 1번 섹션 내부: 1번 + 소제목만
+    3) 그 외의 /projects/... 페이지에서는
+       1~4 제목은 전부 보이고,
+       "현재 섹션"만 소제목을 펼쳐서 보여주기
   {%- endcomment -%}
-  {% elsif page.url contains '/projects/1-introduction-to-ai/' %}
+  {% elsif page.url contains '/projects/' %}
 
-    <h3>1. Introduction to AI</h3>
+    {%- assign sec1_active = page.url contains '/projects/1-introduction-to-ai/' -%}
+    {%- assign sec2_active = page.url contains '/projects/2-classical-ai/' -%}
+    {%- assign sec3_active = page.url contains '/projects/3-planner/' -%}
+    {%- assign sec4_active = page.url contains '/projects/4-tamp/' -%}
+
+    <h3>Projects</h3>
     <ul>
-      <li>
-        <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/index.html' %}active{% endif %}">
-          1-0. Overview
+      <!-- 1. Introduction to AI -->
+      <li class="depth1 {% if sec1_active %}active{% endif %}">
+        <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}">
+          1. Introduction to AI
         </a>
+        {% if sec1_active %}
+        <ul>
+          <li>
+            <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}"
+               class="{% if page.url == '/projects/1-introduction-to-ai/index.html' %}active{% endif %}">
+              1-0. Overview
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/1-introduction-to-ai/1-0-agent.html' | relative_url }}"
+               class="{% if page.url == '/projects/1-introduction-to-ai/1-0-agent.html' %}active{% endif %}">
+              1-0. Agent
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/1-introduction-to-ai/1-1-propositional-logic.html' | relative_url }}"
+               class="{% if page.url == '/projects/1-introduction-to-ai/1-1-propositional-logic.html' %}active{% endif %}">
+              1-1. Propositional Logic
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/1-introduction-to-ai/1-2-first-order-logic.html' | relative_url }}"
+               class="{% if page.url == '/projects/1-introduction-to-ai/1-2-first-order-logic.html' %}active{% endif %}">
+              1-2. First-Order Logic
+            </a>
+          </li>
+        </ul>
+        {% endif %}
       </li>
-      <li>
-        <a href="{{ '/projects/1-introduction-to-ai/1-0-agent.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/1-0-agent.html' %}active{% endif %}">
-          1-0. Agent
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/1-introduction-to-ai/1-1-propositional-logic.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/1-1-propositional-logic.html' %}active{% endif %}">
-          1-1. Propositional Logic
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/1-introduction-to-ai/1-2-first-order-logic.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/1-2-first-order-logic.html' %}active{% endif %}">
-          1-2. First-Order Logic
-        </a>
-      </li>
-    </ul>
 
-  {%- comment -%}
-    4) 2번 섹션 내부: 2번 + 소제목만
-  {%- endcomment -%}
-  {% elsif page.url contains '/projects/2-classical-ai/' %}
+      <!-- 2. Classical AI Planning -->
+      <li class="depth1 {% if sec2_active %}active{% endif %}">
+        <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}">
+          2. Classical AI Planning
+        </a>
+        {% if sec2_active %}
+        <ul>
+          <li>
+            <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}"
+               class="{% if page.url == '/projects/2-classical-ai/index.html' %}active{% endif %}">
+              2-0. Overview
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/2-classical-ai/2-1-problem-formulation.html' | relative_url }}"
+               class="{% if page.url == '/projects/2-classical-ai/2-1-problem-formulation.html' %}active{% endif %}">
+              2-1. Problem Formalisms
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/2-classical-ai/2-2-pddl.html' | relative_url }}"
+               class="{% if page.url == '/projects/2-classical-ai/2-2-pddl.html' %}active{% endif %}">
+              2-2. PDDL
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/2-classical-ai/2-3-causal-graph.html' | relative_url }}"
+               class="{% if page.url == '/projects/2-classical-ai/2-3-causal-graph.html' %}active{% endif %}">
+              2-3. Causal Graph
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/2-classical-ai/2-4-domain-transition-graph.html' | relative_url }}"
+               class="{% if page.url == '/projects/2-classical-ai/2-4-domain-transition-graph.html' %}active{% endif %}">
+              2-4. Domain Transition Graph
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+      </li>
 
-    <h3>2. Classical AI Planning</h3>
-    <ul>
-      <li>
-        <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/index.html' %}active{% endif %}">
-          2-0. Overview
+      <!-- 3. Domain Independent Planner -->
+      <li class="depth1 {% if sec3_active %}active{% endif %}">
+        <a href "{{ '/projects/3-planner/index.html' | relative_url }}">
+          3. Domain Independent Planner
         </a>
+        {% if sec3_active %}
+        <ul>
+          <li>
+            <a href="{{ '/projects/3-planner/index.html' | relative_url }}"
+               class="{% if page.url == '/projects/3-planner/index.html' %}active{% endif %}">
+              3-0. Overview
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/3-planner/3-1-ff-planner.html' | relative_url }}"
+               class="{% if page.url == '/projects/3-planner/3-1-ff-planner.html' %}active{% endif %}">
+              3-1. FF Planner
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/3-planner/3-2-fd-planner.html' | relative_url }}"
+               class="{% if page.url == '/projects/3-planner/3-2-fd-planner.html' %}active{% endif %}">
+              3-2. Fast Downward
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/3-planner/3-3-optic-planner.html' | relative_url }}"
+               class="{% if page.url == '/projects/3-planner/3-3-optic-planner.html' %}active{% endif %}">
+              3-3. OPTIC Planner
+            </a>
+          </li>
+        </ul>
+        {% endif %}
       </li>
-      <li>
-        <a href="{{ '/projects/2-classical-ai/2-1-problem-formulation.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/2-1-problem-formulation.html' %}active{% endif %}">
-          2-1. Problem Formalisms
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/2-classical-ai/2-2-pddl.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/2-2-pddl.html' %}active{% endif %}">
-          2-2. PDDL
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/2-classical-ai/2-3-causal-graph.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/2-3-causal-graph.html' %}active{% endif %}">
-          2-3. Causal Graph
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/2-classical-ai/2-4-domain-transition-graph.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/2-4-domain-transition-graph.html' %}active{% endif %}">
-          2-4. Domain Transition Graph
-        </a>
-      </li>
-    </ul>
 
-  {%- comment -%}
-    5) 3번 섹션 내부
-  {%- endcomment -%}
-  {% elsif page.url contains '/projects/3-planner/' %}
+      <!-- 4. Task and Motion Planning -->
+      <li class="depth1 {% if sec4_active %}active{% endif %}">
+        <a href="{{ '/projects/4-tamp/index.html' | relative_url }}">
+          4. Task and Motion Planning
+        </a>
+        {% if sec4_active %}
+        <ul>
+          <li>
+            <a href="{{ '/projects/4-tamp/index.html' | relative_url }}"
+               class="{% if page.url == '/projects/4-tamp/index.html' %}active{% endif %}">
+              4-0. Overview
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/4-tamp/4-1-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/4-tamp/4-1-paper.html' %}active{% endif %}">
+              4-1. Paper 1
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/4-tamp/4-2-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/4-tamp/4-2-paper.html' %}active{% endif %}">
+              4-2. Paper 2
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/4-tamp/4-3-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/4-tamp/4-3-paper.html' %}active{% endif %}">
+              4-3. Paper 3
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+      </li>
 
-    <h3>3. Domain Independent Planner</h3>
-    <ul>
-      <li>
-        <a href="{{ '/projects/3-planner/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/index.html' %}active{% endif %}">
-          3-0. Overview
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/3-planner/3-1-ff-planner.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/3-1-ff-planner.html' %}active{% endif %}">
-          3-1. FF Planner
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/3-planner/3-2-fd-planner.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/3-2-fd-planner.html' %}active{% endif %}">
-          3-2. Fast Downward
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/3-planner/3-3-optic-planner.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/3-3-optic-planner.html' %}active{% endif %}">
-          3-3. OPTIC Planner
-        </a>
-      </li>
-    </ul>
-
-  {%- comment -%}
-    6) 4번 섹션 내부
-  {%- endcomment -%}
-  {% elsif page.url contains '/projects/4-tamp/' %}
-
-    <h3>4. Task and Motion Planning</h3>
-    <ul>
-      <li>
-        <a href="{{ '/projects/4-tamp/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/index.html' %}active{% endif %}">
-          4-0. Overview
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/4-tamp/4-1-paper.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/4-1-paper.html' %}active{% endif %}">
-          4-1. Paper 1
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/4-tamp/4-2-paper.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/4-2-paper.html' %}active{% endif %}">
-          4-2. Paper 2
-        </a>
-      </li>
-      <li>
-        <a href="{{ '/projects/4-tamp/4-3-paper.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/4-3-paper.html' %}active{% endif %}">
-          4-3. Paper 3
-        </a>
-      </li>
     </ul>
 
   {% endif %}
