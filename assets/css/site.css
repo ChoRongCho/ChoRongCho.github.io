@@ -8,35 +8,42 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* 레이아웃 */
-.header{border-bottom:1px solid var(--border)}
-.header-inner{max-width:var(--max);margin:0 auto;padding:10px 12px;display:flex;gap:16px;align-items:center}
-/* .brand{font-weight:700;margin-right:auto}
-.nav a{margin-left:12px;color:var(--text)} */
+/* ===== HEADER (완전 새로) ===== */
+.header{
+  border-bottom:1px solid var(--border);
+}
 
+/* 헤더 컨테이너: 좌측 정렬 */
+.header-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:10px 12px;
 
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
 
-
-/* Home(brand) 위치 이동 */
+/* Home 위치: 왼쪽에서 살짝 떨어지고, 메뉴랑 간격 확보 */
 .brand{
-  font-weight:700;                 /* 네가 주석처리하면서 빠진 것 복구 */
-  margin-right:0 !important;       /* auto 같은 거 죽이기 */
-  margin-left:60px !important;     /* Home을 오른쪽으로 (원하면 숫자만 조절) */
+  font-weight:700;
+  margin-left:60px;     /* Home을 오른쪽(중앙쪽)으로 이동 */
+  margin-right:70px;    /* Home과 메뉴 그룹 사이 간격 */
 }
 
-/* nav 자체를 brand와 떨어뜨리기 */
+/* 메뉴 간격: About/Projects/Publications 사이를 gap으로 */
 .nav{
-  display:flex !important;
-  margin-left:60px !important;     /* Home과 메뉴 사이 간격 */
-  gap:32px !important;             /* About|Projects|Publications 사이 간격 */
+  display:flex;
+  gap:32px;             /* 메뉴들 사이 간격 */
 }
 
-/* 혹시 기존 a margin이 남아있으면 강제로 제거 */
 .nav a{
-  margin:0 !important;
   color:var(--text);
+  text-decoration:none;
 }
-
+.nav a:hover{
+  text-decoration:underline;
+}
 
 
 
