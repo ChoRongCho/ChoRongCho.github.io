@@ -13,7 +13,101 @@ title: "1-1. Propositional Logic"
 <p class="meta">마지막 업데이트: 2025-10-03</p>
 
 <h2>Knowledge Representation & Reasoning</h2>
-<p>여기에 내용을 작성하세요.</p>
+<p>
+AI에서 논리는 <b>지식을 표현하고(Representation), 그 지식에서 새로운 사실을 추론(Reasoning)</b>하기 위한 도구입니다.<br>
+간단한 예를 보죠.
+</p>
+
+
+<ul>
+  <li>거짓말쟁이는 항상 거짓을 말하고, 진실 말하는 사람은 항상 참을 말한다.</li>
+  <li>Amy, Bob, Cal은 각각 거짓말쟁이 혹은 진실 말하는 사람 중 하나이다.</li>
+  <li>Amy: “Bob은 거짓말쟁이야.”<br>
+      Bob: “Cal은 거짓말쟁이야.”<br>
+      Cal: “Amy랑 Bob 둘 다 거짓말쟁이야.”</li>
+</ul>
+
+<p>
+이때,
+</p>
+<ul>
+  <li>Amy는 진실 말하는 사람인가?</li>
+  <li>Bob은 진실 말하는 사람인가?</li>
+  <li>Cal은 진실 말하는 사람인가?</li>
+</ul>
+
+
+<p>
+이런 퍼즐은 말로만 생각하면 헷갈립니다. 하지만 각 문장을 <b>논리식</b>으로 표현하면,  
+컴퓨터에게도 “참/거짓을 따지게” 만들 수 있습니다. 이런 작업 전체가 바로
+<b>Knowledge Representation and Reasoning</b>입니다.
+</p>
+
+
+<p>
+요약하면:
+</p>
+<ul>
+  <li><b>Representation:</b> 세상에 대한 사실을 문장(식)으로 어떻게 적을 것인가?</li>
+  <li><b>Reasoning:</b> 그 문장들로부터 무엇을 <b>논리적으로</b> 결론 낼 수 있는가?</li>
+</ul>
+
+<p>
+Propositional Logic(명제 논리)은 이 작업을 위한 <b>가장 기초적인 논리 언어</b>입니다.  
+</p>
+
+
+<h3>Terms</h3>
+
+
+
+<ul>
+  <li>
+    <b>Sentence (문장)</b><br>
+    논리에서 말하는 “문장”은 <b>참(true) 또는 거짓(false)으로 평가될 수 있는 문장</b>만을 의미합니다.<br>
+    즉, <b>의문문, 명령문, 감탄문은 논리적 의미의 sentence가 아닙니다.</b><br>
+    (예)<br>
+    – “오늘은 비가 온다.” → 문장 (참/거짓 구분 가능)<br>
+    – “오늘 비 와?” → 질문, sentence 아님<br>
+    – “문 열어!” → 명령, sentence 아님
+  </li>
+
+  <li>
+    <b>Syntax (구문)</b><br>
+    어떤 기호들을 어떻게 조합해야 <b>“문법적으로 잘-형성된(well-formed)” 문장</b>이 되는지를 정한 규칙입니다.<br>
+    (예) 괄호를 어떻게 쓰는지, 연산자를 어디에 두는지 등.
+  </li>
+
+  <li>
+    <b>Atomic Sentence (원자적 문장)</b><br>
+    더 이상 논리적 연결사로 쪼갤 수 없는 가장 작은 단위의 문장입니다.<br>
+    명제 논리에서는 보통 <code>P, Q, R, Rain, Happy</code> 같은 <b>명제 기호(propositional symbol)</b>가 atomic sentence입니다.<br>
+    (예) <code>P</code> = “오늘 비가 온다.”, <code>Q</code> = “나는 우산을 들고 있다.”
+  </li>
+
+  <li>
+    <b>Symbols (기호)</b><br>
+    명제 논리의 기본 기호는 다음과 같습니다.<br>
+    – Propositional Symbol (명제 기호): <code>P, Q, R, ...</code><br>
+    – Connectives (연결사): <code>¬, ∧, ∨, →, ↔</code><br>
+    – Parenthesis (괄호): <code>( , )</code>
+  </li>
+
+  <li>
+    <b>Connectives</b><br>
+    – <code>¬P</code>: not P (부정)<br>
+    – <code>P ∧ Q</code>: P and Q (그리고)<br>
+    – <code>P ∨ Q</code>: P or Q (또는, 보통 포함적 OR)<br>
+    – <code>P → Q</code>: if P then Q (함의, “P이면 Q”)<br>
+    – <code>P ↔ Q</code>: P if and only if Q (동치, “P일 때 그리고 그럴 때에만 Q”)
+  </li>
+</ul>
+
+<hr>
+
+
+
+
 
 <h2>예시</h2>
 <p>예: 진리표, 추론 규칙 등…</p>
