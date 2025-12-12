@@ -59,3 +59,15 @@ a:hover{text-decoration:underline}
   border-top:1px solid var(--border);
   padding-top:16px;
 }
+
+ol[start="0"] {
+  counter-reset: item -1;
+}
+
+ol[start="0"] > li {
+  counter-increment: item;
+}
+
+ol[start="0"] > li::marker {
+  content: counter(item) ". ";
+}
