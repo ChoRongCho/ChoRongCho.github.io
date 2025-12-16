@@ -15,25 +15,36 @@ title: "2-2. Causal Graph"
 
 <h2>개요</h2>
 <p>
-  Causal Graph는 변수 혹은 명제 간의 인과관계를 표현하는 그래프입니다. 
-  Classical AI Planning에서 문제 정의(Problem Formalisms)는 
-  **초기 상태(initial state)**, **행동 집합(actions/operators)**, 
-  그리고 **목표 상태(goal state)**를 명확히 지정하는 과정을 의미합니다.
+  Causal graph는 variable 사이의 인과관계, 혹은 의존성을 표현한 directed graph입니다. 
+  이전 자료 <a href="/projects/2-classical-ai/2-1-problem-formulation.html">2-1 FDR planning task</a>
+  로 돌아가면, 명제는 variable, value pair로 이루어져 있다는 것을 알 수 있습니다. 하지만 이는 variable 한 개의 값을 정의한 것이고,
+  전체적인 planning task 맥락을 파악하려면 variable 전체 관계를 고려한 무언가가 필요할 것입니다. Causal graph는 variable 간의 인과 관계를 분석하여
+  그래프 형태로 표현한 것이고, causal graph의 모양을 살펴보면 전체 planning task를 위한 정보로 활용할 수 있습니다.
+
 </p>
 
-<h2>구성 요소</h2>
+<h2>정의</h2>
+Causal graph를 만드는 법은 간단합니다. 전체 action을 다 만들어 놓고, precondition과 eff를 비교하는 것입니다. 만약 어떤 \(var1\)이 precondition에 존재하고, 
+\(var2\)가 effect에 존재한다면, \(var1 \rightarrow var2\) 사이의 방향성-인과관계가 생깁니다. 해석하자면, 어떤 \(var2\)의 value가 변하기 위해서는 \(var1\)의 
+value가 필요하기 때문에 그래프의 엣지가 연결되는 것입니다. 또 다른 인과관계도 있습니다. 만약 어떤 variable \(var1\)이 변화할 때, 부수적인 효과(혹은 부작용) \(var2\)가 변한다면,
+\(var1\)과 \(var2\) 간의 인과관계가 없다고 말할 수 있을까요? 아닙니다. 이러한 side effect도 하나의 인과관계를 만들어 낼 수 있습니다. 즉, 어떤 액션의 effect가 \(var1\)를 바꾸는데,
+마찬가지로 \(var2\)가 effect에 있다면, 둘 사이에도 엣지가 연결 될 수 있습니다. 이걸 수학적으로 정의하면 다음과 같습니다.
+
 <ul>
   <li><strong>Initial State</strong> – 현재 세계의 상태를 나타냄</li>
   <li><strong>Actions</strong> – 적용 가능한 연산자(전제조건 + 효과)</li>
   <li><strong>Goal State</strong> – 달성해야 할 조건 집합</li>
 </ul>
 
-<h2>예시</h2>
-<p>
-  예를 들어, <em>Blocks World</em>에서 <br>
-  초기 상태는 블록 A, B, C가 테이블 위에 흩어져 있는 상황, <br>
-  목표 상태는 A를 B 위에 두고, B를 C 위에 두는 상태일 수 있습니다.
-</p>
+<h2>분석</h2>
+Arc2인 경우, 두 variable 사이에는 사이클이 생깁니다. 반대로 해석하자면, \(var2\)의 side effect로 \(var1\)이 된다는 것이죠. 그리고 각각의 variable이 CG상의 노드가 
+되는 관계로, variable이 작을 수록 그래프가 작아집니다. 그렇기 때문에 STRIPS based planning task는 각 variable의 domain value가 boolean로 표현되므로, causal graph가
+복잡하게 변합니다. 
+
+그리고 causal graph안에 임의의 서브 그래프에 대해 그 둘이 connected 되어 있지 않을 수도 있습니다. 그렇게 된다면, 그 두 서브그래프 간의 인과관계가 존재하지 않다는 의미로, 
+서로 독립적으로 취급하거나, subtask decomposition을 할 수도 있습니다. 이렇듯 causal graph는 전체 문제를 분석할 수 있게 해주고, 이를 활용하여 다양한 작업,
+e.g., task decomposition, dependency graph 생성 등을 할 수 있습니다.
+
 
 <div class="prevnext">
   <span>← <a href="/projects/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></span>
