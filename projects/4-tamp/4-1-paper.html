@@ -30,25 +30,53 @@ title: "4-1. Domain and Plan Representation for Task and Motion Planning in Unce
 
 <h3>1. Problem</h3>
 <p>
-이 논문이 해결하려는 문제를 설명합니다.
+이 논문은 로봇이 uncertain한 환경에서 task planning과 motion planning을 함께 수행하는 문제를 다룹니다. 실제 로봇 환경에서는 물체의 위치, 센서 관측 결과, 행동 결과 등이 확률적으로 변하기 때문에 정확한 상태를 알기 어렵습니다. 
+이러한 상황에서 로봇이 장기적인 목표를 달성하기 위해서는 불확실성을 고려한 계획 수립과 실행이 필요합니다.
+
 </p>
 
 
 <h3>2. Motivation</h3>
 <p>
-이 문제가 왜 중요한지, 기존 연구의 한계가 무엇인지 설명합니다.
-</p>
+기존의 TAMP 연구는 주로 결정론적 환경을 가정하거나, 기하학적 계획과 심볼릭 계획을 분리하여 처리하는 경우가 많았습니다.
+그러나 실제 로봇 환경에서는 물체의 위치나 센서 관측 등에 대한 불확실성이 존재합니다. 
+따라서 로봇이 현실적인 환경에서 안정적으로 동작하기 위해서는 
+지각(perception), 상태 추정(estimation), 기하학적 reasoning, 심볼릭 planning을 통합하여 불확실성을 처리할 수 있는 계획 방법이 필요합니다.</p>
 
 
 <h3>3. Approach</h3>
 <p>
-논문에서 제안한 방법의 핵심 아이디어를 설명합니다.
+논문에서는 다음과 같은 핵심 아이디어를 기반으로 한 통합 계획 방법을 제안합니다.
+</p>
+
+<ul> 
+  <li><strong>Belief Space Planning</strong>: 실제 상태 대신 로봇의 믿음 상태(belief state)를 기반으로 계획을 수행합니다.</li> 
+  <li><strong>Hierarchical Planning</strong>: 높은 수준의 추상 계획을 먼저 생성한 후, 각 단계에서 세부 계획을 수행합니다.</li>
+  <li><strong>Determinized Planning + Replanning</strong>: 확률적 환경을 단순화한 결정론적 모델로 계획을 만들고, 실행 중 예상과 다른 결과가 나오면 재계획(replanning)을 수행합니다.</li> 
+  <li><strong>Symbolic + Geometric Integration</strong>: 논리적 계획(symbolic planning)과 기하학적 reasoning을 함께 사용하여 큰 상태 공간에서도 효율적으로 계획합니다.</li> 
+</ul> 
+
+<p> 
+또한 belief 상태를 표현하기 위해 <strong>logical fluents</strong>를 사용하고, 목표 조건을 regression 기반 planning으로 계산하는 방식을 사용합니다.
 </p>
 
 
-<h3>4. Experimental Results</h3>
-<p>
-실험 환경, 비교 방법, 주요 결과를 정리합니다.
+
+
+
+<h3>4. Experimental Results</h3> 
+<p> 
+논문에서는 로봇이 집 안에서 <strong>알람이 울리는 위치를 찾아 끄는 시나리오</strong>를 예제로 사용합니다. 로봇은 방 사이의 문 위치나 알람의 위치에 대해 불확실성을 가지며, 센서를 이용해 정보를 얻고 계획을 수정하면서 목표를 달성합니다.
+</p> 
+
+<ul> 
+  <li>로봇은 coarse sensor와 fine sensor를 이용해 문 위치를 추정합니다.</li> 
+  <li>예상과 다른 관측 결과가 나오면 계획을 재구성합니다.</li> 
+  <li>계층적 계획 구조를 이용하여 전체 계획이 아니라 필요한 부분만 재계획합니다.</li> 
+</ul> 
+
+<p> 
+이 실험을 통해 제안한 방법이 <strong>정보 획득 행동(information-gathering actions), 실행 모니터링, 그리고 재계획</strong>을 통해 불확실한 환경에서도 안정적으로 목표를 달성할 수 있음을 보여줍니다.
 </p>
 
 
