@@ -1,0 +1,104 @@
+---
+layout: default
+title: "4-0. TAMP Overview"
+---
+
+
+<div class="breadcrumb">
+  <a href="/projects/index.html">Projects</a> › 
+  <a href="/projects/4-tamp/index.html">2. Classical AI Planning</a> › 
+  4-0. Task and Motion Planning Overview
+</div>
+
+<h1>4-0. TAMP Overview</h1>
+<p class="meta">마지막 업데이트: 2025-12-12</p>
+
+<h2>What is Task and Motion Planning?</h2>
+<p>
+Task and Motion Planning (TAMP)은 <b>symbolic task planning</b>과 <b>geometric motion planning</b>을 함께 고려하여 로봇의 행동 계획을 생성하는 방법입니다.
+</p>
+
+<p>
+전통적인 AI Planning은 행동의 논리적 순서를 결정하는 데 초점을 맞추지만, 실제 로봇 시스템에서는 각 행동이 <b>물리적으로 실행 가능한지</b>도 함께 고려해야 합니다.
+예를 들어 로봇이 물체를 집는 행동을 계획하더라도, 실제로는 로봇 팔이 해당 물체에 도달할 수 있어야 하고 충돌 없이 움직일 수 있어야 합니다.
+</p>
+<p>
+따라서 TAMP는 다음 두 문제를 동시에 해결하는 것을 목적으로 합니다.
+</p>
+
+<ul>
+<li>어떤 행동 순서를 수행할 것인가? (Task Planning)</li>
+<li>그 행동을 실제 로봇이 어떻게 수행할 것인가? (Motion Planning)</li>
+</ul>
+
+
+<h2>Why is TAMP Needed?</h2>
+<p>
+많은 로봇 문제에서는 단순한 행동 하나만으로 목표를 달성할 수 없습니다. 여러 행동이 서로 의존하고, 물리적 제약과 환경 조건을 함께 고려해야 합니다.
+</p>
+
+<p>
+예를 들어 로봇이 물체를 다른 위치로 옮기는 문제를 생각해 보겠습니다. 이 과정에서는 다음과 같은 여러 단계가 필요합니다.
+</p>
+
+<ul>
+<li>어떤 물체를 먼저 집을지 결정</li>
+<li>로봇 팔이 물체에 도달할 수 있는지 확인</li>
+<li>충돌 없이 이동할 경로 계산</li>
+<li>목표 위치에 물체를 놓기</li>
+</ul>
+
+<p>
+이처럼 행동의 논리적 순서와 실제 로봇의 움직임이 서로 영향을 주기 때문에, 두 문제를 따로 해결하기보다 <b>통합적으로 계획하는 접근</b>이 필요합니다.
+</p>
+
+
+<h2>Challenges in Task and Motion Planning</h2>
+
+<p>
+TAMP는 로봇의 고수준 task planning과 저수준 motion planning을 동시에 고려해야 하기 때문에 여러 가지 어려움이 존재합니다.
+</p>
+
+<h3>Long-horizon Planning</h3>
+<p>
+Long-horizon planning은 수행해야 하는 액션의 길이가 긴 계획을 말합니다. 많은 로봇 작업은 여러 단계의 행동을 연속적으로 수행해야 하며, 각 행동은 이전 단계의 결과에 의존합니다. 이로 인해 계획의 깊이가 깊어지고, 탐색해야 하는 상태 공간(state space)이 급격히 증가하게 됩니다.
+</p>
+
+
+<h3>Many Object Problem</h3>
+<p>
+환경에 존재하는 물체의 수가 증가할수록 가능한 행동 조합이 기하급수적으로 증가합니다. 예를 들어 여러 물체를 집고 옮기는 작업에서는
+pick과 place의 순서, grasp configuration, 배치 위치 등 다양한 선택지가 존재하기 때문에 계획 공간이 매우 빠르게 커지게 됩니다.
+대표적으로 3D scene graph로 표현된 도시나 공장, 주방 같은 환경이 있습니다.
+</p>
+
+<h3>Uncertainty</h3>
+<p>
+실제 로봇 환경에서는 센서 인식 오류, 물체 위치의 불확실성, 행동 실패 등 다양한 불확실성이 존재합니다. 따라서 로봇은 완전히 정확한 모델을 가정하기 어렵고,
+불완전한 정보 속에서도 안정적으로 계획을 수행해야 합니다. 이러한 불확실성을 다루기 위해서 여러가지 모델링 기법들이 제안되어 왔습니다.
+</p>
+
+
+<h2>Applications</h2>
+
+<p>
+Task and Motion Planning은 다양한 로봇 응용 분야에서 사용됩니다.
+</p>
+
+<ul>
+<li>로봇 조작 (robot manipulation)</li>
+<li>물체 정리 및 조립 작업</li>
+<li>자율 물류 및 창고 로봇</li>
+<li>서비스 로봇</li>
+<li>산업 자동화</li>
+</ul>
+
+
+
+
+
+
+<div class="prevnext">
+  <span>← <a href="/projects/4-tamp/index.html">4. Task and Motion Planning</a></span>
+  <span><a href="/projects/4-tamp/4-1-paper.html">4-1. Paper 1</a> →</span>
+</div>
