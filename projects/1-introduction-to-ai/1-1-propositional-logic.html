@@ -57,7 +57,7 @@ Propositional Logic(명제 논리)은 이 작업을 위한 <b>가장 기초적�
 </p>
 
 
-<h3>Terms</h3>
+<h2>Terms</h2>
 
 
 
@@ -106,7 +106,27 @@ Propositional Logic(명제 논리)은 이 작업을 위한 <b>가장 기초적�
 <hr>
 
 
+<h2>Notation</h2>
 
+<ul>
+  <li><code>⊤</code>: 항상 참인 문장 (tautology)</li>
+  <li><code>⊥</code>: 항상 거짓인 문장 (contradiction)</li>
+  <li><code>⊨</code>: 논리적 함의(logical entailment)<br>
+    예) <code>KB ⊨ α</code> 는 “지식 기반 KB가 문장 α를 논리적으로 함의한다”는 뜻(모든 해석에서 KB가 참이면 α도 참).
+  </li>
+  <li><code>⊢</code>: 증명 가능성(provability)<br>
+    예) <code>KB ⊢ α</code> 는 “어떤 증명 규칙들을 사용해서 KB로부터 α를 유도할 수 있다”는 뜻.
+  </li>
+  <li><code>≡</code> 또는 <code>⇔</code>: 논리적 동치(logical equivalence)<br>
+    두 문장이 모든 경우에 같은 진리값을 가지면 <code>α ≡ β</code> 라고 쓴다.
+  </li>
+</ul>
+
+<p>
+여기서 <b>important</b>: <code>P ↔ Q</code>는 <b>논리 언어 내부의 문장</b>이고,<br>
+<code>P ≡ Q</code>는 “<b>P와 Q가 논리적으로 같은 의미를 가진다</b>”는 <b>메타 언어에서의 말</b>로 쓰이는 경우가 많습니다.
+이게 바로 흔히 말하는 <b>“meta-equivalence”</b>와 연결됩니다.
+</p>
 
 
 <h2>예시</h2>
