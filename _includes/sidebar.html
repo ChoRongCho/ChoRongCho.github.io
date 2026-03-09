@@ -1,7 +1,8 @@
 <aside class="sidebar">
   {% if page.url == '/' or page.url == '/index.html'
         or page.url == '/about.html'
-        or page.url == '/publication.html' %}
+        or page.url == '/publication.html'
+        or page.url == '/gallery.html' %}
 
     <h3>Quick Links</h3>
     <ul>
@@ -29,7 +30,14 @@
           Publications
         </a>
       </li>
+      <li>
+        <a href="{{ '/gallery.html' | relative_url }}"
+           class="{% if page.url == '/gallery.html' %}active{% endif %}">
+          Gallery
+        </a>
+      </li>
     </ul>
+
 
   <!-- Projects -->
   {% elsif page.url contains '/projects/' %}
