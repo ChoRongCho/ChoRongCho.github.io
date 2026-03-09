@@ -37,9 +37,12 @@
     {%- assign brl_active = page.url contains '/projects/BRL/' -%}
     {%- assign avatar_active = page.url contains '/projects/AVATAR/' -%}
     {%- assign nachi_active = page.url contains '/projects/NACHI/' -%}
+    {%- assign nachi_active = page.url contains '/projects/Personal/' -%}
+
 
     <h3>Projects</h3>
     <ul>
+      
       <li>
         <a href="{{ '/projects/BRL/index.html' | relative_url }}"
            class="{% if page.url == '/projects/BRL/' or page.url == '/projects/BRL/index.html' %}active{% endif %}">
@@ -60,6 +63,14 @@
           3. AVATAR
         </a>
       </li>
+
+      <li>
+        <a href="{{ '/projects/Personal/index.html' | relative_url }}"
+           class="{% if page.url == '/projects/Personal/' or page.url == '/projects/Personal/index.html' %}active{% endif %}">
+          4. Personal Research
+        </a>
+      </li>
+
     </ul>
 
 
