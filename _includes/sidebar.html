@@ -53,6 +53,12 @@
           4. Task and Motion Planning
         </a>
       </li>
+      <li>
+        <a href="{{ '/projects/5-uncertainty/index.html' | relative_url }}"
+           class="{% if page.url == '/projects/5-uncertainty/' or page.url == '/projects/5-uncertainty/index.html' %}active{% endif %}">
+          4. Task and Motion Planning
+        </a>
+      </li>
     </ul>
 
   {% elsif page.url contains '/projects/' %}
@@ -61,6 +67,8 @@
     {%- assign sec2_active = page.url contains '/projects/2-classical-ai/' -%}
     {%- assign sec3_active = page.url contains '/projects/3-planner/' -%}
     {%- assign sec4_active = page.url contains '/projects/4-tamp/' -%}
+    {%- assign sec5_active = page.url contains '/projects/5-uncertainty/' -%}
+
 
     <h3>Projects</h3>
     <ul>
@@ -203,6 +211,44 @@
         </ul>
         {% endif %}
       </li>
+
+
+      <li>
+        <a href="{{ '/projects/5-uncertainty/index.html' | relative_url }}"
+           class="{% if page.url == '/projects/5-uncertainty/' or page.url == '/projects/5-uncertainty/index.html' %}active{% endif %}">
+          5. Uncertainty
+        </a>
+        {% if sec4_active %}
+        <ul>
+          <li>
+            <a href="{{ '/projects/5-uncertainty/5-0-overview.html' | relative_url }}"
+               class="{% if page.url == '/projects/5-uncertainty/5-0-overview.html' %}active{% endif %}">
+              5-0. Uncertainty
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/5-uncertainty/5-1-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/5-uncertainty/5-1-paper.html' %}active{% endif %}">
+              5-1. Paper 1
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/5-uncertainty/5-2-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/5-uncertainty/5-2-paper.html' %}active{% endif %}">
+              5-2. Paper 2
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/projects/5-uncertainty/5-3-paper.html' | relative_url }}"
+               class="{% if page.url == '/projects/5-uncertainty/5-3-paper.html' %}active{% endif %}">
+              5-3. Paper 3
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+      </li>
+
+
     </ul>
 
   {% endif %}

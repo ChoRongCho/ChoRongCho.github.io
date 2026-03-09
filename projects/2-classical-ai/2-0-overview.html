@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "2-0. Planning Overview"
+title: "2-0. AI Planning"
 ---
 
 
@@ -77,133 +77,12 @@ title: "2-0. Planning Overview"
 이를 해결하기 위해 최근에는 강화학습(RL), 모방학습(IL), 디퓨전 정책(Diffusion Policy),  
 LLM 기반 계획 등 다양한 현대적 방법들이 복잡한 계획 문제를 다루기 위해 등장했습니다.
 </p>
-<table style="border-collapse: collapse; width: 100%; text-align: center;">
-  <thead>
-    <tr>
-      <th style="border: 1px solid #ccc;">Category</th>
-      <th style="border: 1px solid #ccc;">Classical AI Planning<br>(Restricted Model)</th>
-      <th style="border: 1px solid #ccc;">Modern Planning Approaches<br>(Extended Model)</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    <!-- WORLD MODEL -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>World Model</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Finite:</b> Limited number of discrete states<br>
-        <b>Static:</b> World does not change unless agent acts<br>
-        <b>Deterministic:</b> Same outcome for each action
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Probabilistic:</b> Outcomes follow probability distributions<br>
-        <b>Dynamic:</b> World can change on its own<br>
-        <b>Nondeterministic:</b> Multiple possible outcomes per action
-      </td>
-    </tr>
-
-    <!-- OBSERVABILITY -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Observability</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Fully Observable:</b> Agent has exact state knowledge<br>
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Partially Observable:</b> State must be inferred from noisy observations<br>
-      </td>
-    </tr>
-
-    <!-- ACTIONS -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Actions</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Instantaneous:</b> No action duration<br>
-        <b>Sequential:</b> Only one action at a time
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Durative Actions:</b> Time-dependent effects<br>
-        <b>Continuous Control:</b> Real-valued actions<br>
-        <b>Concurrency:</b> Multiple actions in parallel
-      </td>
-    </tr>
-
-    <!-- GOALS -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Goals</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Goal State:</b> Achieve a set of logical conditions<br>
-        <b>Binary Success:</b> Goal achieved or not
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Constraints:</b> Safety, avoidance, deadlines<br>
-        <b>Optimization:</b> Minimize cost, maximize reward<br>
-        <b>Risk Sensitivity:</b> Trade-off between success & uncertainty
-      </td>
-    </tr>
-
-    <!-- PLAN REPRESENTATION -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Plan Representation</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Action Sequence:</b> Fixed order of actions<br>
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Policies:</b> State → action mapping<br>
-        <b>Neural Controllers:</b> Learned reactive behaviors
-      </td>
-    </tr>
-
-    <!-- METHODS -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Typical Methods</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Symbolic Planning:</b> PDDL, STRIPS<br>
-        <b>Heuristic Search:</b> A*, FF heuristic<br>
-        <b>Logical Reasoning:</b> SAT, Graphplan
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Learning-Based:</b> RL, IL, Behavior Cloning<br>
-        <b>Generative Policies:</b> Diffusion, LLM planners<br>
-        <b>MPC / Optimization:</b> Continuous control planning
-      </td>
-    </tr>
-
-    <!-- STRENGTHS -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Strengths</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>Explainable:</b> Interpretable symbolic structure<br>
-        <b>Theorical Guarantees:</b> Strong theory foundation
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Real-World Ready:</b> Handles noise & dynamics<br>
-        <b>Scalable:</b> Works in continuous, high-dimensional spaces
-      </td>
-    </tr>
-
-    <!-- LIMITATIONS -->
-    <tr>
-      <td style="border: 1px solid #ccc;"><b>Limitations</b></td>
-      <td style="border: 1px solid #ccc;">
-        <b>World Simplification:</b> Must assume perfect knowledge<br>
-        <b>State Explosion:</b> Hard to scale to large domains
-      </td>
-      <td style="border: 1px solid #ccc;">
-        <b>Data Hungry:</b> Requires large datasets<br>
-        <b>Safety Issues:</b> Hard to verify learned policies<br>
-        <b>Less Interpretable:</b> Difficult to debug
-      </td>
-    </tr>
-
-  </tbody>
-</table>
 
 
 <p>
 따라서 Classical Planning은 “문제를 추상적으로 구조화하는 틀”을 제공하고,  
 현대적 기법들은 “현실 세계에서 불확실성과 연속성을 다루는 방법”을 제공합니다.  
-두 관점은 경쟁 관계가 아니라 상호 보완적이며, 최근 연구는 <b>Symbolic Planning + Learning 기반 Planning</b>이 함께 사용되는 경우가 많습니다.
+두 관점은 경쟁 관계가 아니라 상호 보완적이며, 25년 기준으로, 최근 연구는 <b>Symbolic Planning + Learning 기반 Planning</b>이 함께 사용되는 경우가 많습니다.
 </p>
 
 
