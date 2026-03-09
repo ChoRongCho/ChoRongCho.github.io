@@ -12,6 +12,12 @@
         </a>
       </li>
       <li>
+        <a href="{{ '/study/index.html' | relative_url }}"
+           class="{% if page.url == '/study/' or page.url == '/study/index.html' %}active{% endif %}">
+          Study
+        </a>
+      </li>
+      <li>
         <a href="{{ '/projects/index.html' | relative_url }}"
            class="{% if page.url == '/projects/' or page.url == '/projects/index.html' %}active{% endif %}">
           Projects
@@ -25,75 +31,77 @@
       </li>
     </ul>
 
-  {% elsif page.url == '/projects/' or page.url == '/projects/index.html' %}
-
+  {% elsif page.url contains '/projects/' %}
     <h3>Projects</h3>
+
+  <!-- {% elsif page.url == '/study/' or page.url == '/study/index.html' %}
+    <h3>Study</h3>
     <ul>
       <li>
-        <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/' or page.url == '/projects/1-introduction-to-ai/index.html' %}active{% endif %}">
+        <a href="{{ '/study/1-introduction-to-ai/index.html' | relative_url }}"
+           class="{% if page.url == '/study/1-introduction-to-ai/' or page.url == '/study/1-introduction-to-ai/index.html' %}active{% endif %}">
           1. Introduction to AI
         </a>
       </li>
       <li>
-        <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/' or page.url == '/projects/2-classical-ai/index.html' %}active{% endif %}">
+        <a href="{{ '/study/2-classical-ai/index.html' | relative_url }}"
+           class="{% if page.url == '/study/2-classical-ai/' or page.url == '/study/2-classical-ai/index.html' %}active{% endif %}">
           2. Classical AI Planning
         </a>
       </li>
       <li>
-        <a href="{{ '/projects/3-planner/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/' or page.url == '/projects/3-planner/index.html' %}active{% endif %}">
+        <a href="{{ '/study/3-planner/index.html' | relative_url }}"
+           class="{% if page.url == '/study/3-planner/' or page.url == '/study/3-planner/index.html' %}active{% endif %}">
           3. Domain Independent Planner
         </a>
       </li>
       <li>
-        <a href="{{ '/projects/4-tamp/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/' or page.url == '/projects/4-tamp/index.html' %}active{% endif %}">
+        <a href="{{ '/study/4-tamp/index.html' | relative_url }}"
+           class="{% if page.url == '/study/4-tamp/' or page.url == '/study/4-tamp/index.html' %}active{% endif %}">
           4. Task and Motion Planning
         </a>
       </li>
       <li>
-        <a href="{{ '/projects/5-uncertainty/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/5-uncertainty/' or page.url == '/projects/5-uncertainty/index.html' %}active{% endif %}">
+        <a href="{{ '/study/5-uncertainty/index.html' | relative_url }}"
+           class="{% if page.url == '/study/5-uncertainty/' or page.url == '/study/5-uncertainty/index.html' %}active{% endif %}">
           5. Uncertainty Overview
         </a>
       </li>
-    </ul>
+    </ul> -->
 
-  {% elsif page.url contains '/projects/' %}
+  {% elsif page.url contains '/study/' %}
 
-    {%- assign sec1_active = page.url contains '/projects/1-introduction-to-ai/' -%}
-    {%- assign sec2_active = page.url contains '/projects/2-classical-ai/' -%}
-    {%- assign sec3_active = page.url contains '/projects/3-planner/' -%}
-    {%- assign sec4_active = page.url contains '/projects/4-tamp/' -%}
-    {%- assign sec5_active = page.url contains '/projects/5-uncertainty/' -%}
+    {%- assign sec1_active = page.url contains '/study/1-introduction-to-ai/' -%}
+    {%- assign sec2_active = page.url contains '/study/2-classical-ai/' -%}
+    {%- assign sec3_active = page.url contains '/study/3-planner/' -%}
+    {%- assign sec4_active = page.url contains '/study/4-tamp/' -%}
+    {%- assign sec5_active = page.url contains '/study/5-uncertainty/' -%}
 
 
-    <h3>Projects</h3>
+    <h3>Study</h3>
     <ul>
       <li>
-        <a href="{{ '/projects/1-introduction-to-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/1-introduction-to-ai/' or page.url == '/projects/1-introduction-to-ai/index.html' %}active{% endif %}">
+        <a href="{{ '/study/1-introduction-to-ai/index.html' | relative_url }}"
+           class="{% if page.url == '/study/1-introduction-to-ai/' or page.url == '/study/1-introduction-to-ai/index.html' %}active{% endif %}">
           1. Introduction to AI
         </a>
         {% if sec1_active %}
         <ul>
           <li>
-            <a href="{{ '/projects/1-introduction-to-ai/1-0-agent.html' | relative_url }}"
-               class="{% if page.url == '/projects/1-introduction-to-ai/1-0-agent.html' %}active{% endif %}">
+            <a href="{{ '/study/1-introduction-to-ai/1-0-agent.html' | relative_url }}"
+               class="{% if page.url == '/study/1-introduction-to-ai/1-0-agent.html' %}active{% endif %}">
               1-0. Agent Overview
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/1-introduction-to-ai/1-1-propositional-logic.html' | relative_url }}"
-               class="{% if page.url == '/projects/1-introduction-to-ai/1-1-propositional-logic.html' %}active{% endif %}">
+            <a href="{{ '/study/1-introduction-to-ai/1-1-propositional-logic.html' | relative_url }}"
+               class="{% if page.url == '/study/1-introduction-to-ai/1-1-propositional-logic.html' %}active{% endif %}">
               1-1. Propositional Logic
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/1-introduction-to-ai/1-2-first-order-logic.html' | relative_url }}"
-               class="{% if page.url == '/projects/1-introduction-to-ai/1-2-first-order-logic.html' %}active{% endif %}">
+            <a href="{{ '/study/1-introduction-to-ai/1-2-first-order-logic.html' | relative_url }}"
+               class="{% if page.url == '/study/1-introduction-to-ai/1-2-first-order-logic.html' %}active{% endif %}">
               1-2. First-Order Logic
             </a>
           </li>
@@ -102,39 +110,39 @@
       </li>
 
       <li>
-        <a href="{{ '/projects/2-classical-ai/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/2-classical-ai/' or page.url == '/projects/2-classical-ai/index.html' %}active{% endif %}">
+        <a href="{{ '/study/2-classical-ai/index.html' | relative_url }}"
+           class="{% if page.url == '/study/2-classical-ai/' or page.url == '/study/2-classical-ai/index.html' %}active{% endif %}">
           2. Classical AI Planning
         </a>
         {% if sec2_active %}
         <ul>
           <li>
-            <a href="{{ '/projects/2-classical-ai/2-0-overview.html' | relative_url }}"
-               class="{% if page.url == '/projects/2-classical-ai/2-0-overview.html' %}active{% endif %}">
+            <a href="{{ '/study/2-classical-ai/2-0-overview.html' | relative_url }}"
+               class="{% if page.url == '/study/2-classical-ai/2-0-overview.html' %}active{% endif %}">
               2-0. Planning Overview
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/2-classical-ai/2-1-problem-formulation.html' | relative_url }}"
-               class="{% if page.url == '/projects/2-classical-ai/2-1-problem-formulation.html' %}active{% endif %}">
+            <a href="{{ '/study/2-classical-ai/2-1-problem-formulation.html' | relative_url }}"
+               class="{% if page.url == '/study/2-classical-ai/2-1-problem-formulation.html' %}active{% endif %}">
               2-1. Problem Formalisms
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/2-classical-ai/2-2-pddl.html' | relative_url }}"
-               class="{% if page.url == '/projects/2-classical-ai/2-2-pddl.html' %}active{% endif %}">
+            <a href="{{ '/study/2-classical-ai/2-2-pddl.html' | relative_url }}"
+               class="{% if page.url == '/study/2-classical-ai/2-2-pddl.html' %}active{% endif %}">
               2-2. PDDL
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/2-classical-ai/2-3-causal-graph.html' | relative_url }}"
-               class="{% if page.url == '/projects/2-classical-ai/2-3-causal-graph.html' %}active{% endif %}">
+            <a href="{{ '/study/2-classical-ai/2-3-causal-graph.html' | relative_url }}"
+               class="{% if page.url == '/study/2-classical-ai/2-3-causal-graph.html' %}active{% endif %}">
               2-3. Causal Graph
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/2-classical-ai/2-4-domain-transition-graph.html' | relative_url }}"
-               class="{% if page.url == '/projects/2-classical-ai/2-4-domain-transition-graph.html' %}active{% endif %}">
+            <a href="{{ '/study/2-classical-ai/2-4-domain-transition-graph.html' | relative_url }}"
+               class="{% if page.url == '/study/2-classical-ai/2-4-domain-transition-graph.html' %}active{% endif %}">
               2-4. Domain Transition Graph
             </a>
           </li>
@@ -143,33 +151,33 @@
       </li>
 
       <li>
-        <a href="{{ '/projects/3-planner/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/3-planner/' or page.url == '/projects/3-planner/index.html' %}active{% endif %}">
+        <a href="{{ '/study/3-planner/index.html' | relative_url }}"
+           class="{% if page.url == '/study/3-planner/' or page.url == '/study/3-planner/index.html' %}active{% endif %}">
           3. Domain Independent Planner
         </a>
         {% if sec3_active %}
         <ul>
           <li>
-            <a href="{{ '/projects/3-planner/3-0-overview.html' | relative_url }}"
-               class="{% if page.url == '/projects/3-planner/3-0-overview.html' %}active{% endif %}">
+            <a href="{{ '/study/3-planner/3-0-overview.html' | relative_url }}"
+               class="{% if page.url == '/study/3-planner/3-0-overview.html' %}active{% endif %}">
               3-0. Planner Overview
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/3-planner/3-1-ff-planner.html' | relative_url }}"
-               class="{% if page.url == '/projects/3-planner/3-1-ff-planner.html' %}active{% endif %}">
+            <a href="{{ '/study/3-planner/3-1-ff-planner.html' | relative_url }}"
+               class="{% if page.url == '/study/3-planner/3-1-ff-planner.html' %}active{% endif %}">
               3-1. FF Planner
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/3-planner/3-2-fd-planner.html' | relative_url }}"
-               class="{% if page.url == '/projects/3-planner/3-2-fd-planner.html' %}active{% endif %}">
+            <a href="{{ '/study/3-planner/3-2-fd-planner.html' | relative_url }}"
+               class="{% if page.url == '/study/3-planner/3-2-fd-planner.html' %}active{% endif %}">
               3-2. Fast Downward
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/3-planner/3-3-optic-planner.html' | relative_url }}"
-               class="{% if page.url == '/projects/3-planner/3-3-optic-planner.html' %}active{% endif %}">
+            <a href="{{ '/study/3-planner/3-3-optic-planner.html' | relative_url }}"
+               class="{% if page.url == '/study/3-planner/3-3-optic-planner.html' %}active{% endif %}">
               3-3. OPTIC Planner
             </a>
           </li>
@@ -178,33 +186,33 @@
       </li>
 
       <li>
-        <a href="{{ '/projects/4-tamp/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/4-tamp/' or page.url == '/projects/4-tamp/index.html' %}active{% endif %}">
+        <a href="{{ '/study/4-tamp/index.html' | relative_url }}"
+           class="{% if page.url == '/study/4-tamp/' or page.url == '/study/4-tamp/index.html' %}active{% endif %}">
           4. Task and Motion Planning
         </a>
         {% if sec4_active %}
         <ul>
           <li>
-            <a href="{{ '/projects/4-tamp/4-0-overview.html' | relative_url }}"
-               class="{% if page.url == '/projects/4-tamp/4-0-overview.html' %}active{% endif %}">
+            <a href="{{ '/study/4-tamp/4-0-overview.html' | relative_url }}"
+               class="{% if page.url == '/study/4-tamp/4-0-overview.html' %}active{% endif %}">
               4-0. Task and Motion Planning Overview
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/4-tamp/4-1-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/4-tamp/4-1-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/4-tamp/4-1-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/4-tamp/4-1-paper.html' %}active{% endif %}">
               4-1. Paper 1
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/4-tamp/4-2-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/4-tamp/4-2-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/4-tamp/4-2-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/4-tamp/4-2-paper.html' %}active{% endif %}">
               4-2. Paper 2
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/4-tamp/4-3-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/4-tamp/4-3-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/4-tamp/4-3-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/4-tamp/4-3-paper.html' %}active{% endif %}">
               4-3. Paper 3
             </a>
           </li>
@@ -214,33 +222,33 @@
 
 
       <li>
-        <a href="{{ '/projects/5-uncertainty/index.html' | relative_url }}"
-           class="{% if page.url == '/projects/5-uncertainty/' or page.url == '/projects/5-uncertainty/index.html' %}active{% endif %}">
+        <a href="{{ '/study/5-uncertainty/index.html' | relative_url }}"
+           class="{% if page.url == '/study/5-uncertainty/' or page.url == '/study/5-uncertainty/index.html' %}active{% endif %}">
           5. Uncertainty
         </a>
         {% if sec4_active %}
         <ul>
           <li>
-            <a href="{{ '/projects/5-uncertainty/5-0-overview.html' | relative_url }}"
-               class="{% if page.url == '/projects/5-uncertainty/5-0-overview.html' %}active{% endif %}">
+            <a href="{{ '/study/5-uncertainty/5-0-overview.html' | relative_url }}"
+               class="{% if page.url == '/study/5-uncertainty/5-0-overview.html' %}active{% endif %}">
               5-0. Uncertainty
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/5-uncertainty/5-1-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/5-uncertainty/5-1-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/5-uncertainty/5-1-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/5-uncertainty/5-1-paper.html' %}active{% endif %}">
               5-1. Paper 1
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/5-uncertainty/5-2-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/5-uncertainty/5-2-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/5-uncertainty/5-2-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/5-uncertainty/5-2-paper.html' %}active{% endif %}">
               5-2. Paper 2
             </a>
           </li>
           <li>
-            <a href="{{ '/projects/5-uncertainty/5-3-paper.html' | relative_url }}"
-               class="{% if page.url == '/projects/5-uncertainty/5-3-paper.html' %}active{% endif %}">
+            <a href="{{ '/study/5-uncertainty/5-3-paper.html' | relative_url }}"
+               class="{% if page.url == '/study/5-uncertainty/5-3-paper.html' %}active{% endif %}">
               5-3. Paper 3
             </a>
           </li>
