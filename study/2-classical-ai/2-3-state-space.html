@@ -16,7 +16,7 @@ title: "2-3. State Space"
 <p>
   이전 장에서 planning task를 transition system, STRIPS, FDR로 표현하는 방법을 살펴보았습니다.
   그렇다면 이렇게 표현한 문제는 실제로 어떻게 풀 수 있을까요? 가장 자연스러운 방법은 planning task를
-  <strong>그래프 탐색 문제(search problem)</strong>로 바꾸는 것입니다. 각 state를 그래프의 node로,
+  그래프 탐색 문제(search problem)로 바꾸는 것입니다. 각 state를 그래프의 node로,
   적용 가능한 action과 그 결과를 directed edge로 생각하면, plan을 찾는 문제는 initial state에서
   goal state까지 이어지는 path를 찾는 문제가 됩니다.
 </p>
@@ -25,14 +25,13 @@ title: "2-3. State Space"
   Planning task를 \(\Pi=(P,A,c,I,G)\)라고 하겠습니다. STRIPS에서 가능한 전체 state의 집합은
   \(S=2^P\)이지만, 실제 planner가 처음부터 \(2^P\)를 모두 만들어 놓는 것은 아닙니다.
   현재 state에서 applicable한 action을 하나씩 적용하면서 필요한 successor state만 생성합니다.
-  이런 표현을 <em>implicit state space</em>라고 부릅니다.
+  이런 표현을 implicit state space라고 부릅니다.
 </p>
 
 <h3>Search Node and World State</h3>
 <p>
   간단한 state-space search에서는 하나의 search node가 하나의 world state를 나타냅니다.
-  하지만 두 개념이 항상 같은 것은 아닙니다. Search node에는 state 이외에도 parent node, 지금까지 실행한 action,
-  path cost \(g(n)\), heuristic value \(h(n)\) 같은 탐색 정보가 저장될 수 있습니다.
+  하지만 두 개념이 항상 같은 것은 아닙니다. Search node에는 state 이외에도 parent node, 지금까지 실행한 action, path cost \(g(n)\), heuristic value \(h(n)\) 같은 탐색 정보가 저장될 수 있습니다.
   따라서 서로 다른 action sequence가 같은 world state에 도착하면 world state는 같지만 search node는 다를 수 있습니다.
 </p>
 
@@ -65,34 +64,70 @@ title: "2-3. State Space"
 
 <h3>Logistics Example</h3>
 <p>
-  하나의 truck \(t\)와 package \(p\)가 location \(A\)에 있고, package를 location \(B\)로 옮기는 문제를 생각해 보겠습니다.
+  두 location \(L\)과 \(R\), 두 truck \(A\)와 \(B\), 하나의 package \(p\)가 있는 문제를 생각해 보겠습니다.
+  처음에는 package가 \(L\)에 있고 두 truck은 모두 \(R\)에 있습니다. 우리의 goal은 truck 중 하나를 이용해서
+  package를 \(R\)로 옮기는 것입니다.
 </p>
+
+<figure class="study-figure">
+  <img src="{{ '/assets/images/LogisticsExample.png' | relative_url }}"
+       alt="왼쪽 위치 L에 있는 화물을 오른쪽 위치 R로 두 트럭 A와 B 중 하나를 이용해 옮기는 Logistics 문제">
+  <figcaption>두 truck 중 하나를 이용해 package를 location L에서 R로 운반하는 Logistics problem</figcaption>
+</figure>
 
 <p>
   \[
-  I=\{at(t,A),\;at(p,A)\}, \qquad G=\{at(p,B)\}
+  I=\{at(p,L),\;at(A,R),\;at(B,R)\}, \qquad G=\{at(p,R)\}
   \]
 </p>
 
-<p>이 문제에는 다음 세 action이 필요합니다.</p>
+<p>이 문제에는 다음 세 가지 action schema가 필요합니다.</p>
 
 <ul>
-  <li><strong>load(p,t,A)</strong>: \(at(p,A)\)와 \(at(t,A)\)가 필요하고, 실행 후 \(in(p,t)\)가 참이 됩니다.</li>
-  <li><strong>drive(t,A,B)</strong>: \(at(t,A)\)가 필요하고, truck의 위치를 \(A\)에서 \(B\)로 바꿉니다.</li>
-  <li><strong>unload(p,t,B)</strong>: \(in(p,t)\)와 \(at(t,B)\)가 필요하고, 실행 후 \(at(p,B)\)가 참이 됩니다.</li>
+  <li><strong>drive(t,x,y)</strong>: \(at(t,x)\)가 필요하고, truck \(t\)의 위치를 \(x\)에서 \(y\)로 바꿉니다.</li>
+  <li><strong>load(p,t,x)</strong>: \(at(p,x)\)와 \(at(t,x)\)가 필요하고, 실행 후 \(in(p,t)\)가 참이 됩니다.</li>
+  <li><strong>unload(p,t,x)</strong>: \(in(p,t)\)와 \(at(t,x)\)가 필요하고, 실행 후 \(at(p,x)\)가 참이 됩니다.</li>
 </ul>
+
+<p>
+  아래 그림은 이 문제에서 만들어지는 state space를 나타냅니다. 각 node의 세 글자는 차례대로
+  <strong>package의 위치, truck A의 위치, truck B의 위치</strong>를 의미합니다. Package는 location
+  \(L\), \(R\)뿐만 아니라 truck \(A\) 또는 \(B\) 안에도 있을 수 있기 때문에 첫 번째 글자는
+  \(L,R,A,B\) 중 하나가 됩니다. 예를 들어 다음과 같이 해석할 수 있습니다.
+</p>
+
+<ul>
+  <li><strong>LRR</strong>: package는 \(L\), truck \(A\)와 \(B\)는 모두 \(R\)에 있는 initial state</li>
+  <li><strong>ALR</strong>: package는 truck \(A\) 안에 있고, truck \(A\)는 \(L\), truck \(B\)는 \(R\)에 있는 state</li>
+  <li><strong>RRL</strong>: package와 truck \(A\)는 \(R\), truck \(B\)는 \(L\)에 있는 goal state</li>
+</ul>
+
+<figure class="study-figure study-figure-wide">
+  <img src="{{ '/assets/images/LogisticsStateSpace.png' | relative_url }}"
+       alt="Logistics 문제에서 도달 가능한 상태들을 나타낸 state-space graph">
+  <figcaption>Logistics problem의 state space. 초록색 node는 package가 R에 도착한 goal state를 의미합니다.</figcaption>
+</figure>
+
+<p>
+  이 표현에서 package의 위치는 4가지이고 각 truck의 위치는 2가지이므로 총 \(4\times2\times2=16\)개의
+  state가 존재합니다. 초록색으로 표시된 \(RLL,RLR,RRL,RRR\)은 첫 번째 글자가 \(R\)이므로 모두
+  \(at(p,R)\)을 만족하는 goal state입니다. Planning에서는 특정한 goal state 하나가 아니라,
+  goal condition을 만족하는 state 집합에 도착하면 됩니다.
+</p>
 
 <p>Progression을 수행하면 state가 다음과 같이 변합니다.</p>
 
 <ol>
-  <li>\(s_0=\{at(t,A),at(p,A)\}\)</li>
-  <li>\(s_1=\{at(t,A),in(p,t)\}\)</li>
-  <li>\(s_2=\{at(t,B),in(p,t)\}\)</li>
-  <li>\(s_3=\{at(t,B),at(p,B)\}\)</li>
+  <li>\(s_0=LRR\): initial state</li>
+  <li>\(s_1=LLR\): \(drive(A,R,L)\)</li>
+  <li>\(s_2=ALR\): \(load(p,A,L)\)</li>
+  <li>\(s_3=ARR\): \(drive(A,L,R)\)</li>
+  <li>\(s_4=RRR\): \(unload(p,A,R)\)</li>
 </ol>
 
 <p>
-  따라서 \(\pi=\langle load,drive,unload\rangle\)는 goal을 만족시키는 solution plan입니다.
+  따라서 \(\pi=\langle drive(A,R,L),load(p,A,L),drive(A,L,R),unload(p,A,R)\rangle\)는
+  goal을 만족시키는 solution plan입니다. Truck \(B\)를 선택해도 대칭적인 다른 solution을 얻을 수 있습니다.
   Progression은 구현이 직관적이라는 장점이 있지만, goal과 관련 없는 applicable action도 모두 successor를 만들 수 있기 때문에
   branching factor가 커질 수 있습니다.
 </p>
@@ -126,15 +161,18 @@ title: "2-3. State Space"
 <p>앞의 Logistics 문제를 goal에서부터 거꾸로 살펴보겠습니다.</p>
 
 <ol>
-  <li>\(g_0=\{at(p,B)\}\)</li>
-  <li><em>unload</em>를 regression하면 \(g_1=\{in(p,t),at(t,B)\}\)</li>
-  <li><em>drive</em>를 regression하면 \(g_2=\{in(p,t),at(t,A)\}\)</li>
-  <li><em>load</em>를 regression하면 \(g_3=\{at(p,A),at(t,A)\}\)</li>
+  <li>\(g_0=\{at(p,R)\}\)</li>
+  <li>\(unload(p,A,R)\)를 regression하면 \(g_1=\{in(p,A),at(A,R)\}\)</li>
+  <li>\(drive(A,L,R)\)를 regression하면 \(g_2=\{in(p,A),at(A,L)\}\)</li>
+  <li>\(load(p,A,L)\)를 regression하면 \(g_3=\{at(p,L),at(A,L)\}\)</li>
+  <li>\(drive(A,R,L)\)를 regression하면 \(g_4=\{at(p,L),at(A,R)\}\)</li>
 </ol>
 
 <p>
-  마지막 subgoal \(g_3\)는 initial state \(I\)에서 이미 만족됩니다. Regression에서는 action을 goal 쪽에서부터
-  선택했기 때문에, 실제 plan은 선택한 action의 역순인 \(\langle load,drive,unload\rangle\)가 됩니다.
+  마지막 subgoal \(g_4\)는 initial state \(I\)에서 이미 만족됩니다. Initial state에 포함된 \(at(B,R)\)은
+  goal 달성에 필요하지 않으므로 regression 과정에 나타나지 않습니다. Regression에서는 action을 goal 쪽에서부터
+  선택했기 때문에 실제 plan은 선택한 action을 역순으로 나열한
+  \(\langle drive(A,R,L),load(p,A,L),drive(A,L,R),unload(p,A,R)\rangle\)가 됩니다.
 </p>
 
 <h2>Progression vs. Regression</h2>

@@ -114,6 +114,29 @@ a:hover{text-decoration:underline}
   overflow-x:auto;
 }
 
+.study-figure{
+  margin:24px auto;
+  text-align:center;
+}
+
+.study-figure img{
+  display:block;
+  width:min(100%, 960px);
+  margin:0 auto;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.study-figure-wide img{
+  width:100%;
+}
+
+.study-figure figcaption{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+}
+
 .content h1{margin-top:0}
 .meta{color:var(--muted);font-size:14px;margin-top:-8px;margin-bottom:16px}
 .breadcrumb{font-size:14px;color:var(--muted);margin-bottom:12px}
