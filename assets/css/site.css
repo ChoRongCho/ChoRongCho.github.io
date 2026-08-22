@@ -169,6 +169,7 @@ ol[start="0"] > li::marker {
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+  align-items:start;
   gap:20px;
   margin-top:20px;
 }
@@ -186,8 +187,20 @@ ol[start="0"] > li::marker {
 .gallery-item video{
   display:block;
   width:100%;
+  max-width:100%;
   height:220px;
+  max-height:220px;
   object-fit:cover;
+}
+
+.gallery-video{
+  align-self:start;
+}
+
+.gallery-video video{
+  height:220px !important;
+  max-height:220px !important;
+  aspect-ratio:auto;
 }
 
 .gallery-item img{
