@@ -10,9 +10,215 @@ title: "2-4. Plan Space"
 </div>
 
 <h1>2-4. Plan Space</h1>
-<p class="meta">작성 예정</p>
+<p class="meta">마지막 업데이트: 2026-08-22</p>
 
-<p>Plan Space에 관한 내용을 작성할 예정입니다.</p>
+<h2>From State Space to Plan Space</h2>
+<p>
+  State-space planning에서는 하나의 state를 search node로 사용하고, action을 적용하여 다음 state를 생성했습니다.
+  반면 <strong>plan-space planning</strong>에서는 아직 완성되지 않은 partial plan 자체가 하나의 search node가 됩니다.
+  즉, “현재 world가 어떤 state인가?”를 탐색하는 대신 “현재 plan에서 부족하거나 잘못된 부분은 무엇인가?”를 찾아
+  plan을 조금씩 수정합니다. 그래서 plan-space planning을 <em>plan refinement planning</em>이라고 부르기도 합니다.
+</p>
+
+<p>
+  State-space planning이 매 순간 실행할 action을 순서대로 선택한다면, plan-space planning은 goal을 달성하는 데 필요한
+  action과 그 action 사이의 관계를 먼저 선택합니다. 서로 순서가 상관없는 action은 굳이 어느 action이 먼저인지 정하지 않습니다.
+  이러한 원칙을 <strong>least commitment</strong>라고 부릅니다.
+</p>
+
+<h2>Partial-Order Plan</h2>
+<p>가장 기본적인 partial-order plan은 다음과 같이 표현할 수 있습니다.</p>
+
+<p>
+  \[
+  \mathcal{P}=(A,O,L)
+  \]
+</p>
+
+<ul>
+  <li><strong>\(A\)</strong>: plan에 포함된 action 또는 step의 집합</li>
+  <li><strong>\(O\)</strong>: action 사이의 ordering constraint 집합</li>
+  <li><strong>\(L\)</strong>: action 사이의 causal link 집합</li>
+</ul>
+
+<p>
+  구현에 따라 variable binding constraint를 나타내는 \(B\)를 추가하여 \(\mathcal{P}=(A,O,L,B)\)로
+  표현하기도 합니다. 여기서는 구조를 단순하게 설명하기 위해 ground action만 사용하겠습니다.
+</p>
+
+<h3>Start and Finish</h3>
+<p>
+  Partial plan에는 보통 두 개의 특별한 action, \(Start\)와 \(Finish\)를 둡니다.
+  \(Start\)는 precondition이 없고 initial state \(I\)를 effect로 가집니다. 반대로 \(Finish\)는 effect가 없고
+  goal \(G\)를 precondition으로 가집니다. 모든 실제 action \(a\)에 대해서 다음 ordering constraint가 성립합니다.
+</p>
+
+<p>
+  \[
+  Start \prec a \prec Finish
+  \]
+</p>
+
+<p>
+  처음에는 \(Start\)와 \(Finish\)만 존재합니다. 하지만 \(Finish\)의 precondition인 goal을 아직 어떤 action도
+  만들어 주지 않았기 때문에 이 plan은 완성된 plan이 아닙니다.
+</p>
+
+<h2>Open Condition</h2>
+<p>
+  Plan에 포함된 action \(a_j\)의 precondition \(p\)를 보장해 주는 action이 아직 없다면,
+  \(p\)를 <strong>open condition</strong>이라고 부릅니다. Open condition을 해결하는 방법은 다음 두 가지입니다.
+</p>
+
+<ol>
+  <li>\(p\)를 effect로 만드는 새로운 action을 plan에 추가합니다.</li>
+  <li>이미 plan에 있는 action 중 \(p\)를 만드는 action을 재사용합니다.</li>
+</ol>
+
+<p>
+  어떤 action \(a_i\)가 \(p\)를 만들고, 그 fact를 action \(a_j\)가 precondition으로 사용한다면
+  두 action 사이에 ordering constraint \(a_i\prec a_j\)를 추가합니다. 그리고 \(a_i\)가 만든 \(p\)를
+  \(a_j\)가 사용할 때까지 보호해야 합니다.
+</p>
+
+<h2>Causal Link</h2>
+<p>위의 관계를 <strong>causal link</strong>라고 부르며 다음과 같이 표현합니다.</p>
+
+<p>
+  \[
+  a_i \xrightarrow{p} a_j
+  \]
+</p>
+
+<p>
+  이는 action \(a_i\)가 fact \(p\)를 만들어 action \(a_j\)의 precondition을 support한다는 의미입니다.
+  Causal link는 단순히 두 action의 순서를 나타내는 것보다 더 많은 정보를 가집니다. 두 action이 왜 그 순서를 가져야 하는지,
+  그리고 그 사이에서 어떤 fact가 계속 참이어야 하는지를 함께 표현하기 때문입니다.
+</p>
+
+<h3>Logistics Example</h3>
+<p>
+  이전 페이지의 Logistics 문제를 다시 생각해 보겠습니다. Package를 unload하기 위해서는 package가 truck 안에 있어야 하고
+  truck이 location \(B\)에 있어야 합니다. 따라서 partial plan에는 다음 causal link가 필요합니다.
+</p>
+
+<p>
+  \[
+  load(p,t,A) \xrightarrow{in(p,t)} unload(p,t,B)
+  \]
+</p>
+
+<p>
+  \[
+  drive(t,A,B) \xrightarrow{at(t,B)} unload(p,t,B)
+  \]
+</p>
+
+<p>
+  또한 \(load(p,t,A)\)는 \(at(t,A)\)를 필요로 하고, \(drive(t,A,B)\)는 이 fact를 삭제합니다.
+  따라서 load는 drive보다 먼저 실행되어야 합니다.
+</p>
+
+<p>
+  \[
+  load(p,t,A) \prec drive(t,A,B) \prec unload(p,t,B)
+  \]
+</p>
+
+<h2>Threat</h2>
+<p>
+  Causal link \(a_i \xrightarrow{p} a_j\)가 있을 때, 다른 action \(a_t\)가 \(p\)를 delete하고
+  \(a_i\)와 \(a_j\) 사이에 실행될 가능성이 있다면 \(a_t\)가 causal link를 <strong>threaten</strong>한다고 말합니다.
+</p>
+
+<p>
+  \[
+  p\in (a_t)_{del}, \qquad O\cup\{a_i\prec a_t\prec a_j\}\text{ is consistent}
+  \]
+</p>
+
+<p>
+  예를 들어 \(drive(t,A,B)\xrightarrow{at(t,B)}unload(p,t,B)\)라는 causal link가 있다고 하겠습니다.
+  만약 다른 action \(drive(t,B,C)\)가 두 action 사이에 실행되면 \(at(t,B)\)를 삭제하기 때문에 unload를 실행할 수 없습니다.
+  따라서 \(drive(t,B,C)\)는 이 causal link에 대한 threat입니다.
+</p>
+
+<h2>Threat Resolution</h2>
+<p>Threat는 ordering constraint를 추가하여 해결할 수 있습니다.</p>
+
+<ul>
+  <li><strong>Promotion</strong>: threatening action을 consumer보다 뒤로 이동합니다. \(a_j\prec a_t\)</li>
+  <li><strong>Demotion</strong>: threatening action을 producer보다 앞으로 이동합니다. \(a_t\prec a_i\)</li>
+</ul>
+
+<p>
+  Promotion이나 demotion을 추가했을 때 기존 ordering constraint와 cycle을 만들면 사용할 수 없습니다.
+  Variable이 포함된 action에서는 두 action의 variable이 같은 object를 나타내지 못하도록 binding constraint를 추가하는
+  <em>separation</em>을 사용할 수도 있습니다.
+</p>
+
+<h2>Plan Refinement</h2>
+<p>Partial-order planner는 일반적으로 다음 과정을 반복합니다.</p>
+
+<ol>
+  <li>현재 partial plan에서 open condition 또는 threat와 같은 <strong>flaw</strong>를 하나 선택합니다.</li>
+  <li>Open condition을 support할 action을 추가하거나 기존 action을 재사용합니다.</li>
+  <li>필요한 causal link와 ordering constraint를 추가합니다.</li>
+  <li>새롭게 발생한 threat를 promotion, demotion 또는 separation으로 해결합니다.</li>
+  <li>Open condition과 threat가 모두 없어질 때까지 plan을 refinement합니다.</li>
+</ol>
+
+<p>
+  모든 precondition이 causal link로 support되고 모든 threat가 해결되었다면 partial plan은 solution을 나타냅니다.
+  이때 ordering constraint를 만족하는 action의 모든 total ordering을 <strong>linearization</strong>이라고 부릅니다.
+  올바른 partial-order plan의 linearization은 goal을 만족하는 sequential plan이 됩니다.
+</p>
+
+<h2>Total Order vs. Partial Order</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Total-Order Plan</th>
+      <th>Partial-Order Plan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>표현</td>
+      <td>하나의 고정된 action sequence</td>
+      <td>Action과 필요한 ordering constraint</td>
+    </tr>
+    <tr>
+      <td>독립적인 action</td>
+      <td>임의의 순서 하나를 선택</td>
+      <td>순서를 정하지 않고 유지 가능</td>
+    </tr>
+    <tr>
+      <td>Search node</td>
+      <td>주로 world state</td>
+      <td>Incomplete partial plan</td>
+    </tr>
+    <tr>
+      <td>수정 대상</td>
+      <td>현재 state에서 실행할 다음 action</td>
+      <td>Open condition, threat 등의 flaw</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Partial-order planning의 장점은 필요한 순서만 결정하기 때문에 독립적인 subtask의 관계를 유연하게 남겨 둘 수 있다는 것입니다.
+  반면 search node가 action, causal link, ordering constraint를 함께 포함하므로 successor를 생성하고 중복된 plan을 판별하는 과정은
+  state-space search보다 복잡해질 수 있습니다. UCPOP과 VHPOP은 이러한 partial-order causal-link planning을 대표하는 planner입니다.
+</p>
+
+<h2>참고 자료</h2>
+<ul>
+  <li><a href="https://www.ed.aaai.org/Papers/JAIR/Vol20/JAIR-2014.pdf" target="_blank">VHPOP: Versatile Heuristic Partial Order Planner — Younes and Simmons</a></li>
+  <li><a href="https://aaai-24.aaai.org/Papers/JAIR/Vol18/JAIR-1809.pdf" target="_blank">A Short Review of POP, Causal Links and Threats</a></li>
+</ul>
 
 <div class="prevnext">
   <span>← <a href="/study/2-classical-ai/2-3-state-space.html">2-3. State Space</a></span>

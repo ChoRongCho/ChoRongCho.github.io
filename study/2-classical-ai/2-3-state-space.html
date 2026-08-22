@@ -10,9 +10,191 @@ title: "2-3. State Space"
 </div>
 
 <h1>2-3. State Space</h1>
-<p class="meta">작성 예정</p>
+<p class="meta">마지막 업데이트: 2026-08-22</p>
 
-<p>State Space에 관한 내용을 작성할 예정입니다.</p>
+<h2>Planning as Search</h2>
+<p>
+  이전 장에서 planning task를 transition system, STRIPS, FDR로 표현하는 방법을 살펴보았습니다.
+  그렇다면 이렇게 표현한 문제는 실제로 어떻게 풀 수 있을까요? 가장 자연스러운 방법은 planning task를
+  <strong>그래프 탐색 문제(search problem)</strong>로 바꾸는 것입니다. 각 state를 그래프의 node로,
+  적용 가능한 action과 그 결과를 directed edge로 생각하면, plan을 찾는 문제는 initial state에서
+  goal state까지 이어지는 path를 찾는 문제가 됩니다.
+</p>
+
+<p>
+  Planning task를 \(\Pi=(P,A,c,I,G)\)라고 하겠습니다. STRIPS에서 가능한 전체 state의 집합은
+  \(S=2^P\)이지만, 실제 planner가 처음부터 \(2^P\)를 모두 만들어 놓는 것은 아닙니다.
+  현재 state에서 applicable한 action을 하나씩 적용하면서 필요한 successor state만 생성합니다.
+  이런 표현을 <em>implicit state space</em>라고 부릅니다.
+</p>
+
+<h3>Search Node and World State</h3>
+<p>
+  간단한 state-space search에서는 하나의 search node가 하나의 world state를 나타냅니다.
+  하지만 두 개념이 항상 같은 것은 아닙니다. Search node에는 state 이외에도 parent node, 지금까지 실행한 action,
+  path cost \(g(n)\), heuristic value \(h(n)\) 같은 탐색 정보가 저장될 수 있습니다.
+  따라서 서로 다른 action sequence가 같은 world state에 도착하면 world state는 같지만 search node는 다를 수 있습니다.
+</p>
+
+<h2>Progression</h2>
+<p>
+  <strong>Progression</strong>은 initial state에서 시작해 action을 정방향으로 적용하는 방식입니다.
+  현재 state \(s\)에서 action \(a\)의 precondition이 모두 참이면 action을 적용할 수 있습니다.
+</p>
+
+<p>
+  \[
+  a_{pre} \subseteq s
+  \]
+</p>
+
+<p>
+  Action을 실행한 successor state는 delete list를 제거하고 add list를 추가하여 계산합니다.
+</p>
+
+<p>
+  \[
+  \gamma(s,a)=(s \setminus a_{del}) \cup a_{add}
+  \]
+</p>
+
+<p>
+  Initial state \(I\)가 search의 시작 node가 되고, 현재 state가 \(G \subseteq s\)를 만족하면
+  goal state에 도착한 것입니다. 이때 root부터 goal node까지 edge에 적힌 action을 순서대로 나열하면 plan이 됩니다.
+</p>
+
+<h3>Logistics Example</h3>
+<p>
+  하나의 truck \(t\)와 package \(p\)가 location \(A\)에 있고, package를 location \(B\)로 옮기는 문제를 생각해 보겠습니다.
+</p>
+
+<p>
+  \[
+  I=\{at(t,A),\;at(p,A)\}, \qquad G=\{at(p,B)\}
+  \]
+</p>
+
+<p>이 문제에는 다음 세 action이 필요합니다.</p>
+
+<ul>
+  <li><strong>load(p,t,A)</strong>: \(at(p,A)\)와 \(at(t,A)\)가 필요하고, 실행 후 \(in(p,t)\)가 참이 됩니다.</li>
+  <li><strong>drive(t,A,B)</strong>: \(at(t,A)\)가 필요하고, truck의 위치를 \(A\)에서 \(B\)로 바꿉니다.</li>
+  <li><strong>unload(p,t,B)</strong>: \(in(p,t)\)와 \(at(t,B)\)가 필요하고, 실행 후 \(at(p,B)\)가 참이 됩니다.</li>
+</ul>
+
+<p>Progression을 수행하면 state가 다음과 같이 변합니다.</p>
+
+<ol>
+  <li>\(s_0=\{at(t,A),at(p,A)\}\)</li>
+  <li>\(s_1=\{at(t,A),in(p,t)\}\)</li>
+  <li>\(s_2=\{at(t,B),in(p,t)\}\)</li>
+  <li>\(s_3=\{at(t,B),at(p,B)\}\)</li>
+</ol>
+
+<p>
+  따라서 \(\pi=\langle load,drive,unload\rangle\)는 goal을 만족시키는 solution plan입니다.
+  Progression은 구현이 직관적이라는 장점이 있지만, goal과 관련 없는 applicable action도 모두 successor를 만들 수 있기 때문에
+  branching factor가 커질 수 있습니다.
+</p>
+
+<h2>Regression</h2>
+<p>
+  <strong>Regression</strong>은 goal에서 시작해 “이 조건을 만족하려면 바로 전에 어떤 조건이 필요했는가?”를
+  역방향으로 계산하는 방식입니다. 이때 search node는 하나의 완전한 world state가 아니라,
+  여러 world state가 함께 만족할 수 있는 <strong>subgoal</strong>입니다.
+</p>
+
+<p>
+  Subgoal \(g\)에 대해 action \(a\)를 마지막 action으로 선택하려면, 먼저 \(a\)가 goal fact 중 적어도 하나를
+  만들어야 합니다. 또한 action이 필요한 goal fact를 삭제해서는 안 됩니다.
+</p>
+
+<p>
+  \[
+  a_{add}\cap g \neq \emptyset, \qquad a_{del}\cap g=\emptyset
+  \]
+</p>
+
+<p>이 조건을 만족하면 STRIPS regression은 다음과 같이 계산할 수 있습니다.</p>
+
+<p>
+  \[
+  R(g,a)=(g\setminus a_{add})\cup a_{pre}
+  \]
+</p>
+
+<p>앞의 Logistics 문제를 goal에서부터 거꾸로 살펴보겠습니다.</p>
+
+<ol>
+  <li>\(g_0=\{at(p,B)\}\)</li>
+  <li><em>unload</em>를 regression하면 \(g_1=\{in(p,t),at(t,B)\}\)</li>
+  <li><em>drive</em>를 regression하면 \(g_2=\{in(p,t),at(t,A)\}\)</li>
+  <li><em>load</em>를 regression하면 \(g_3=\{at(p,A),at(t,A)\}\)</li>
+</ol>
+
+<p>
+  마지막 subgoal \(g_3\)는 initial state \(I\)에서 이미 만족됩니다. Regression에서는 action을 goal 쪽에서부터
+  선택했기 때문에, 실제 plan은 선택한 action의 역순인 \(\langle load,drive,unload\rangle\)가 됩니다.
+</p>
+
+<h2>Progression vs. Regression</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Progression</th>
+      <th>Regression</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>방향</td>
+      <td>Initial state에서 goal로 이동</td>
+      <td>Goal에서 initial state로 이동</td>
+    </tr>
+    <tr>
+      <td>Search node</td>
+      <td>Complete world state</td>
+      <td>Subgoal 또는 state set</td>
+    </tr>
+    <tr>
+      <td>Action 선택</td>
+      <td>현재 state에서 applicable한 action</td>
+      <td>현재 subgoal과 relevant하고 consistent한 action</td>
+    </tr>
+    <tr>
+      <td>특징</td>
+      <td>State transition을 직접 계산하기 쉽다</td>
+      <td>Goal과 관련된 action에 집중할 수 있다</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  어느 방향이 항상 더 좋은 것은 아닙니다. Progression은 successor 생성이 단순하고 현재 state의 모든 정보를 사용할 수 있지만,
+  goal과 상관없는 action까지 고려할 수 있습니다. Regression은 goal relevance를 자연스럽게 이용하지만 하나의 subgoal이
+  여러 world state를 나타내기 때문에 일반적인 action language에서는 계산이 복잡해질 수 있습니다.
+</p>
+
+<h2>State Space Explosion</h2>
+<p>
+  Proposition이 \(n\)개라면 이론적으로 가능한 state는 최대 \(2^n\)개입니다. FDR에서도 변수 \(v\)의 domain을
+  \(D_v\)라고 하면 가능한 complete state의 수는 최대 \(\prod_{v\in V}|D_v|\)입니다.
+  물론 이 중 많은 state는 initial state에서 reachable하지 않을 수 있지만, reachable state만으로도 매우 큰 그래프가 만들어질 수 있습니다.
+</p>
+
+<p>
+  그렇기 때문에 실제 planner는 전체 state space를 먼저 만들지 않고 search를 진행하면서 필요한 부분만 생성합니다.
+  그리고 어떤 node를 먼저 확장해야 할지 결정하기 위해 heuristic을 사용합니다. State-space search algorithm과 heuristic을
+  실제 planner가 어떻게 사용하는지는 다음 단원인 Domain-Independent Planner에서 자세히 살펴보겠습니다.
+</p>
+
+<h2>참고 자료</h2>
+<ul>
+  <li><a href="https://fai.cs.uni-saarland.de/teaching/winter18-19/planning-material/planning06-progression-and-regression-post-handout.pdf" target="_blank">Progression and Regression — Saarland University</a></li>
+  <li><a href="https://www-formal.stanford.edu/jmc/strips/strips.html" target="_blank">Formalization of STRIPS in Situation Calculus — John McCarthy</a></li>
+</ul>
 
 <div class="prevnext">
   <span>← <a href="/study/2-classical-ai/2-2-pddl.html">2-2. PDDL</a></span>

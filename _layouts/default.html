@@ -31,14 +31,14 @@
 <body>
   <header class="header">
     <div class="header-inner">
-      <a class="brand" href="/">Home</a>
+      <a class="brand {% if page.url == '/' or page.url == '/index.html' %}active{% endif %}" href="/">Home</a>
 
       <nav class="nav">
-        <a href="/about.html">About</a>
-        <a href="/study/index.html">Study</a>
-        <a href="/projects/index.html">Projects</a>
-        <a href="/publication.html">Publications</a>
-        <a href="/gallery.html">Gallery</a>
+        <a href="/about.html" class="{% if page.url == '/about.html' %}active{% endif %}">About</a>
+        <a href="/study/index.html" class="{% if page.url contains '/study/' %}active{% endif %}">Study</a>
+        <a href="/projects/index.html" class="{% if page.url contains '/projects/' %}active{% endif %}">Projects</a>
+        <a href="/publication.html" class="{% if page.url == '/publication.html' %}active{% endif %}">Publications</a>
+        <a href="/gallery.html" class="{% if page.url == '/gallery.html' %}active{% endif %}">Gallery</a>
 
       </nav>
     </div>
