@@ -8,14 +8,52 @@ title: "BRL"
 </div>
 
 <h1>BRL</h1>
-<p class="meta">마지막 업데이트: 2026-03-09</p>
+<p class="meta">Aug 2024 – Present · Project Manager · 마지막 업데이트: 2026-08-22</p>
+
 <h2>Project 개요</h2>
 <p>
-
+  초고령사회에서 고령 사용자가 teleoperated robot을 보다 쉽게 조작할 수 있도록
+  <strong>shared autonomy</strong>를 개발하는 정부 과제입니다. 사용자가 모든 low-level motion을 직접 명령하는 대신,
+  로봇이 상황을 이해하고 high-level task를 계획하며 필요한 경우 사용자에게 feedback을 요청하는 구조를 목표로 합니다.
 </p>
 
+<h2>주요 기여</h2>
+<ul>
+  <li>High-level robotic task를 생성하는 <strong>LLM-based task planner</strong> 개발</li>
+  <li>생성된 task plan을 <strong>Behavior Tree</strong>로 변환하여 robot execution과 연결</li>
+  <li>Perception, motion, planning을 연결하는 <strong>end-to-end framework</strong> 개발</li>
+  <li>UI에서 전달되는 corrective feedback을 task planner에 반영하여 실행 중 plan을 수정하는 구조 개발</li>
+</ul>
 
-<h2>SKILL</h2>
+<h2>System Pipeline</h2>
 <p>
-
+  시스템은 환경과 사용자 명령을 입력받아 task plan을 생성하고, 이를 Behavior Tree를 통해 실행 가능한 robot behavior로 변환합니다.
+  실행 과정에서 문제가 발생하거나 사용자의 의도와 다른 결과가 예상되면 UI feedback을 받아 plan을 보완합니다.
 </p>
+
+<figure class="study-figure study-figure-wide">
+  <a href="{{ '/assets/images/projects/brl/system-initiative-architecture.png' | relative_url }}"
+     target="_blank" rel="noopener">
+    <img src="{{ '/assets/images/projects/brl/system-initiative-architecture.png' | relative_url }}"
+         alt="User Interface, Knowledge Base, Planning Manager, Feedback Manager와 Robot Hardware로 구성된 system-initiative planning architecture">
+  </a>
+  <figcaption>System-initiative query를 포함한 shared-autonomy planning architecture</figcaption>
+</figure>
+
+<p>
+  Knowledge Base는 domain knowledge와 현재까지 관측된 정보를 관리합니다. Planning Manager는 현재 knowledge state를 바탕으로
+  action과 motion을 결정하고, 정보가 충분하지 않으면 Feedback Manager가 사용자가 이해하기 쉬운 query를 생성합니다.
+  사용자의 응답은 belief와 knowledge state에 반영되어 이후 계획을 수정하는 데 사용됩니다.
+</p>
+
+<figure class="study-figure study-figure-wide">
+  <a href="{{ '/assets/images/projects/brl/domain-interfaces.png' | relative_url }}"
+     target="_blank" rel="noopener">
+    <img src="{{ '/assets/images/projects/brl/domain-interfaces.png' | relative_url }}"
+         alt="Tomato harvesting과 waste sorting domain에서 사용하는 tablet 기반 사용자 인터페이스">
+  </a>
+  <figcaption>Tomato Harvesting과 Waste Sorting domain을 위한 tablet-based user interface</figcaption>
+</figure>
+
+<h2>Skills</h2>
+<p>LLM-based Planning · Behavior Tree · ROS · Python · Robotic System Integration · Human–Robot Interaction</p>

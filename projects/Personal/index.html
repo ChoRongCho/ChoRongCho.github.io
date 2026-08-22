@@ -8,15 +8,67 @@ title: "Personal Research"
 </div>
 
 <h1>Personal Research</h1>
-<p class="meta">마지막 업데이트: 2026-03-09</p>
+<p class="meta">마지막 업데이트: 2026-08-22</p>
+
 <h2>Project 개요</h2>
 <p>
-
+  Long-horizon robotic task를 해결하기 위한 symbolic planning, problem abstraction, optimization을 연구하고 있습니다.
+  Classical AI Planning의 명확한 문제 표현과 최근 learning-based method의 perception 및 reasoning 능력을 결합하는 것이 주요 관심사입니다.
 </p>
 
-
-<h2>SKILL</h2>
+<h2>LLM-based Planning</h2>
 <p>
+  로봇이 처음 보는 deformable object의 물리적 특성을 LLM과 robot action을 이용하여 이해하고,
+  추론한 특성을 automated task planning pipeline에서 활용하는 방법을 연구했습니다.
+</p>
+<ul>
+  <li>Unseen deformable object의 physical property reasoning</li>
+  <li>Robot interaction을 통한 정보 수집</li>
+  <li>추론 결과를 이용한 automated task planning</li>
+</ul>
 
+<h2>Classical and Numeric AI Planning</h2>
+<p>
+  Numeric constraint가 포함된 planning problem을 효율적으로 풀기 위한 표현과 탐색 방법을 연구하고 있습니다.
+  특히 large-scale planning problem에서 search space를 줄이고 유망한 state를 선택하기 위한 heuristic-guided search에 관심이 있습니다.
 </p>
 
+<figure class="study-figure">
+  <a href="{{ '/assets/images/projects/personal/logistics-abstraction.png' | relative_url }}"
+     target="_blank" rel="noopener">
+    <img src="{{ '/assets/images/projects/personal/logistics-abstraction.png' | relative_url }}"
+         alt="Logistics problem의 상태들을 그룹화한 abstract state-space representation">
+  </a>
+  <figcaption>Logistics problem의 유사한 state들을 묶어서 표현한 abstraction</figcaption>
+</figure>
+
+<p>
+  전체 state를 각각 탐색하는 대신 비슷한 성질을 가진 state를 하나의 abstract state로 묶으면
+  goal까지의 대략적인 구조를 더 작은 공간에서 분석할 수 있습니다. 이러한 abstraction은 large-scale planning problem에서
+  heuristic을 구성하거나 탐색 방향을 결정하기 위한 정보로 사용할 수 있습니다.
+</p>
+
+<figure class="study-figure">
+  <a href="{{ '/assets/images/projects/personal/logistics-state-space.png' | relative_url }}"
+     target="_blank" rel="noopener">
+    <img src="{{ '/assets/images/projects/personal/logistics-state-space.png' | relative_url }}"
+         alt="두 위치, 두 트럭과 하나의 화물로 구성된 Logistics problem의 전체 state-space graph">
+  </a>
+  <figcaption>Logistics problem의 concrete state space. 초록색 node는 goal state입니다.</figcaption>
+</figure>
+
+<h2>System-Initiative Queries for Planning</h2>
+<p>
+  Partial observability가 존재하는 환경에서 planner가 불확실성을 고려하여 의사결정을 내리고,
+  필요한 경우에만 사람에게 정보를 요청하는 방법을 연구하고 있습니다. 모든 단계에서 사용자의 확인을 요구하는 대신,
+  plan의 성공 여부에 중요한 정보만 선택적으로 질문하여 human intervention을 줄이는 것이 목표입니다.
+</p>
+
+<ul>
+  <li>Uncertainty-aware decision making under partial observability</li>
+  <li>Planning 과정에서의 selective human query</li>
+  <li>Human feedback을 반영한 plan refinement</li>
+</ul>
+
+<h2>Skills</h2>
+<p>Classical AI Planning · Numeric Planning · LLM · Heuristic Search · Task and Motion Planning · Human–Robot Interaction</p>

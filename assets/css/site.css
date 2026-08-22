@@ -127,6 +127,11 @@ a:hover{text-decoration:underline}
   border-radius:12px;
 }
 
+.study-figure > a{
+  display:block;
+  cursor:zoom-in;
+}
+
 .study-figure-wide img{
   width:100%;
 }
@@ -183,6 +188,12 @@ ol[start="0"] > li::marker {
   height:220px;
   object-fit:cover;
   transition:transform 0.2s ease;
+}
+
+.gallery-item > a{
+  display:block;
+  cursor:zoom-in;
+  overflow:hidden;
 }
 
 .gallery-item:hover img{
