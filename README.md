@@ -12,7 +12,7 @@ AI Planning과 Robotics를 공부하며 정리한 개인 홈페이지입니다. 
 | Chapter | 주제 | 현재 구성 |
 | --- | --- | --- |
 | 1 | Introduction to AI | Agent, Propositional Logic, First-Order Logic |
-| 2 | Classical AI Planning | Overview, Problem Formalisms, PDDL, Causal Graph, Domain Transition Graph |
+| 2 | Classical AI Planning | Overview, Formalisms, PDDL, State/Plan Space, Relaxation, Planning Graph, Causal Graph, DTG, Landmarks, Complexity |
 | 3 | Domain-Independent Planner | Planner Overview, FF, Fast Downward, OPTIC |
 | 4 | Task and Motion Planning | Overview 및 관련 논문 정리 |
 | 5 | Uncertainty | Overview 및 관련 논문 정리 |
@@ -38,8 +38,8 @@ AI Planning과 Robotics를 공부하며 정리한 개인 홈페이지입니다. 
 | [`2-0. Planning Overview`](study/2-classical-ai/2-0-overview.html) | 초안 작성 | 오탈자 교정, 고전적 계획의 가정과 PlanEx/PlanOpt 설명 보강 |
 | [`2-1. Problem Formalisms`](study/2-classical-ai/2-1-problem-formulation.html) | 작성 중 | FDR complete assignment 예시와 상태 전이 정의 완성, 기호 통일 |
 | [`2-2. PDDL`](study/2-classical-ai/2-2-pddl.html) | 초안 작성 | PDDL 버전별 기능 검증, requirements와 실행 가능한 예제 추가 |
-| [`2-3. Causal Graph`](study/2-classical-ai/2-3-causal-graph.html) | 작성 중 | 수학적 edge 정의, arc 유형, 구체적인 FDR 예시와 그래프 추가 |
-| [`2-4. Domain Transition Graph`](study/2-classical-ai/2-4-domain-transition-graph.html) | 골격 작성 | 정식 정의, transition label, 예시 그래프, 활용 방법 추가 |
+| [`2-7. Causal Graph`](study/2-classical-ai/2-7-causal-graph.html) | 작성 중 | 수학적 edge 정의, arc 유형, 구체적인 FDR 예시와 그래프 추가 |
+| [`2-8. Domain Transition Graph`](study/2-classical-ai/2-8-domain-transition-graph.html) | 골격 작성 | 정식 정의, transition label, 예시 그래프, 활용 방법 추가 |
 
 ### Classical AI 우선 작업 목록
 
